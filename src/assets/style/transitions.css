@@ -1,0 +1,19 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 160ms ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0.1;
+}
+
+.fade--delayed-enter,
+.fade--delayed-leave-to {
+  opacity: 0;
+}
+.fade--delayed-enter-active {
+  transition: opacity 150ms 120ms ease-out;
+}
+.fade--delayed-leave-active {
+  transition: opacity 150ms ease-in;
+}

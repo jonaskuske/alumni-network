@@ -1,6 +1,6 @@
 <template>
-    <footer class="root__footer" :class="{'root__footer--footer-within': false}">
-      <div class="root__footer-wrapper">
+    <footer class="footer">
+      <div class="footer__wrapper">
         <div class="footer__contact">
           <p>Kontakt</p>
           <p>Hochschule Bremerhaven</p>
@@ -18,25 +18,23 @@
 </template>
 
 <style>
-.root__footer {
+.footer {
   display: flex;
   justify-content: center;
   width: 100%;
   height: 13rem;
-  line-height: 0.7rem;
   background: #f0f0f0;
   color: rgba(40, 40, 40, 0.7);
-  box-sizing: border-box;
 }
-.root__footer-wrapper {
+.footer__wrapper {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding-top: 10px;
+  padding: 10px 0;
   box-sizing: border-box;
   height: 100%;
-  width: 96%;
-  max-width: calc(1880px - 4vw);
+  width: 90%;
+  margin: 0 auto;
 }
 .footer__contact {
   margin-top: auto;
@@ -48,27 +46,33 @@
   padding-bottom: 1rem;
   flex-grow: 1;
 }
-.root__footer a {
-  color: rgba(40, 40, 40, 0.7);
+.footer p {
+  line-height: 0.7rem;
+}
+.footer a {
+  color: inherit;
   text-decoration: none;
 }
-.root__footer a:first-of-type {
+.footer a:first-of-type {
   margin-right: 2rem;
 }
-@media screen and (min-width: 615px) {
-  .root__footer-wrapper {
-    width: 90%;
-    max-width: calc(1880px - 10vw);
+@media screen and (min-width: 900px) {
+  .footer__wrapper {
+    width: 80%;
   }
 }
-@media screen and (min-width: 900px) {
-  .root__footer-wrapper {
+@media screen and (min-width: 1720px) {
+  .footer__wrapper {
     width: 70%;
-    max-width: calc(1880px - 30vw);
+  }
+}
+@media screen and (min-width: 1880px) {
+  .footer__wrapper {
+    width: 60%;
   }
 }
 @media screen and (max-width: 900px) {
-  .root__footer {
+  .footer {
     height: auto;
   }
   .footer__contact {

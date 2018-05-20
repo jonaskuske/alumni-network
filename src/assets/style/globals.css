@@ -1,0 +1,82 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: #2c3e50;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+label,
+input,
+button {
+  transition: font-size 300ms ease-out;
+}
+body,
+#root,
+button,
+input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+main {
+  padding-bottom: 3rem;
+}
+p {
+  font-size: 0.9rem;
+  line-height: normal;
+}
+.title,
+.subtitle,
+.title-label {
+  text-transform: uppercase;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.title, .subtitle {
+  padding-bottom: 1rem;
+}
+.title {
+  font-size: 1.5rem;
+}
+.subtitle {
+  font-size: 1.5rem;
+}
+.title-label {
+  padding-top: 2rem;
+  font-size: 1.1rem;
+}
+.title + p, .subtitle + p {
+  margin: 0;
+}
+.button {
+  width: 100%;
+}
+@media screen and (min-width: 400px) {
+  .title {
+    font-size: 1.9rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  p {
+    font-size: 1rem;
+  }
+  .title-label {
+    font-size: 1.3rem;
+  }
+  .title {
+    font-size: 2.5rem;
+  }
+  .subtitle {
+    font-size: 1.9rem;
+  }
+}

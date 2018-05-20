@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import "normalize.css";
+import "@/assets/style";
+import { autofillCatch } from "@/lib/helpers";
 
 Vue.config.productionTip = false;
 
@@ -11,6 +14,7 @@ const queryHandler = query => store.dispatch("setMobileLayout", !query.matches);
 queryHandler(query);
 query.addListener(queryHandler);
 
+Vue.directive("autofill-catch", autofillCatch);
 Vue.filter(
   "date",
   date =>

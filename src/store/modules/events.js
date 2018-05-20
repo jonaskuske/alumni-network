@@ -1,3 +1,5 @@
+import { generateId } from "@/lib/helpers";
+
 import image1 from "@/assets/images/event1.jpg";
 import image2 from "@/assets/images/event2.png";
 import image3 from "@/assets/images/event3.png";
@@ -11,13 +13,16 @@ const state = {
       location: "Schäbige Eckkneipe in Lehe",
       usergroup: "Alumni",
       date: new Date(),
+      id: generateId(),
       attending: undefined
     },
     {
       title: "Show Your Work!",
       image: image4,
+      location: "Schäbige Eckkneipe in Lehe",
       usergroup: "Alle",
       date: new Date(),
+      id: generateId(),
       attending: undefined
     },
     {
@@ -26,6 +31,7 @@ const state = {
       location: "Nachtschicht Bremerhaven",
       usergroup: "Alle",
       date: new Date(),
+      id: generateId(),
       attending: true
     },
     {
@@ -34,6 +40,7 @@ const state = {
       location: "Nachtschicht Bremerhaven",
       usergroup: "Studierende",
       date: new Date(),
+      id: generateId(),
       attending: undefined
     },
     {
@@ -42,6 +49,7 @@ const state = {
       location: "Nachtschicht Bremerhaven",
       usergroup: "Studierende",
       date: new Date(),
+      id: generateId(),
       attending: false
     },
     {
@@ -50,6 +58,7 @@ const state = {
       location: "Nachtschicht Bremerhaven",
       usergroup: "Dozenten",
       date: new Date(),
+      id: generateId(),
       attending: undefined
     },
     {
@@ -58,23 +67,24 @@ const state = {
       location: "Nachtschicht Bremerhaven",
       usergroup: "Die ganze Welt",
       date: new Date(),
+      id: generateId(),
       attending: true
     }
   ]
 };
 
 const mutations = {
-  attendEvent: (state, index) => (state.events[index].attending = true),
-  dontAttendEvent: (state, index) => (state.events[index].attending = false),
-  resetAttendingState: (state, index) => (state.events[index].attending = undefined)
+  attendEvent: (state, id) => (state.events.find(event => event.id === id).attending = true),
+  dontAttendEvent: (state, id) => (state.events.find(event => event.id === id).attending = false),
+  resetAttendingState: (state, id) => (state.events.find(event => event.id === id).attending = undefined)
 };
 
 const actions = {
-  setAttendingState({ commit, state }, { index: i, value: next }) {
-    const previous = state.events[i].attending;
-    if (next === true && previous !== true) commit("attendEvent", i);
-    else if (next === false && previous !== false) commit("dontAttendEvent", i);
-    else commit("resetAttendingState", i);
+  setAttendingState({ commit, state }, { id, value: next }) {
+    const previous = state.events.find(event => event.id === id).attending;
+    if (next === true && previous !== true) commit("attendEvent", id);
+    else if (next === false && previous !== false) commit("dontAttendEvent", id);
+    else commit("resetAttendingState", id);
   }
 };
 

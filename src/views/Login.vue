@@ -1,12 +1,12 @@
 <template>
-  <main class="login__main">
+  <main class="login">
     <section class="login__description">
-      <h1 class="welcome__heading"><span>Willkommen im offiziellen</span> DMP Alumni Portal!</h1>
+      <h1 class="login__heading"><span>Willkommen im offiziellen</span> DMP Alumni Portal!</h1>
       <br>
       <template v-if="!mobileLayout">
-        <p class="welcome__text">Ein sicheres Informations- und Angebotsnetzwerk für Dozenten,
-Studenten, Studieninteressierte und Alumnis des Studiengangs
-Digitale Medienproduktion an der Hochschule Bremerhaven.</p>
+        <p>
+          Ein sicheres Informations- und Angebotsnetzwerk für Dozenten, Studenten, Studieninteressierte und Alumnis des Studiengangs Digitale Medienproduktion an der Hochschule Bremerhaven.
+        </p>
         <br>
       </template>
       <p><span>Melde dich an</span>, um schnell und bequem</p>
@@ -17,17 +17,17 @@ Digitale Medienproduktion an der Hochschule Bremerhaven.</p>
       </ul>
     </section>
     <section class="login__login">
-      <form action="submit" class="login__form" @submit.prevent="checkLogin">
+      <form action="submit" autocomplete="off" class="login__form" v-autofill-catch @submit.prevent="checkLogin">
         <div class="login__form-row">
-          <label for="user" class="input__label" :class="{'userinput__label-active': userInput.length}">Name oder Matrikelnummer</label>
-          <input type="text" id="user" v-model="userInput">
+          <label for="user" class="input__label" :class="{'userinput__label-active': userInput.length}">{{ userInputLabel }}</label>
+          <input autocomplete="off" type="text" id="user" v-model="userInput">
         </div>
         <div class="login__form-row">
-          <label for="password" class="input__label" :class="{'userinput__label-active': passwordInput.length}">Passwort</label>
-          <input type="password" id="password" v-model="passwordInput">
+          <label for="password" class="input__label" :class="{'userinput__label-active': passwordInput.length}">{{ passwordInputLabel }}</label>
+          <input type="password" autocomplete="off" id="password" v-model="passwordInput">
         </div>
         <div class="login__form-row login__buttons">
-          <button type="submit" class="login__button">Login</button>
+          <button type="submit" :disabled="isDisabled" class="login__button">Login</button>
           <router-link :to="{name: 'signup'}" class="signup__link">oder registrieren</router-link>
         </div>
       </form>
@@ -43,7 +43,10 @@ export default {
   data() {
     return {
       userInput: "",
-      passwordInput: ""
+      userInputLabel: "Name oder Matrikelnummer",
+      passwordInput: "",
+      passwordInputLabel: "Passwort",
+      isDisabled: false
     };
   },
   computed: {
@@ -52,6 +55,12 @@ export default {
   methods: {
     ...mapActions(["login"]),
     checkLogin() {
+      if (!this.userInput)
+        this.userInputLabel = "Bitte Name oder Matrikelnummer eingeben!";
+      if (!this.passwordInput)
+        this.passwordInputLabel = "Bitte Passwort eingeben!";
+      this.isDisabled = true;
+      if (!this.userInput || !this.passwordInput) return;
       this.login();
       this.$router.push("/");
     }
@@ -61,13 +70,14 @@ export default {
 
 
 <style>
-.login__main {
+.login {
   display: grid;
   max-width: 2000px;
   grid-template: auto auto / 1rem 1fr 1rem;
 }
 .login__description {
   grid-row: 1;
+  padding-right: 1rem;
 }
 .login__description p,
 .login__description li {
@@ -83,19 +93,16 @@ export default {
 .login__login {
   grid-column: 2;
 }
-.welcome__heading {
+.login__heading {
   font-size: 1.8rem;
   margin: 0;
   line-height: 2rem;
 }
-.welcome__heading > span {
+.login__heading > span {
   font-size: 1.3rem;
   font-weight: normal;
   width: 100%;
   display: inline-block;
-}
-.welcome__text {
-  width: 95%;
 }
 .input__label {
   position: absolute;
@@ -165,14 +172,14 @@ export default {
 }
 
 @media screen and (min-width: 600px) {
-  .login__main {
+  .login {
     grid-template: 1fr 1fr / 4rem 1fr 4rem;
   }
-  .welcome__heading {
+  .login__heading {
     font-size: 2.8rem;
     line-height: 2.5rem;
   }
-  .welcome__heading > span {
+  .login__heading > span {
     font-size: 1.5rem;
   }
   .login__description > p {
@@ -196,7 +203,7 @@ export default {
   }
 }
 @media screen and (min-width: 900px) {
-  .login__main {
+  .login {
     grid-template: 1.5fr 1fr 4fr / 8vw 1.8fr 1fr 8vw;
     min-height: calc(100vh - 18rem);
     margin: 0 auto;
@@ -220,11 +227,11 @@ export default {
   }
 }
 @media screen and (min-width: 1100px) {
-  .welcome__heading {
+  .login__heading {
     font-size: 3.6rem;
     line-height: 2.9rem;
   }
-  .welcome__heading > span {
+  .login__heading > span {
     font-size: 1.7rem;
   }
   .login__description p,
@@ -233,12 +240,16 @@ export default {
   }
 }
 @media screen and (min-width: 1500px) {
-  .login__main {
+  .login {
     grid-template: 1.5fr 1fr 4fr / 15vw 2fr 1fr 15vw;
   }
   .login__description p,
   .login__description li {
     font-size: 1.3rem;
   }
+}
+.login__button:disabled {
+  background: red;
+  cursor: not-allowed;
 }
 </style>

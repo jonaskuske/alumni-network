@@ -4,6 +4,7 @@ module.exports = {
     'plugin:vue/essential',
     '@vue/prettier'
   ],
+  root: true,
   parserOptions: {
     parser: "babel-eslint",
     sourceType: "module",

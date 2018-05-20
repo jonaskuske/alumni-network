@@ -1,10 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import eventStore from "./events";
-import forumStore from "./forum";
-import messageStore from "./messages";
-import notificationStore from "./notifications";
+import eventStore from "./modules/events";
+import forumStore from "./modules/forum";
+import messageStore from "./modules/messages";
+import notificationStore from "./modules/notifications";
+
+import * as auth from "@/lib/auth";
 
 Vue.use(Vuex);
 
@@ -30,8 +32,11 @@ export default new Vuex.Store({
       commit("login");
     },
     logout({ commit }) {
-      sessionStorage.removeItem("gis-alumni-auth");
-      commit("logout");
+      return new Promise((res, rej) => {
+        const success = auth.revokeAuthentication();
+        commit("logout");
+        success ? res() : rej();
+      });
     },
     setMobileLayout({ commit }, value) {
       if (value) {
@@ -49,9 +54,9 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    notificationStore,
     eventStore,
     forumStore,
-    messageStore,
-    notificationStore
+    messageStore
   }
 });

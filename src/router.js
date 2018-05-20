@@ -7,12 +7,18 @@ import Splash from "./views/Splash";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
 import MainView from "./views/MainView";
-const Overview = () => import("./views/Overview");
-const Events = () => import("./views/Events");
-const Forum = () => import("./views/Forum");
-const Contacts = () => import("./views/Contacts");
-const Jobs = () => import("./views/Jobs");
-const ConstructionNotice = () => import("./views/ConstructionNotice");
+// const Overview = () => import("./views/Overview");
+// const Events = () => import("./views/Events");
+// const Forum = () => import("./views/Forum");
+// const Contacts = () => import("./views/Contacts");
+// const Jobs = () => import("./views/Jobs");
+import Profile from "./views/Profile";
+import Overview from "./views/Overview";
+import Events from "./views/Events";
+import Forum from "./views/Forum";
+import Contacts from "./views/Contacts";
+import Jobs from "./views/Jobs";
+import ConstructionNotice from "./views/ConstructionNotice";
 
 Vue.use(Router);
 
@@ -75,9 +81,14 @@ const router = new Router({
           component: Jobs
         },
         {
+          path: "me",
+          name: 5,
+          component: Profile
+        },
+        {
           path: "*",
           component: ConstructionNotice,
-          name: 5
+          name: 6
         }
       ],
       beforeEnter(from, to, next) {

@@ -1,3 +1,5 @@
+import { generateId } from "@/lib/helpers";
+
 import forum1 from "@/assets/images/forum1.png";
 import forum2 from "@/assets/images/forum2.png";
 import forum3 from "@/assets/images/forum3.png";
@@ -11,7 +13,8 @@ const state = {
       usergroup: "Studierende",
       date: new Date(),
       read: false,
-      comments: ["", "", ""]
+      id: generateId(),
+      comments: []
     },
     {
       title: "#Caturday! Bilder von euren Haustieren hier her!",
@@ -20,6 +23,7 @@ const state = {
       usergroup: "Alle",
       date: new Date(),
       read: true,
+      id: generateId(),
       comments: ["", "", "", "", "", "", "", "", ""]
     },
     {
@@ -29,26 +33,32 @@ const state = {
       usergroup: "Alumni",
       date: new Date(),
       read: false,
+      id: generateId(),
       comments: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]
     }
   ]
 };
 
 const mutations = {
-  markAsRead: (state, index) => (state.posts[index].read = true),
-  markAsUnread: (state, index) => (state.posts[index].read = false)
+  markAsRead: (state, id) => (state.posts.find(post => post.id === id).read = true),
+  markAsUnread: (state, id) => (state.posts.find(post => post.id === id).read = false)
 };
 
 const actions = {
-  toggleReadState({ commit, state }, { index }) {
-    const read = state.posts[index].read;
-    commit(read ? "markAsUnread" : "markAsRead", index);
+  toggleReadState({ commit, state }, { id }) {
+    const read = state.posts.find(post => post.id === id).read;
+    commit(read ? "markAsUnread" : "markAsRead", id);
   }
+};
+
+const getters = {
+  postById() { }
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  getters
 };
