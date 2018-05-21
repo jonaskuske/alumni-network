@@ -57,6 +57,9 @@ export default {
         : ["", "", "", "", ""];
     }
   },
+  created() {
+    this.gallery = this.value.gallery;
+  },
   methods: {
     update() {
       const newValue = {
