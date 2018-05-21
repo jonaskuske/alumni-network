@@ -1,62 +1,48 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import eventStore from "./modules/events";
-import forumStore from "./modules/forum";
-import messageStore from "./modules/messages";
-import notificationStore from "./modules/notifications";
+import modules from "./modules";
+import {
+  LOGIN,
+  LOGOUT,
+  TOGGLE_MENU_STATE,
+  STORE_NAVIGATION_ORDER,
+  SET_MOBILE_LAYOUT,
+  SET_MENU_STATE
+} from "./types";
 
 import * as auth from "@/lib/auth";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  modules,
   state: {
-    authenticated: false,
-    user: {},
-    navPositions: { from: 0, to: 0 },
+    navigationOrder: { from: 0, to: 0 },
     mobileLayout: false,
     menuOpen: false
   },
   mutations: {
-    login: state => (state.authenticated = true),
-    logout: state => (state.authenticated = false),
-    setNavPositions: (state, pos) => (state.navPositions = pos),
-    enableMobileLayout: state => (state.mobileLayout = true),
-    disableMobileLayout: state => (state.mobileLayout = false),
-    setMenuState: (state, value) => (state.menuOpen = value)
+    [STORE_NAVIGATION_ORDER]: (state, order) => (state.navigationOrder = order),
+    [SET_MOBILE_LAYOUT]: (state, value) => (state.mobileLayout = value),
+    [SET_MENU_STATE]: (state, value) => (state.menuOpen = value)
   },
   actions: {
-    login({ commit }) {
-      sessionStorage.setItem("gis-alumni-auth", true);
-      commit("login");
+    [LOGIN]() {
+      auth.createAuth();
     },
-    logout({ commit }) {
-      return new Promise((res, rej) => {
-        const success = auth.revokeAuthentication();
-        commit("logout");
-        success ? res() : rej();
-      });
+    [LOGOUT]() {
+      auth.revokeAuth();
     },
-    setMobileLayout({ commit }, value) {
-      if (value) {
-        commit("setMenuState", false);
-        commit("enableMobileLayout");
-      } else {
-        commit("setMenuState", true);
-        commit("disableMobileLayout");
-      }
+    [STORE_NAVIGATION_ORDER]({ commit }, order) {
+      commit(STORE_NAVIGATION_ORDER, order);
     },
-    toggleMenu({ state, commit }) {
-      state.menuOpen
-        ? commit("setMenuState", false)
-        : commit("setMenuState", true);
+    [SET_MOBILE_LAYOUT]({ commit }, value) {
+      commit(SET_MOBILE_LAYOUT, value);
+      commit(SET_MENU_STATE, !value);
+    },
+    [TOGGLE_MENU_STATE]({ state, commit }) {
+      commit(SET_MENU_STATE, !state.menuOpen);
     }
-  },
-  modules: {
-    notificationStore,
-    eventStore,
-    forumStore,
-    messageStore
   }
 });

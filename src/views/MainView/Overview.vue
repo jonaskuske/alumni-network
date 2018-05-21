@@ -15,17 +15,22 @@
           </p>
         </section>
 
-        <section>
-          <p class="title-label">Veranstaltungen</p>
-          <h2 class="subtitle">Anstehende Events</h2>
+        <section v-if="events.length">
+          <p class="title-label">Events</p>
+          <h2 class="subtitle">Nächste Termine</h2>
           <div class="thumbnail-grid">
-            <event-thumbnail v-for="event in events" :key="event.id" :event="event" class="overview__thumbnail" />
+            <event-thumbnail
+              v-for="event in events"
+              :key="event.id"
+              :event="event"
+              class="overview__thumbnail"
+            />
           </div>
         </section>
 
         <section>
           <p class="title-label">Forum</p>
-          <h2 class="subtitle">Letzte Beiträge</h2>
+          <h2 class="subtitle">Neueste Beiträge</h2>
           <div class="thumbnail-grid">
             <post-thumbnail v-for="post in posts" :key="post.id" :post="post" class="overview__thumbnail" />
           </div>
@@ -36,7 +41,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import heroImage from "@/assets/images/hero-overview.jpg";
 
 import WithHeroImage from "@/components/WithHeroImage";
@@ -51,8 +56,8 @@ export default {
   },
   data: () => ({ heroImage }),
   computed: {
-    ...mapState("eventStore", ["events"]),
-    ...mapState("forumStore", ["posts"]),
+    ...mapGetters("eventStore", { events: "eventsSortedByOldest" }),
+    ...mapGetters("forumStore", { posts: "postsSortedByNewest" }),
     ...mapState(["mobileLayout"])
   }
 };
@@ -72,7 +77,7 @@ export default {
 }
 .thumbnail-grid {
   display: grid;
-  grid-template: auto / repeat(auto-fill, minmax(266px, 1fr));
+  grid-template: auto / repeat(auto-fill, minmax(275px, 1fr));
   grid-gap: 20px;
 }
 </style>

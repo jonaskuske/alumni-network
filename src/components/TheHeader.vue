@@ -44,7 +44,7 @@ export default {
           href: "/forum"
         },
         {
-          name: "Veranstaltungen",
+          name: "Events",
           href: "/veranstaltungen"
         },
         {
@@ -140,7 +140,7 @@ export default {
     height: 100%;
   }
 }
-@media screen and (min-width: 1720px) {
+@media screen and (min-width: 1620px) {
   .header__container {
     width: 70%;
   }

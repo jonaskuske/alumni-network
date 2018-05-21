@@ -1,8 +1,20 @@
-export const checkAuthentication = () => {
-  return sessionStorage.getItem("gis-alumni-auth") !== null;
+const authState = {
+  authenticated: false
 };
 
-export const revokeAuthentication = () => {
+export const checkAuth = () => {
+  return (
+    authState.authenticated ||
+    (authState.authenticated = sessionStorage.getItem("gis-alumni-auth") !== null)
+  );
+};
+
+export const revokeAuth = () => {
   sessionStorage.removeItem("gis-alumni-auth");
-  return sessionStorage.getItem("gis-alumni-auth") === null;
+  authState.authenticated = false;
+};
+
+export const createAuth = () => {
+  sessionStorage.setItem("gis-alumni-auth", true);
+  authState.authenticated = true;
 };

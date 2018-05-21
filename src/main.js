@@ -6,6 +6,9 @@ import "./registerServiceWorker";
 import "normalize.css";
 import "@/assets/style";
 import { autofillCatch } from "@/lib/helpers";
+import { fetchEvents, fetchPosts } from "@/lib/fetch";
+import { ADD_EVENTS } from "@/store/modules/events/types";
+import { ADD_POSTS } from "@/store/modules/forum/types";
 
 Vue.config.productionTip = false;
 
@@ -15,21 +18,23 @@ queryHandler(query);
 query.addListener(queryHandler);
 
 Vue.directive("autofill-catch", autofillCatch);
-Vue.filter(
-  "date",
-  date =>
-    date.toLocaleString &&
-    date.toLocaleString("de-DE", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    })
-);
+Vue.filter("date", date => {
+  date = new Date(date);
+  return date.toLocaleString("de-DE", {
+    weekday: "long",
+    month: "long",
+    day: "numeric"
+  });
+});
 
-new Vue({
+export default new Vue({
   router,
   store,
+  async beforeCreate() {
+    const [events, posts] = await Promise.all([fetchEvents(), fetchPosts()]);
+    store.dispatch("eventStore/" + ADD_EVENTS, events);
+    store.dispatch("forumStore/" + ADD_POSTS, posts);
+  },
   render: create => create(App)
 }).$mount("#root");
 

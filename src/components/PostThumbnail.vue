@@ -4,7 +4,7 @@
     :subtitle="`Verfasser: ${post.author}`"
     :tag="post.usergroup"
     :image="post.image"
-    @click="$router.push(`/forum?post=${post.id}`)"
+    @click="$router.push(`/forum/post/${post.id}`)"
   >
     <template slot="meta">
       <p :class="['post-thumbnail__date', {'post-thumbnail__date--unread': !post.read}]">
@@ -16,19 +16,26 @@
         class="icon--comments"
         :class="{'icon--nocomments': !post.comments.length}"
         :value="post.comments.length || '0'"
-        @click.prevent="$router.push(`/forum?post=${post.id}#comments`)"
+        @click.prevent="$router.push(`/forum/post/${post.id}#comments`)"
       />
       <button-small
+        v-if="!byUser"
         class="icon--readstate"
         :class="{'icon--unreadstate': !post.read}"
         @click.prevent="toggleReadState({id: post.id})"
+      />
+      <button-small
+        v-else
+        class="icon--edit"
+        @click.prevent="$router.push(`/forum/post/${post.id}/edit`)"
       />
     </template>
   </thumbnail>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+import { TOGGLE_READ_STATE } from "@/store/modules/forum/types";
 import Thumbnail from "./Thumbnail";
 import ButtonSmall from "@/components/ButtonSmall";
 
@@ -41,19 +48,17 @@ export default {
     post: {
       type: Object,
       required: true,
-      default: () => ({
-        id: 0,
-        title: "",
-        image: "",
-        author: "",
-        usergroup: "",
-        date: new Date(),
-        attending: undefined
-      })
+      default: () => ({})
+    }
+  },
+  computed: {
+    ...mapState("userStore", ["username"]),
+    byUser() {
+      return this.post.username === this.username;
     }
   },
   methods: {
-    ...mapActions("forumStore", ["toggleReadState"])
+    ...mapActions("forumStore", { toggleReadState: TOGGLE_READ_STATE })
   }
 };
 </script>
@@ -61,7 +66,6 @@ export default {
 <style>
 .post-thumbnail__date {
   position: relative;
-  font-size: 0.9rem;
   transition: padding 150ms 120ms ease-out;
 }
 .post-thumbnail__date--unread {
@@ -109,5 +113,8 @@ export default {
 }
 .icon--unreadstate {
   background-image: url(~@/assets/icons/eye.svg);
+}
+.icon--edit {
+  background-image: url(~@/assets/icons/edit.svg);
 }
 </style>

@@ -97,7 +97,7 @@ export default {
   height: 30%;
   width: 100%;
   padding: 10px;
-  background: rgba(240, 240, 240, 0.8);
+  background: rgba(240, 240, 240, 0.85);
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -131,6 +131,9 @@ export default {
   cursor: default;
   padding: 0 10px;
   box-sizing: border-box;
+}
+.thumbnail__footer p {
+  font-size: 0.85rem;
 }
 .thumbnail__meta-container {
   flex: 7;

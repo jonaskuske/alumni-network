@@ -18,8 +18,8 @@
     />
 
     <div class="statusbar__account" @click="$router.push('/me')">
-      <p class="statusbar__account-name hover-underline">Jonas Kuske</p>
-      <user-avatar :image="avatar" :name="'Jonas Kuske'" class="statusbar__account-image" />
+      <p class="statusbar__account-name hover-underline">{{ name }}</p>
+      <user-avatar :image="profilePicture" :name="'Jonas Kuske'" class="statusbar__account-image" />
     </div>
     <button @click.prevent="logoutHelper" class="statusbar__logout">Logout</button>
 
@@ -27,26 +27,24 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import avatar from "@/assets/images/jonas.jpg";
+import { mapState, mapGetters, mapActions } from "vuex";
+import { LOGOUT } from "@/store/types";
 import UserAvatar from "@/components/UserAvatar";
 import ButtonSmall from "@/components/ButtonSmall";
 
 export default {
   name: "StatusBar",
-  components: {
-    UserAvatar,
-    ButtonSmall
-  },
-  data: () => ({ avatar }),
+  components: { UserAvatar, ButtonSmall },
   computed: {
+    ...mapState("userStore", ["name", "profilePicture"]),
     ...mapGetters("messageStore", ["unreadMessages"]),
     ...mapGetters("notificationStore", ["unreadNotifications"])
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions({ logout: LOGOUT }),
     logoutHelper() {
-      this.logout().then(() => this.$router.push("/login"));
+      this.logout();
+      this.$router.push("/login");
     }
   }
 };

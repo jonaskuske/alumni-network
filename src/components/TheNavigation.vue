@@ -2,7 +2,7 @@
   <nav class="navigation">
     <ul class="navigation__list">
       <li class="navigation__item" v-for="{ name, href } in links" :key="href">
-        <router-link :to="href" @click.native="toggleMenu" class="navigation__link hover-underline">
+        <router-link :to="href" @click.native="closeMenu" class="navigation__link hover-underline">
           {{ name }}
         </router-link>
       </li>
@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { TOGGLE_MENU_STATE } from "@/store/types";
+import { mapState, mapActions } from "vuex";
 
 export default {
   props: {
@@ -21,8 +22,14 @@ export default {
       default: () => [{ name: "No links", href: "#" }]
     }
   },
+  computed: {
+    ...mapState(["mobileLayout"])
+  },
   methods: {
-    ...mapActions(["toggleMenu"])
+    ...mapActions({ toggleMenu: TOGGLE_MENU_STATE }),
+    closeMenu() {
+      this.mobileLayout && this.toggleMenu();
+    }
   }
 };
 </script>
