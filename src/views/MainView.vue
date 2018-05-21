@@ -15,16 +15,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import { wait } from "@/lib/helpers";
 
 export default {
   name: "MainView",
-  data: () => ({ transitionActive: false }),
+  data: () => ({ transitionActive: false, from: undefined, to: undefined }),
   computed: {
-    ...mapState(["navigationOrder"]),
     transitionClasses() {
-      const { from, to } = this.navigationOrder;
+      const { from, to } = this;
       const left = "transition-left-slide";
       const right = "transition-right-slide";
       return typeof from === "number" && typeof to === "number"
@@ -38,6 +36,12 @@ export default {
             leave: "transition-scale-hide",
             active: "transition-scale-active"
           };
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.to = to.meta.index;
+      this.from = from.meta.index;
     }
   },
   methods: {
