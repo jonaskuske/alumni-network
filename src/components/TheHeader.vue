@@ -45,7 +45,7 @@ export default {
         },
         {
           name: "Events",
-          href: "/veranstaltungen"
+          href: "/events"
         },
         {
           name: "Kontakte",

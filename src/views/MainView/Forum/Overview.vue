@@ -4,7 +4,7 @@
     <button class="button-main" @click="$router.push('/forum/new')">Beitrag erstellen</button>
   </title-bar>
   <section class="forum__links">
-    <router-link to="" class="button-secondary">Zu den Unterforen</router-link>
+    <router-link to="/forum/sub" class="button-secondary">Zu den Unterforen</router-link>
     <router-link to="/me#posts" class="button-secondary">Beiträge verwalten</router-link>
   </section>
   <section class="forum__posts">

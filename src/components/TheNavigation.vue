@@ -55,7 +55,7 @@ export default {
 .navigation__item:last-child > .navigation__link {
   margin-right: 0;
 }
-.navigation__link.router-link-exact-active::before {
+.navigation__link.router-link-active::before {
   border-bottom-color: #4040e9;
   transform: scaleX(1);
 }

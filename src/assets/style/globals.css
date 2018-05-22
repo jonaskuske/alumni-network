@@ -58,6 +58,15 @@ p {
 .title + p, .subtitle + p {
   margin: 0;
 }
+.meta-label {
+  font-weight: 500;
+  margin: 0;
+  margin-top: 0.3rem;
+}
+.meta-text {
+  margin: 0;
+  margin-bottom: 0.3rem;
+}
 .button {
   width: 100%;
 }

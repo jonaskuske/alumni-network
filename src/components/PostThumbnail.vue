@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { TOGGLE_READ_STATE } from "@/store/modules/forum/types";
 import Thumbnail from "./Thumbnail";
 import ButtonSmall from "@/components/ButtonSmall";
@@ -52,9 +52,9 @@ export default {
     }
   },
   computed: {
-    ...mapState("userStore", ["username"]),
+    ...mapGetters("userStore", ["currentUser"]),
     byUser() {
-      return this.post.username === this.username;
+      return this.post.username === this.currentUser.username;
     }
   },
   methods: {

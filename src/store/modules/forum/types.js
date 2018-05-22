@@ -5,3 +5,5 @@ export const DELETE_POST = "deletePost";
 export const TOGGLE_READ_STATE = "toggleReadState";
 export const MARK_AS_READ = "markAsRead";
 export const MARK_AS_UNREAD = "markAsUnread";
+export const ADD_COMMENT = "addComment";
+export const REMOVE_COMMENT = "removeComment";

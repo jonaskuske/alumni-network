@@ -11,4 +11,7 @@
 .privacy {
   display: block;
 }
+.privacy p {
+  max-width: 50rem;
+}
 </style>

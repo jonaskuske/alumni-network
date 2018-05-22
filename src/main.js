@@ -6,9 +6,10 @@ import "./registerServiceWorker";
 import "normalize.css";
 import "@/assets/style";
 import { autofillCatch } from "@/lib/helpers";
-import { fetchEvents, fetchPosts } from "@/lib/fetch";
+import { fetchEvents, fetchPosts, fetchUsers } from "@/lib/fetch";
 import { ADD_EVENTS } from "@/store/modules/events/types";
 import { ADD_POSTS } from "@/store/modules/forum/types";
+import { ADD_USERS } from "@/store/modules/user/types";
 
 Vue.config.productionTip = false;
 
@@ -31,9 +32,14 @@ export default new Vue({
   router,
   store,
   async beforeCreate() {
-    const [events, posts] = await Promise.all([fetchEvents(), fetchPosts()]);
+    const [events, posts, users] = await Promise.all([
+      fetchEvents(),
+      fetchPosts(),
+      fetchUsers()
+    ]);
     store.dispatch("eventStore/" + ADD_EVENTS, events);
     store.dispatch("forumStore/" + ADD_POSTS, posts);
+    store.dispatch("userStore/" + ADD_USERS, users);
   },
   render: create => create(App)
 }).$mount("#root");

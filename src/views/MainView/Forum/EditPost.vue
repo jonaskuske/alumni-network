@@ -29,7 +29,7 @@
 <script>
 import { readImageFromInput } from "@/lib/helpers";
 import placeholderImage from "@/assets/images/hero-placeholder.svg";
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { REPLACE_POST } from "@/store/modules/forum/types";
 import PostForm from "./PostForm";
 import WithHeroImage from "@/components/WithHeroImage";
@@ -60,7 +60,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("userStore", ["name", "username"]),
+    ...mapGetters("userStore", ["currentUser"]),
     ...mapGetters("forumStore", ["postsById"])
   },
   watch: {
@@ -77,7 +77,7 @@ export default {
     },
     getPost() {
       const post = this.postsById[this.id];
-      if (this.username !== post.username) {
+      if (this.currentUser.username !== post.username) {
         return this.$router.push(`/forum/post/${post.id}`);
       }
 

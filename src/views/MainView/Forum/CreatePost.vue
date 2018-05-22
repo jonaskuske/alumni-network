@@ -29,7 +29,7 @@
 <script>
 import { generateId, readImageFromInput } from "@/lib/helpers";
 import placeholderImage from "@/assets/images/hero-placeholder.svg";
-import { mapState, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { ADD_POST } from "@/store/modules/forum/types";
 import PostForm from "./PostForm";
 import WithHeroImage from "@/components/WithHeroImage";
@@ -55,7 +55,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("userStore", ["name", "username"])
+    ...mapGetters("userStore", ["currentUser"])
   },
   methods: {
     ...mapActions("forumStore", { addPost: ADD_POST }),
@@ -74,8 +74,8 @@ export default {
         usergroup,
         date: new Date(),
         image: this.image,
-        author: this.name,
-        username: this.username,
+        author: this.currentUser.name,
+        username: this.currentUser.username,
         read: true,
         id: generateId(),
         comments: []

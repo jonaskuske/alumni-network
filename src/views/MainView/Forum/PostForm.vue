@@ -28,9 +28,11 @@
       </div>
       <div class="create-post__gallery">
         <gallery-thumbnail
+          class="create-post__thumbnail"
           v-for="(image, i) in thumbnails"
           :image="image"
           :key="i"
+          :clickable="true"
           :style="{backgroundColor: `rgba(240,240,240,${1-0.17*i})`}"
           @click="image ? removeFromGallery(i) : $refs.galleryInput.click()"
         />
@@ -142,5 +144,8 @@ export default {
   display: grid;
   grid-template: auto / repeat(auto-fill, minmax(100px, 1fr));
   grid-gap: 5px;
+}
+.create-post__thumbnail::after {
+  background-image: url(~@/assets/icons/delete.svg);
 }
 </style>

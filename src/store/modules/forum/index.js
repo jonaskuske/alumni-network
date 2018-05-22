@@ -6,7 +6,9 @@ import {
   TOGGLE_READ_STATE,
   MARK_AS_READ,
   MARK_AS_UNREAD,
-  DELETE_POST
+  DELETE_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT
 } from "./types";
 
 const state = {
@@ -19,7 +21,9 @@ const mutations = {
   [REPLACE_POST]: ({ posts }, { index, post }) => Vue.set(posts, index, post),
   [DELETE_POST]: ({ posts }, index) => posts.splice(index, 1),
   [MARK_AS_READ]: ({ posts }, index) => (posts[index].read = true),
-  [MARK_AS_UNREAD]: ({ posts }, index) => (posts[index].read = false)
+  [MARK_AS_UNREAD]: ({ posts }, index) => (posts[index].read = false),
+  [ADD_COMMENT]: ({ posts }, { index, comment }) => posts[index].comments.push(comment),
+  [REMOVE_COMMENT]: ({ posts }, { postIndex, index }) => posts[postIndex].comments.splice(index, 1)
 };
 
 const actions = {
@@ -41,6 +45,14 @@ const actions = {
     const read = getters.getPostById(id).read;
     const index = getters.getPostIndexById(id);
     commit(read ? MARK_AS_UNREAD : MARK_AS_READ, index);
+  },
+  [ADD_COMMENT]({ commit, getters }, { id, comment }) {
+    const index = getters.getPostIndexById(id);
+    commit(ADD_COMMENT, { index, comment });
+  },
+  [REMOVE_COMMENT]({ commit, getters }, { id, index }) {
+    const postIndex = getters.getPostIndexById(id);
+    commit(REMOVE_COMMENT, { postIndex, index });
   }
 };
 

@@ -54,7 +54,8 @@ const routes = [
 const routesWithNavOrder = routes.map((route, index) => {
   if (!route.children) return { meta: { index }, ...route };
 
-  route.children.find(childroute => childroute.path === "").meta = { index };
+  const defaultChild = route.children.find(child => child.path === "");
+  defaultChild.meta = { index, ...defaultChild.meta };
   return route;
 });
 

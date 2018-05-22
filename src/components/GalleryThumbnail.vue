@@ -2,7 +2,7 @@
   <div
     @click="$emit('click', $event)"
     class="gallery-thumbnail"
-    :class="{'gallery-thumbnail--empty': !image}"
+    :class="[{'gallery-thumbnail--empty': !image}, {'gallery-thumbnail--clickable': clickable}]"
     :style="{backgroundImage: `url(${image})`}"
   />
 </template>
@@ -10,7 +10,7 @@
 <script>
 export default {
   name: "GalleryThumbnail",
-  props: ["image"]
+  props: ["image", "clickable"]
 };
 </script>
 
@@ -19,6 +19,8 @@ export default {
   position: relative;
   background: none center / cover no-repeat;
   width: 100%;
+}
+.gallery-thumbnail--clickable {
   cursor: pointer;
 }
 .gallery-thumbnail::before {
@@ -26,22 +28,22 @@ export default {
   display: block;
   padding-bottom: 100%;
 }
-.gallery-thumbnail::after {
+.gallery-thumbnail--clickable::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(~@/assets/icons/delete.svg) center / 75% no-repeat;
+  background: none center / 75% no-repeat;
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 180ms ease-out;
   opacity: 0;
 }
 .gallery-thumbnail--empty::after {
-  background: url(~@/assets/icons/plus.svg) center / 60% no-repeat;
+  background: url(~@/assets/icons/plus.svg) center / 60% no-repeat !important;
 }
-.gallery-thumbnail:hover::after {
+.gallery-thumbnail--clickable:hover::after {
   opacity: 1;
 }
 </style>
