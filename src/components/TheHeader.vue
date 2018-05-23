@@ -105,6 +105,7 @@ export default {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+  padding-right: 1.2rem;
 }
 .header__logo {
   width: 4rem;

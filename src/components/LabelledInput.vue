@@ -2,7 +2,7 @@
   <div class="labelled-input">
     <label
       class="labelled-input__label"
-      :class="[{'labelled-input__label--active': value.length}, {'labelled-input__label--no-transition': !transition}]"
+      :class="[{'labelled-input__label--active': value}, {'labelled-input__label--no-transition': !transition}]"
       for="_uid"
       v-text="label"
     />
@@ -10,8 +10,8 @@
       class="labelled-input__input"
       :value="value"
       :id="_uid"
+      :type="type || 'text'"
       @input="$emit('input', $event.target.value)"
-      type="text"
     >
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   created() {
     setTimeout(() => (this.transition = true), 100);
   },
-  props: ["value", "label", "placeholder"],
+  props: ["value", "label", "type"],
   data: () => ({ transition: false })
 };
 </script>
@@ -33,6 +33,7 @@ export default {
   width: 100%;
   position: relative;
   background: #f0f0f0;
+  color: #2c3e50;
 }
 .labelled-input__label {
   position: absolute;
@@ -44,7 +45,7 @@ export default {
   flex-direction: column;
   justify-content: flex-end;
   font-size: 0.6em;
-  color: #2c3e50;
+  color: inherit;
   transition: transform 180ms ease-out, left 180ms ease-out, color 120ms ease-in,
     font-size 110ms 100ms ease-out;
   pointer-events: none;

@@ -12,7 +12,7 @@
         ref="content"
         :value="value.content"
         class="textarea-main create-post__content"
-        placeholder="Beschreibung"
+        placeholder="Beschreibung - HTML Formatierung unterstützt"
       />
     </div>
     <div class="create-post__controls">
@@ -66,7 +66,7 @@ export default {
     update() {
       const newValue = {
         title: this.title || this.value.title,
-        content: this.$refs.content.value,
+        content: this.$refs.content.value.replace("<br>", "\n"),
         usergroup: this.$refs.usergroup.value,
         gallery: this.gallery
       };

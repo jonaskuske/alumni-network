@@ -14,7 +14,7 @@
       >
         Bild entfernen
       </button>
-      <form action="post" @submit.prevent="publish">
+      <form method="post" @submit.prevent="publish">
         <title-bar label="Forum" title="Beitrag verfassen">
           <button class="button-main" type="submit">Veröffentlichen</button>
         </title-bar>

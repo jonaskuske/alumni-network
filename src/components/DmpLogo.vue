@@ -30,10 +30,7 @@ export default {
 <style scoped>
 .logo {
   fill: #2c3e50;
-  transition: width 220ms 100ms ease-out;
-}
-.logo--color {
-  transition: fill 200ms ease-in-out;
+  transition: width 220ms 100ms ease-out, fill 180ms ease-in-out;
 }
 /* Hamburger styling */
 .logo__lines {

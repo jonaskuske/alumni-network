@@ -1,11 +1,11 @@
 <template>
-    <main class="splashscreen">
+    <div class="splashscreen">
       <splashscreen-header />
       <transition mode="out-in" name="fade">
-        <router-view />
+        <router-view class="splashscreen__main" />
       </transition>
       <splashscreen-footer class="splashscreen__footer" />
-    </main>
+    </div>
 </template>
 
 <script>
@@ -21,7 +21,15 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+h1,
+h2,
+p,
+ul,
+li,
+span {
+  margin-top: 0;
+}
 .splashscreen {
   position: relative;
   min-height: 100vh;
@@ -49,36 +57,30 @@ export default {
     url("~@/assets/images/bg-splash.jpg") center / cover no-repeat;
   filter: blur(4px) brightness(90%);
 }
-.splashscreen__footer {
-  background: none;
-  padding: 0 1rem;
-  max-width: 2000px;
-  font-size: 0.9rem;
-  color: rgba(240, 240, 240, 0.7);
-}
-.splashscreen__footer > div {
-  max-width: 100%;
-  width: 100%;
-}
-@media screen and (min-width: 600px) {
-  .splashscreen__footer {
-    padding: 0 4rem;
-  }
+.splashscreen__main {
+  flex-grow: 1;
+  box-sizing: border-box;
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 0;
 }
 @media screen and (min-width: 900px) {
-  .splashscreen__footer {
-    padding: 0 8vw;
+  .splashscreen__main {
+    width: 80%;
   }
 }
-@media screen and (min-width: 1100px) {
-  .splashscreen__footer {
-    font-size: 1rem;
-    margin: 0 auto;
+@media screen and (min-width: 1620px) {
+  .splashscreen__main {
+    width: 70%;
   }
 }
-@media screen and (min-width: 1500px) {
-  .splashscreen__footer {
-    padding: 0 15vw;
+@media screen and (min-width: 1880px) {
+  .splashscreen__main {
+    width: 60%;
   }
+}
+.splashscreen__footer {
+  background: none;
+  color: rgba(240, 240, 240, 0.7);
 }
 </style>

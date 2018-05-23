@@ -17,6 +17,9 @@
   transform-origin: left;
   transform: scaleX(1);
 }
+.hover-underline.router-link-active::before {
+  transform-origin: left;
+}
 .hide {
   display: none;
 }

@@ -13,7 +13,7 @@
         />
       </div>
     </header>
-    <p class="comment__text">{{ comment.content }}</p>
+    <p class="comment__text" v-html="content" />
     <div v-if="comment.gallery.length" class="comment__gallery">
       <gallery-thumbnail v-for="(image, i) in comment.gallery" :image="image" :key="i" />
     </div>
@@ -40,6 +40,12 @@ export default {
     ...mapGetters("userStore", ["usersByUsername", "currentUser"]),
     author() {
       return this.usersByUsername[this.comment.username] || {};
+    },
+    content() {
+      return (
+        this.comment.content &&
+        this.$sanitize(this.comment.content.replace("\n", "<br>"))
+      );
     }
   }
 };

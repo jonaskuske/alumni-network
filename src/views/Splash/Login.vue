@@ -1,34 +1,49 @@
 <template>
   <main class="login">
-    <section class="login__description">
-      <h1 class="login__heading"><span>Willkommen im offiziellen</span> DMP Alumni Portal!</h1>
-      <br>
-      <template v-if="!mobileLayout">
-        <p>
-          Ein sicheres Informations- und Angebotsnetzwerk für Dozenten, Studenten, Studieninteressierte und Alumnis des Studiengangs Digitale Medienproduktion an der Hochschule Bremerhaven.
-        </p>
-        <br>
-      </template>
-      <p><span>Melde dich an</span>, um schnell und bequem</p>
-      <ul>
-        <li>mit Studierenden, Alumni und Dozenten zu kommunizieren</li>
-        <li>Events zu planen und dein Netzwerk zu erweitern</li>
-        <li>auf der internen Jobbörse das perfekte Angebot zu finden</li>
+    <section class="login__section login__section-welcome">
+      <h1 class="login__heading"><span>Willkommen im offiziellen</span> DMP Alumni Netzwerk!</h1>
+      <p class="login__description">
+        Ein sicheres Informations- und Angebotsnetzwerk für Dozenten, Studenten, Studieninteressierte und Alumnis des Studiengangs Digitale Medienproduktion an der Hochschule Bremerhaven.
+      </p>
+      <h2 class="login__features-title">Melde dich an, um schnell und bequem</h2>
+      <ul class="login__features-list">
+        <li class="login__features-listitem">mit Studierenden, Alumni und Dozenten zu kommunizieren</li>
+        <li class="login__features-listitem">Events zu planen und dein Netzwerk zu erweitern</li>
+        <li class="login__features-listitem">auf der internen Jobbörse das perfekte Angebot zu finden</li>
       </ul>
     </section>
-    <section class="login__login">
-      <form action="submit" autocomplete="off" class="login__form" v-autofill-catch @submit.prevent="checkLogin">
-        <div class="login__form-row">
-          <label for="user" class="input__label" :class="{'userinput__label-active': userInput.length}">{{ userInputLabel }}</label>
-          <input autocomplete="off" type="text" id="user" v-model="userInput">
-        </div>
-        <div class="login__form-row">
-          <label for="password" class="input__label" :class="{'userinput__label-active': passwordInput.length}">{{ passwordInputLabel }}</label>
-          <input type="password" autocomplete="off" id="password" v-model="passwordInput">
-        </div>
-        <div class="login__form-row login__buttons">
-          <button type="submit" :disabled="isDisabled" class="login__button">Login</button>
-          <router-link :to="{name: 'signup'}" class="signup__link">oder registrieren</router-link>
+    <section class="login__section login__section-login">
+      <form
+        method="post"
+        autocomplete="off"
+        class="login__form"
+        @submit.prevent="login"
+      >
+        <labelled-input
+          v-model="userInput"
+          :label="userInputLabel"
+          class="login__form-input"
+          :class="[{'login__form-input--active': userInput}, {'login__form-input--danger': showLoginWarning}]"
+        />
+        <labelled-input
+          v-model="passwordInput"
+          type="password"
+          :label="passwordInputLabel"
+          class="login__form-input"
+          :class="[{'login__form-input--active': passwordInput}, {'login__form-input--danger': showLoginWarning}]"
+        />
+        <div class="login__action-container">
+          <button
+            type="submit"
+            class="button-main login__button"
+            :class="{'button--danger': redLoginButton}"
+            :disabled="isFormDisabled"
+            @mouseenter.once="allowFormWarnings = true"
+            @touchstart.once="allowFormWarnings = true"
+          >
+            Login
+          </button>
+          <router-link to="/login/signup" class="login__link">oder registrieren</router-link>
         </div>
       </form>
     </section>
@@ -36,33 +51,52 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import * as auth from "@/lib/auth";
+import LabelledInput from "@/components/LabelledInput";
+import { wait } from "@/lib/helpers";
 
 export default {
-  name: "login",
+  name: "Login",
+  components: { LabelledInput },
   data() {
     return {
       userInput: "",
-      userInputLabel: "Name oder Matrikelnummer",
       passwordInput: "",
-      passwordInputLabel: "Passwort",
-      isDisabled: false
+      allowFormWarnings: false,
+      showLoginWarning: false,
+      redLoginButton: false
     };
   },
   computed: {
-    ...mapState(["mobileLayout"])
+    isFormDisabled() {
+      return this.allowFormWarnings
+        ? !this.userInput || !this.passwordInput
+        : false;
+    },
+    userInputLabel() {
+      return this.userInput || !this.allowFormWarnings
+        ? "Nutzername"
+        : "Bitte Nutzername eingeben!";
+    },
+    passwordInputLabel() {
+      return this.passwordInput || !this.allowFormWarnings
+        ? "Passwort"
+        : "Bitte Passwort eingeben!";
+    }
   },
   methods: {
-    ...mapActions(["login"]),
-    checkLogin() {
-      if (!this.userInput)
-        this.userInputLabel = "Bitte Name oder Matrikelnummer eingeben!";
-      if (!this.passwordInput)
-        this.passwordInputLabel = "Bitte Passwort eingeben!";
-      this.isDisabled = true;
-      if (!this.userInput || !this.passwordInput) return;
-      this.login();
-      this.$router.push("/");
+    login() {
+      const success = auth.login(this.userInput, this.passwordInput);
+
+      if (success) {
+        this.$router.push(this.$route.query.redirect || "/");
+      } else this.enableLoginWarning();
+    },
+    async enableLoginWarning() {
+      this.showLoginWarning = true;
+      this.redLoginButton = true;
+      await wait(200);
+      this.redLoginButton = false;
     }
   }
 };
@@ -71,185 +105,134 @@ export default {
 
 <style>
 .login {
-  display: grid;
-  max-width: 2000px;
-  grid-template: auto auto / 1rem 1fr 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.login__description {
-  grid-row: 1;
-  padding-right: 1rem;
+.login__section {
+  width: 100%;
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  max-width: 30rem;
 }
-.login__description p,
-.login__description li {
-  font-size: 0.9rem;
+.login__section-welcome {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
-.login__description > p {
-  margin: 0;
-}
-.login__login {
-  grid-row: 2;
-}
-.login__description,
-.login__login {
-  grid-column: 2;
+.login__section-login {
+  margin-top: 5%;
+  flex-grow: 3;
 }
 .login__heading {
-  font-size: 1.8rem;
-  margin: 0;
-  line-height: 2rem;
+  font-size: 1.6rem;
 }
 .login__heading > span {
-  font-size: 1.3rem;
+  font-size: 0.75em;
   font-weight: normal;
   width: 100%;
   display: inline-block;
 }
-.input__label {
-  position: absolute;
-  bottom: 4px;
-  left: 5px;
-  font-size: 0.8rem;
-  color: #2c3e50;
-  transition: transform 180ms ease-out, color 120ms ease-in,
-    font-size 110ms 100ms ease-out;
-  pointer-events: none;
+.login__description {
+  display: none;
 }
-.login__form input {
+.login__features-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 5% 0 0.5rem 0;
+}
+.login__features-list {
+  padding-left: 1.7rem;
+  margin-bottom: 0;
+}
+.login__form {
   width: 100%;
-  margin: 0;
-  padding: 0;
-  padding-left: 5px;
-  box-sizing: border-box;
-  height: 2rem;
-  background: #f0f0f0;
-  border: none;
-  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
-  font-size: 1.3rem;
 }
-.login__buttons {
+.login__form-input,
+.login__button {
+  height: 2rem;
+}
+.login__form-input {
+  font-size: 1.45rem;
+  margin: 1.5rem 0;
+  box-sizing: border-box;
+}
+.login__form-input--active {
+  color: #f0f0f0;
+}
+.login__form-input--danger {
+  border: 3px solid rgba(255, 0, 0, 0.7);
+  border-radius: 5px;
+}
+.login__action-container {
   display: flex;
   justify-content: space-between;
 }
-.login__buttons a {
-  color: #f0f0f0;
-  align-self: flex-end;
-  text-decoration: underline;
-}
 .login__button {
-  height: 2rem;
-  width: 50%;
+  width: 100%;
+  max-width: 180px;
+  box-sizing: border-box;
+  padding-top: 0;
+  padding-bottom: 0;
   font-size: 1rem;
-  background: rgba(17, 255, 97, 0.78);
-  border: none;
-  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
-  color: #f0f0f0;
-  cursor: pointer;
-  transition: background-color 200ms, box-shadow 200ms;
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
-.login__button:hover,
-.login__button:focus {
-  background: rgba(17, 255, 97, 0.95);
-  box-shadow: 0 0 7px 3px rgba(40, 40, 40, 0.3);
+.login__button:disabled,
+.login__button:disabled:hover {
+  background: red;
+  cursor: not-allowed;
 }
-.login__form-row {
-  margin-top: 2rem;
-  position: relative;
-}
-.login__form-row:first-of-type {
-  margin-top: 0;
-}
-.userinput__label-active {
-  transform: translate(-5px, -2rem);
-  color: #f0f0f0;
-  font-size: 0.8rem;
-  font-weight: 200;
-}
-.signup__link {
-  width: 50%;
+.login__link {
+  width: 100%;
   text-align: right;
-  font-size: 0.9rem;
-}
-
-@media screen and (min-width: 600px) {
-  .login {
-    grid-template: 1fr 1fr / 4rem 1fr 4rem;
-  }
-  .login__heading {
-    font-size: 2.8rem;
-    line-height: 2.5rem;
-  }
-  .login__heading > span {
-    font-size: 1.5rem;
-  }
-  .login__description > p {
-    margin: 1rem 0;
-  }
-  .login__form input,
-  .login__button {
-    height: 2.7rem;
-  }
-  .userinput__label-active {
-    transform: translate(-5px, -2.5rem);
-    font-size: 0.9rem;
-  }
-  .login__description p,
-  .login__description li,
-  .signup__link {
-    font-size: 1rem;
-  }
-  .login__button {
-    font-size: 1.2rem;
-  }
+  height: 100%;
+  align-self: flex-end;
+  color: #f0f0f0;
+  font-size: 1rem;
 }
 @media screen and (min-width: 900px) {
   .login {
-    grid-template: 1.5fr 1fr 4fr / 8vw 1.8fr 1fr 8vw;
-    min-height: calc(100vh - 18rem);
-    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
   }
-  .login__login {
-    grid-column: 3;
-    grid-row: 3;
+  .login__section {
+    max-width: 100%;
+  }
+  .login__section-welcome {
+    flex-shrink: 1;
+  }
+  .login__section-login {
+    flex-shrink: 1.5;
+    margin-left: 10%;
+  }
+  .login__heading {
+    font-size: 2.2rem;
   }
   .login__description {
-    grid-row: 2 / 4;
+    display: block;
   }
-  .login__form-row:first-of-type {
-    margin-top: 2rem;
-  }
-  .login__button {
-    width: 40%;
-  }
-  .signup__link {
-    width: 60%;
-    text-align: left;
-  }
-}
-@media screen and (min-width: 1100px) {
-  .login__heading {
-    font-size: 3.6rem;
-    line-height: 2.9rem;
-  }
-  .login__heading > span {
-    font-size: 1.7rem;
-  }
-  .login__description p,
-  .login__description li {
+  .login__features-title {
     font-size: 1.1rem;
+  }
+  .login__link {
+    width: auto;
+    flex-shrink: 0;
   }
 }
 @media screen and (min-width: 1500px) {
-  .login {
-    grid-template: 1.5fr 1fr 4fr / 15vw 2fr 1fr 15vw;
-  }
-  .login__description p,
-  .login__description li {
-    font-size: 1.3rem;
+  .login__action-container {
+    justify-content: flex-start;
   }
 }
-.login__button:disabled {
-  background: red;
-  cursor: not-allowed;
+@media screen and (min-width: 1550px) {
+  .login__heading {
+    font-size: 2.4rem;
+  }
+  .login__form-input,
+  .login__button {
+    height: 2.4rem;
+  }
 }
 </style>

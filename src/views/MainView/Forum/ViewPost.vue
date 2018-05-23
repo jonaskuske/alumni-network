@@ -8,10 +8,12 @@
         </template>
       </title-bar>
       <section id="content" class="post__content">
-        <p class="post__text">{{ post.content }}</p>
+        <p class="post__text" v-html="sanitizedContent"></p>
         <div class="post__content-meta">
           <p class="meta-label">Von</p>
           <p class="meta-text">{{ post.author }}</p>
+          <p class="meta-label">Unterforum</p>
+          <p class="meta-text">{{ post.subforum }}</p>
           <p class="meta-label">Nutzergruppe:</p>
           <p class="meta-text">{{ post.usergroup }}</p>
           <p class="meta-label">Erstellt am</p>
@@ -31,10 +33,11 @@
         <ul class="post__comments">
           <comment v-for="(comment, i) in post.comments" :key="i" :comment="comment" @delete="deleteComment(i)" />
         </ul>
-        <form action="post" class="post__new-comment" @submit.prevent="sendComment">
+        <form method="post" class="post__new-comment" @submit.prevent="sendComment">
           <label for="create-comment" class="post__new-comment-label">Kommentar hinzufügen</label>
           <textarea
             class="textarea-main post__new-comment-text"
+            :class="{'post__new-comment-text--warn': allowWarn && !newComment.content && !newComment.gallery.length}"
             placeholder="Text eingeben..."
             id="create-comment"
             v-model="newComment.content"
@@ -68,7 +71,8 @@
 import {
   DELETE_POST,
   ADD_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  MARK_AS_READ
 } from "@/store/modules/forum/types";
 import { mapGetters, mapActions } from "vuex";
 import { readImagesFromInput } from "@/lib/helpers";
@@ -78,10 +82,10 @@ import Comment from "@/components/Comment";
 import GalleryThumbnail from "@/components/GalleryThumbnail";
 
 export default {
-  name: "Post",
+  name: "ViewPost",
   components: { WithHeroImage, TitleBar, Comment, GalleryThumbnail },
   props: ["id"],
-  data: () => ({ newComment: { content: "", gallery: [] } }),
+  data: () => ({ newComment: { content: "", gallery: [] }, allowWarn: false }),
   computed: {
     ...mapGetters("forumStore", ["postsById"]),
     ...mapGetters("userStore", ["usersByUsername", "currentUser"]),
@@ -90,19 +94,32 @@ export default {
     },
     byUser() {
       return this.post.username === this.currentUser.username;
+    },
+    sanitizedContent() {
+      return (
+        this.post.content &&
+        this.$sanitize(this.post.content.replace(/\n/g, "<br>"))
+      );
     }
+  },
+  created() {
+    typeof this.post.read !== undefined && this.markAsRead(this.post);
   },
   methods: {
     ...mapActions("forumStore", {
       deletePost: DELETE_POST,
       addComment: ADD_COMMENT,
-      removeComment: REMOVE_COMMENT
+      removeComment: REMOVE_COMMENT,
+      markAsRead: MARK_AS_READ
     }),
     deleteAndLeave() {
       this.deletePost(this.post.id);
       this.$router.push("/forum");
     },
     sendComment() {
+      if (!this.newComment.content && !this.newComment.gallery.length)
+        return (this.allowWarn = true);
+
       const comment = {
         username: this.currentUser.username,
         ...this.newComment
@@ -117,6 +134,11 @@ export default {
     async addImages(evt) {
       const images = await readImagesFromInput(evt);
       Array.isArray(images) && this.newComment.gallery.push(...images);
+    }
+  },
+  watch: {
+    post(post) {
+      if (typeof post.read !== undefined) !post.read && this.markAsRead(post);
     }
   }
 };
@@ -170,7 +192,10 @@ export default {
   max-width: 70rem;
 }
 .post__new-comment-text::placeholder {
-  font-size: 0.9rem !important;
+  font-size: 0.9rem;
+}
+.post__new-comment-text--warn {
+  border-bottom: 2px solid tomato;
 }
 .post__new-comment-gallery {
   width: 100%;

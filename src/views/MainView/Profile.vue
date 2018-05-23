@@ -1,8 +1,9 @@
 <template>
-  <with-hero-image :image="currentUser.headerImage" :transition="true" :fixed="true">
+  <with-hero-image :image="currentUser.headerImage" :transition="true" :fixed="!mobileLayout">
     <main>
       <title-bar label="Mein Profil" :title="currentUser.name">
         <button class="button-main">Profil bearbeiten</button>
+        <button v-if="mobileLayout" class="button-main button--danger">Logout</button>
       </title-bar>
       <user-avatar :image="currentUser.profilePicture" class="my-profile__avatar" />
       <p class="title-label">Forum</p>
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import UserAvatar from "@/components/UserAvatar";
 import WithHeroImage from "@/components/WithHeroImage";
 import EventThumbnail from "@/components/EventThumbnail";
@@ -53,6 +54,7 @@ export default {
     TitleBar
   },
   computed: {
+    ...mapState(["mobileLayout"]),
     ...mapGetters("userStore", ["currentUser"]),
     ...mapGetters("eventStore", ["eventsByUsername"]),
     ...mapGetters("forumStore", ["postsByUsername"])

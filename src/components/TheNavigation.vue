@@ -2,7 +2,7 @@
   <nav class="navigation">
     <ul class="navigation__list">
       <li class="navigation__item" v-for="{ name, href } in links" :key="href">
-        <router-link :to="href" @click.native="closeMenu" class="navigation__link hover-underline">
+        <router-link :to="href" @click.native="closeMenu" class="navigation__link hover-underline" :class="{'navigation__link--exact-only': href === '/'}">
           {{ name }}
         </router-link>
       </li>
@@ -55,7 +55,8 @@ export default {
 .navigation__item:last-child > .navigation__link {
   margin-right: 0;
 }
-.navigation__link.router-link-active::before {
+.navigation__link.router-link-exact-active::before,
+.navigation__link.router-link-active:not(.navigation__link--exact-only)::before {
   border-bottom-color: #4040e9;
   transform: scaleX(1);
 }

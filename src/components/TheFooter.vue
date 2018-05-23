@@ -10,8 +10,8 @@
           <p>0160/3336948</p>
         </div>
         <div class="footer__links">
-          <router-link to="/privacy" :class="{light: false}">Datenschutz</router-link>
-          <router-link to="/imprint" :class="{light: false}">Impressum</router-link>
+          <router-link to="/privacy">Datenschutz</router-link>
+          <router-link to="/imprint">Impressum</router-link>
         </div>
       </div>
   </footer>
@@ -30,13 +30,12 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 1rem 0;
+  padding: 1rem 0 0.5rem 0;
   box-sizing: border-box;
   height: 100%;
   width: 90%;
   margin: 0 auto;
 }
-
 .footer__links,
 .footer__contact {
   margin-top: auto;
@@ -62,6 +61,7 @@
 @media screen and (min-width: 900px) {
   .footer__wrapper {
     width: 80%;
+    padding: 1rem 0;
   }
 }
 @media screen and (min-width: 1620px) {

@@ -14,7 +14,7 @@
       >
         Bild entfernen
       </button>
-      <form action="post" @submit.prevent="save">
+      <form method="post" @submit.prevent="save">
         <title-bar label="Forum" title="Beitrag bearbeiten">
           <button class="button-main" type="submit">Speichern</button>
         </title-bar>

@@ -17,18 +17,18 @@
       :value="unreadNotifications.length"
     />
 
-    <div class="statusbar__account" @click="$router.push('/me')">
+    <router-link to="/me" class="statusbar__account">
       <p class="statusbar__account-name hover-underline">{{ name }}</p>
       <user-avatar :image="profilePicture" :name="'Jonas Kuske'" class="statusbar__account-image" />
-    </div>
-    <button @click.prevent="logoutHelper" class="statusbar__logout">Logout</button>
+    </router-link>
+    <button @click.prevent="logout" class="statusbar__logout">Logout</button>
 
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
-import { LOGOUT } from "@/store/types";
+import * as auth from "@/lib/auth";
+import { mapState, mapGetters } from "vuex";
 import UserAvatar from "@/components/UserAvatar";
 import ButtonSmall from "@/components/ButtonSmall";
 
@@ -36,14 +36,14 @@ export default {
   name: "StatusBar",
   components: { UserAvatar, ButtonSmall },
   computed: {
+    ...mapState(["mobileLayout"]),
     ...mapState("userStore", ["name", "profilePicture"]),
     ...mapGetters("messageStore", ["unreadMessages"]),
     ...mapGetters("notificationStore", ["unreadNotifications"])
   },
   methods: {
-    ...mapActions({ logout: LOGOUT }),
-    logoutHelper() {
-      this.logout();
+    logout() {
+      auth.logout();
       this.$router.push("/login");
     }
   }
@@ -74,27 +74,47 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding-left: 1rem;
+  color: inherit;
+  text-decoration: none;
 }
 .statusbar__account-name {
   display: none;
   box-sizing: border-box;
-  margin: 0 1rem 0 0;
+  margin: 0 0.5rem 0 0;
 }
 .statusbar__account-image {
   width: 2.2rem;
   cursor: pointer;
 }
 .statusbar__logout {
+  position: relative;
+  display: none;
   background: none;
   border: none;
-  padding: 0 0 2px 0;
+  padding: 0;
+  color: #2c3e50;
+  margin-left: 1.2rem;
   cursor: pointer;
-  box-sizing: border-box;
 }
-.statusbar__logout:hover,
-.statusbar__logout:focus {
+.statusbar__logout::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  bottom: -4px;
+  left: 0;
+  opacity: 0;
   border-bottom: 2px solid red;
-  padding-bottom: 0;
+}
+.statusbar__logout:hover::before,
+.statusbar__logout:focus::before {
+  opacity: 1;
+}
+@media screen and (min-width: 900px) {
+  .statusbar__logout {
+    display: block;
+  }
 }
 @media screen and (min-width: 1200px) {
   .statusbar__account-name {

@@ -30,7 +30,7 @@ input {
 main {
   padding-bottom: 3rem;
 }
-p {
+p, a, li {
   font-size: 0.9rem;
   line-height: normal;
 }
@@ -78,6 +78,7 @@ p {
   font-size: 1.2rem;
   padding: 0.65rem 1.6rem;
   cursor: pointer;
+  transition: background-color 200ms, box-shadow 200ms ease-out;
 }
 .button-main:hover {
   background: rgba(17, 255, 97, 0.68);
@@ -127,7 +128,7 @@ p {
   }
 }
 @media screen and (min-width: 900px) {
-  p {
+  p, a, li {
     font-size: 1rem;
   }
   .title-label {

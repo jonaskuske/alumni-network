@@ -11,10 +11,22 @@ export const checkAuth = () => {
 
 export const revokeAuth = () => {
   sessionStorage.removeItem("gis-alumni-auth");
-  authState.authenticated = false;
 };
 
-export const createAuth = () => {
-  sessionStorage.setItem("gis-alumni-auth", true);
-  authState.authenticated = true;
+export const createAuth = user => {
+  sessionStorage.setItem("gis-alumni-auth", user);
+};
+
+export const login = (user, password) => {
+  if (user && password) {
+    createAuth(user);
+    return (authState.authenticated = true);
+  }
+
+  return false;
+};
+
+export const logout = () => {
+  revokeAuth();
+  authState.authenticated = false;
 };

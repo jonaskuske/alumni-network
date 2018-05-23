@@ -32,7 +32,8 @@ export default [
     content: `Ab morgen gibt es die Resultate des Plakatwettbewerbs für den DMP-Day!
       Die Plakate werden in Haus T ausgestellt, ein paar der Plakate hab ich aber auch schon mal hier hochgeladen,
       damit ihr einen kleinen Vorgesschmack bekommt. Zur Eröffnung werden auch die Gewinner verkündet - aber alle Beiträge waren super, also danke an alle, die mitgemacht haben!`,
-    gallery: [Plakat1, Plakat2, Plakat3]
+    gallery: [Plakat1, Plakat2, Plakat3],
+    subforum: "Ankündigungen"
   },
   {
     title: "#Caturday! Bilder von euren Haustieren hier her!",
@@ -49,8 +50,11 @@ export default [
       { username: "maraschmidt", content: "Ich mag meinen Papagei...", gallery: [bird] },
       { username: "tomlöhner", content: "Ist (leider) nicht meins, aber das Meerschweinchen von meiner Freundin ist auch super", gallery: [guinea] }
     ],
-    content: "Wie jeden Samstag ist wieder jedmöglich Form von #catcontent gefragt! Aber auch wenn Katzen die Welt regieren - Fotos und Beiträge zu anderen süßen Haustieren sind natürlich auch ok... 😼",
-    gallery: [dog, catSmall]
+    content: `Wie jeden Samstag ist wieder jedmögliche Form von <b>#catcontent</b> gefragt! Also ab zu den Kommentaren und frohes posten!
+
+Ich mach gleich mal den Anfang mit dieser kleinen Babykatze und einem süßen Hund. Denn obwohl Katzen die <i>(Internet-?)</i>Welt regieren - Fotos und Beiträge zu anderen süßen Haustieren sind natürlich auch ok... 😼`,
+    gallery: [dog, catSmall],
+    subforum: "Spaß und Sonstiges"
   },
   {
     title: "Showcase April: Woran habt ihr im letzten Monat gearbeitet?",
@@ -63,6 +67,7 @@ export default [
     content: "Lasst uns mal anfangen jeden Monat zu präsentieren an welchen Projekten wir gearbeitet haben! Ich fang das jetzt einfach mal mit dem Showcase April an...",
     id: "aea633a9-012a-45d3-98ab-7207a3aba314",
     comments: [],
-    gallery: []
+    gallery: [],
+    subforum: "Spaß und Sonstiges"
   }
 ];
