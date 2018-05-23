@@ -13,7 +13,7 @@ Gründe warum Registrierung nötig, qualitative Inhalte, moderierte Community. A
       <h2 class="login__features-title">Wir benötigen</h2>
       <ul class="login__features-list">
         <li class="login__features-listitem">Nutzername, Name & Email - diese sind für andere Nutzer sichtbar</li>
-        <li class="login__features-listitem">Ein Passwort - mindestens 10 Zeichen lang</li>
+        <li class="login__features-listitem">Ein Passwort - möglichst <a href="http://www.sicherespasswort.com" target="_blank" rel="noopener" class="signup__safe-link">sicher</a></li>
         <li class="login__features-listitem">Deine Nutzergruppe: Alumni, Studierende, Dozenten oder Gäste</li>
         <li class="login__features-listitem">Einen Nachweis für die Zugehörigkeit zur Nutzergruppe (außer Gäste) - Matrikelnummer, alte Studienbescheinigung o.ä.</li>
         <li class="login__features-listitem">Optional: Ein Profilbild</li>
@@ -192,5 +192,8 @@ Gründe warum Registrierung nötig, qualitative Inhalte, moderierte Community. A
   }
   .signup__container > select {
     height: 100%;
+  }
+  .signup__safe-link {
+    color: #f0f0f0;
   }
 </style>
