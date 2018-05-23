@@ -8,6 +8,8 @@ export default [
     title: "8. Alumni Stammtisch",
     image: image1,
     location: "Schäbige Eckkneipe in Lehe",
+    content: `Wie jedes Jahr findet auch 2018 wieder unser Stammtisch statt.
+    Freue mich über alle die auf ein (oder zwei, oder sieben) Bierchen vorbeikommen!`,
     usergroup: "Alumni",
     date: 1526831747301,
     id: "05e53bc1-176c-4c6b-be3f-ab943172297b",
