@@ -1,5 +1,4 @@
-import Forum from "@/views/MainView/Forum/Forum";
-import Events from "@/views/MainView/Events/Events";
+import Abstract from "../Abstract";
 import Profile from "@/views/MainView/Profile";
 import Overview from "@/views/MainView/Overview";
 import Contacts from "@/views/MainView/Contacts";
@@ -19,13 +18,13 @@ const routes = [
   {
     path: "forum",
     alias: ["posts"],
-    component: Forum,
+    component: Abstract,
     children: forumRoutes
   },
   {
     path: "events",
     alias: ["veranstaltungen"],
-    component: Events,
+    component: Abstract,
     children: eventRoutes
   },
   {
