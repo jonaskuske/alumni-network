@@ -103,7 +103,7 @@ export default {
     }
   },
   created() {
-    typeof this.post.read !== undefined && this.markAsRead(this.post);
+    typeof this.post.read !== "undefined" && this.markAsRead(this.post);
   },
   methods: {
     ...mapActions("forumStore", {
@@ -138,7 +138,7 @@ export default {
   },
   watch: {
     post(post) {
-      if (typeof post.read !== undefined) !post.read && this.markAsRead(post);
+      if (typeof post.read !== "undefined") !post.read && this.markAsRead(post);
     }
   }
 };
