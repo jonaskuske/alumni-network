@@ -1,20 +1,19 @@
-import profilePicture from "@/assets/images/jonas.jpg";
-import headerImage from "@/assets/images/profile-header.jpg";
-
-import { ADD_USERS, ADD_USER, SET_CURRENT_USER } from "./types";
+import * as auth from "@/lib/auth";
+import {
+  ADD_USERS,
+  ADD_USER,
+  SET_ACTIVE_USER,
+  REGISTER_NEW_USER
+} from "./types";
 
 const state = {
-  name: "Jonas Kuske",
-  username: "jonaskuske",
-  profilePicture,
-  headerImage,
   users: [],
-  currentUser: "jonaskuske"
+  currentUser: ""
 };
 const mutations = {
   [ADD_USER]: ({ users }, user) => users.push(user),
   [ADD_USERS]: ({ users }, newUsers) => users.push(...newUsers),
-  [SET_CURRENT_USER]: (state, username) => (state.currentUser = username)
+  [SET_ACTIVE_USER]: (state, username) => (state.currentUser = username)
 };
 const actions = {
   [ADD_USER]({ commit }, user) {
@@ -23,8 +22,19 @@ const actions = {
   [ADD_USERS]({ commit }, users) {
     Array.isArray(users) && commit(ADD_USERS, users);
   },
-  [SET_CURRENT_USER]({ commit }, username) {
-    commit(SET_CURRENT_USER, username);
+  [SET_ACTIVE_USER]({ commit }, username) {
+    commit(SET_ACTIVE_USER, username);
+  },
+  [REGISTER_NEW_USER]({ commit }, user) {
+    return new Promise((res, rej) => {
+      if (user.username && user.name && user.password) {
+        auth.addCredentials(user.username, user.password).then(username => {
+          commit(ADD_USER, user);
+          commit(SET_ACTIVE_USER, username);
+          res(username);
+        });
+      } else rej();
+    });
   }
 };
 const getters = {

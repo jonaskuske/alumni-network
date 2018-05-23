@@ -12,7 +12,7 @@ export default [
     path: "/login",
     component: Splash,
     children: splashRoutes,
-    beforeEnter (from, to, next) {
+    beforeEnter(from, to, next) {
       if (auth.checkAuth()) next("/");
       else next();
     }
@@ -31,7 +31,7 @@ export default [
     path: "/",
     component: MainView,
     children: mainRoutes,
-    beforeEnter (from, to, next) {
+    beforeEnter(from, to, next) {
       if (auth.checkAuth()) next();
       else next({ path: "/login", query: { redirect: from.fullPath } });
     }
