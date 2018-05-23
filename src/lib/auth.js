@@ -3,10 +3,7 @@ import { SET_ACTIVE_USER } from "@/store/modules/user/types";
 
 const authState = {
   authenticated: false,
-  users: [
-    { username: "jonaskuske", password: "test123" },
-    { username: "test", password: "test" }
-  ]
+  users: [{ username: "jonaskuske", password: "test123" }]
 };
 
 export const checkAuth = () => {
