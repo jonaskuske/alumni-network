@@ -2,7 +2,11 @@
   <div
     @click="$emit('click', $event)"
     class="gallery-thumbnail"
-    :class="[{'gallery-thumbnail--empty': !image}, {'gallery-thumbnail--clickable': clickable}, {force}, {circle}]"
+    :class="[
+      {'gallery-thumbnail--empty': !image},
+      {'gallery-thumbnail--clickable': clickable},
+      {'gallery-thumbnail--round': circle}
+    ]"
     :style="{backgroundImage: `url(${image})`}"
   />
 </template>
@@ -10,7 +14,7 @@
 <script>
 export default {
   name: "GalleryThumbnail",
-  props: ["image", "clickable", "force", "circle"]
+  props: ["image", "clickable", "circle"]
 };
 </script>
 
@@ -41,17 +45,15 @@ export default {
   opacity: 0;
 }
 .gallery-thumbnail--empty::after {
+  opacity: 1;
   background: url(~@/assets/icons/plus.svg) center / 60% no-repeat !important;
 }
 .gallery-thumbnail--clickable:hover::after {
   opacity: 1;
 }
-.force::after {
-  opacity: 1;
-}
-.circle,
-.circle::before,
-.circle::after {
+.gallery-thumbnail--round,
+.gallery-thumbnail--round::before,
+.gallery-thumbnail--round::after {
   border-radius: 50%;
 }
 </style>

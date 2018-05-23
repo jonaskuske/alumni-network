@@ -48,7 +48,8 @@ export default {
         title: "",
         content: "",
         gallery: [],
-        usergroup: "Eine der Optionen auswählen..."
+        subforum: "",
+        usergroup: ""
       },
       image: "",
       placeholderImage
@@ -66,11 +67,12 @@ export default {
       this.$router.push(`/forum/post/${post.id}`);
     },
     createPost() {
-      const { title, content, gallery, usergroup } = this.form;
+      const { title, content, gallery, subforum, usergroup } = this.form;
       const post = {
         title,
         content,
         gallery,
+        subforum,
         usergroup,
         date: new Date(),
         image: this.image,
