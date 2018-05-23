@@ -3,7 +3,7 @@
     <main>
       <title-bar label="Mein Profil" :title="currentUser.name">
         <button class="button-main">Profil bearbeiten</button>
-        <button v-if="mobileLayout" class="button-main button--danger">Logout</button>
+        <button v-if="mobileLayout" class="button-main button--danger" @click="logout">Logout</button>
       </title-bar>
       <user-avatar :image="currentUser.profilePicture" class="my-profile__avatar" />
       <p class="title-label">Forum</p>
@@ -37,33 +37,40 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-import UserAvatar from "@/components/UserAvatar";
-import WithHeroImage from "@/components/WithHeroImage";
-import EventThumbnail from "@/components/EventThumbnail";
-import PostThumbnail from "@/components/PostThumbnail";
-import TitleBar from "@/components/TitleBar";
+  import * as auth from "@/lib/auth";
+  import { mapGetters, mapState } from "vuex";
+  import UserAvatar from "@/components/UserAvatar";
+  import WithHeroImage from "@/components/WithHeroImage";
+  import EventThumbnail from "@/components/EventThumbnail";
+  import PostThumbnail from "@/components/PostThumbnail";
+  import TitleBar from "@/components/TitleBar";
 
-export default {
-  name: "Profile",
-  components: {
-    WithHeroImage,
-    UserAvatar,
-    EventThumbnail,
-    PostThumbnail,
-    TitleBar
-  },
-  computed: {
-    ...mapState(["mobileLayout"]),
-    ...mapGetters("userStore", ["currentUser"]),
-    ...mapGetters("eventStore", ["eventsByUsername"]),
-    ...mapGetters("forumStore", ["postsByUsername"])
-  }
-};
+  export default {
+    name: "Profile",
+    components: {
+      WithHeroImage,
+      UserAvatar,
+      EventThumbnail,
+      PostThumbnail,
+      TitleBar
+    },
+    computed: {
+      ...mapState(["mobileLayout"]),
+      ...mapGetters("userStore", ["currentUser"]),
+      ...mapGetters("eventStore", ["eventsByUsername"]),
+      ...mapGetters("forumStore", ["postsByUsername"])
+    },
+    methods: {
+      logout() {
+        auth.logout();
+        this.$router.push("/login");
+      }
+    }
+  };
 </script>
 
 <style>
-.my-profile__avatar {
-  width: 200px;
-}
+  .my-profile__avatar {
+    width: 200px;
+  }
 </style>
