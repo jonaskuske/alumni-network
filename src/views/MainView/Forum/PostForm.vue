@@ -93,7 +93,7 @@ export default {
         usergroup: this.$refs.usergroup.value,
         gallery: this.gallery
       };
-      if (subforum) form.subforum = subforum;
+      if (typeof subforum === "string") form.subforum = subforum;
 
       this.$emit("input", form);
     },
