@@ -31,7 +31,7 @@ import { generateId, readImageFromInput } from "@/lib/helpers";
 import placeholderImage from "@/assets/images/hero-placeholder.svg";
 import { mapActions, mapGetters } from "vuex";
 import { ADD_POST } from "@/store/modules/forum/types";
-import PostForm from "./PostForm";
+import PostForm from "@/components/PostForm";
 import WithHeroImage from "@/components/WithHeroImage";
 import TitleBar from "@/components/TitleBar";
 
