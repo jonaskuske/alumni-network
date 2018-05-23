@@ -147,17 +147,24 @@
 <style>
   .post__content {
     display: flex;
+    flex-wrap: wrap;
+    margin: -1rem 0 0 -2rem;
   }
   .post__text {
-    flex: 7;
+    flex-basis: 67%;
+    flex-grow: 3;
+    flex-shrink: 1;
     margin: 0;
     text-align: justify;
+    margin: 1rem 0 0 2rem;
   }
   .post__content-meta {
-    flex: 3;
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 3;
     background: #f0f0f0;
     padding: 0.5rem 1rem;
-    margin-left: 2rem;
+    margin: 1rem 0 0 2rem;
   }
   .post__gallery {
     width: 100%;
