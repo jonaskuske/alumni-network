@@ -1,8 +1,10 @@
+import Abstract from "../Abstract";
 import Overview from "@/views/MainView/Forum/Overview";
 import CreatePost from "@/views/MainView/Forum/CreatePost";
 import EditPost from "@/views/MainView/Forum/EditPost";
 import ViewPost from "@/views/MainView/Forum/ViewPost";
-import Subforums from "@/views/MainView/Forum/Subforums";
+import SubforumList from "@/views/MainView/Forum/SubforumList";
+import Subforum from "@/views/MainView/Forum/Subforum";
 
 export default [
   {
@@ -15,6 +17,10 @@ export default [
     component: CreatePost
   },
   {
+    path: "post",
+    redirect: "/forum"
+  },
+  {
     path: "post/:id",
     component: ViewPost,
     props: true
@@ -25,9 +31,25 @@ export default [
     props: true
   },
   {
-    path: "sub",
-    alias: ["subforums", "forums"],
-    component: Subforums,
-    props: true
+    path: "subforums",
+    alias: ["sub", "forums"],
+    component: Abstract,
+    children: [
+      {
+        path: "",
+        component: SubforumList
+      },
+      {
+        path: ":tag",
+        component: Subforum,
+        props: true
+      },
+      {
+        path: ":tag/create",
+        alias: [":tag/new", ":tag/submit"],
+        component: CreatePost,
+        props: true
+      }
+    ]
   }
 ];

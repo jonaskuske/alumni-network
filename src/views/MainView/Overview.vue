@@ -15,6 +15,14 @@
           </p>
         </section>
 
+        <section v-if="posts.length">
+          <p class="title-label">Forum</p>
+          <h2 class="subtitle">Neueste Beiträge</h2>
+          <div class="thumbnail-grid">
+            <post-thumbnail v-for="post in posts" :key="post.id" :post="post" class="overview__thumbnail" />
+          </div>
+        </section>
+
         <section v-if="events.length">
           <p class="title-label">Events</p>
           <h2 class="subtitle">Nächste Termine</h2>
@@ -28,13 +36,6 @@
           </div>
         </section>
 
-        <section>
-          <p class="title-label">Forum</p>
-          <h2 class="subtitle">Neueste Beiträge</h2>
-          <div class="thumbnail-grid">
-            <post-thumbnail v-for="post in posts" :key="post.id" :post="post" class="overview__thumbnail" />
-          </div>
-        </section>
 
       </main>
   </with-hero-image>

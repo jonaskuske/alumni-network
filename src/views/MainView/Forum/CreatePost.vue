@@ -42,6 +42,7 @@ export default {
     TitleBar,
     PostForm
   },
+  props: ["tag"],
   data() {
     return {
       form: {
@@ -56,7 +57,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("userStore", ["currentUser"])
+    ...mapGetters("userStore", ["currentUser"]),
+    ...mapGetters("forumStore", ["getSubforumByTag"])
+  },
+  created() {
+    const subforum = this.getSubforumByTag(this.tag);
+    if (subforum.name) this.form.subforum = subforum.name;
   },
   methods: {
     ...mapActions("forumStore", { addPost: ADD_POST }),

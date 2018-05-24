@@ -21,9 +21,7 @@
           <label for="sel-subforum">Unterforum</label>
           <select @input="update" :value="value.subforum" ref="subforum" id="sel-subforum">
             <option disabled value="" v-text="'Eine der Optionen auswählen...'" />
-            <option value="Alumni" v-text="'Alumni'" />
-            <option value="Studierende" v-text="'Studierende'" />
-            <option value="Alle" v-text="'Alle'" />
+            <option v-for="(subforum, i) in subforumNames" :key="i" :value="subforum" v-text="subforum" />
           </select>
         </div>
         <div class="create-post__select">
@@ -56,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { readImagesFromInput } from "@/lib/helpers";
 import LabelledInput from "@/components/LabelledInput";
 import GalleryThumbnail from "@/components/GalleryThumbnail";
@@ -66,6 +65,7 @@ export default {
   props: ["value"],
   data: () => ({ title: "", gallery: [] }),
   computed: {
+    ...mapGetters("forumStore", ["subforumNames"]),
     thumbnails() {
       /* Gallery empty? Show 5 empty thumbnails 'add image' */
       return this.value.gallery.length

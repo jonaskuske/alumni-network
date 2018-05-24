@@ -12,7 +12,12 @@ import {
 } from "./types";
 
 const state = {
-  posts: []
+  posts: [],
+  subforums: [
+    { name: "Arbeiten", tag: "arbeiten" },
+    { name: "Ankündigungen", tag: "ankuendigungen" },
+    { name: "Spaß und Sonstiges", tag: "spassundsonstiges" }
+  ]
 };
 
 const mutations = {
@@ -86,7 +91,32 @@ const getters = {
       obj[post.id] = post;
       return obj;
     }, {});
-  }
+  },
+  postsBySubforumName: ({ posts }, { subforumNames }) => {
+    if (!posts.length) return {};
+
+    return posts.reduce((obj, post) => {
+      if (!subforumNames.includes(post.subforum)) return obj;
+
+      Array.isArray(obj[post.subforum])
+        ? obj[post.subforum].push(post)
+        : (obj[post.subforum] = [post]);
+      return obj;
+    }, {});
+  },
+  postsBySubforumTag: (_, { postsBySubforumName, getSubforumByName }) => {
+    return Object.entries(postsBySubforumName).reduce((obj, [name, posts]) => {
+      const subforum = getSubforumByName(name);
+      if (!subforum.tag) return obj;
+
+      obj[subforum.tag] = posts;
+      return obj;
+    }, {});
+  },
+  getSubforumByName: ({ subforums }) => name => subforums.find(subforum => subforum.name === name) || {},
+  getSubforumByTag: ({ subforums }) => tag => subforums.find(subforum => subforum.tag === tag) || {},
+  subforumNames: ({ subforums }) => subforums.map(subforum => subforum.name),
+  subforumTags: ({ subforums }) => subforums.map(subforum => subforum.tag)
 };
 
 export default {
