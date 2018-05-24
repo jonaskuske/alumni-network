@@ -10,22 +10,25 @@
         <p>{{ event.date | date }}</p>
     </template>
     <template slot="buttons">
-          <button-small
-            class="event-thumbnail__button icon--checkmark"
-            :class="{'icon--bg-green': event.attending === true}"
-            @click.prevent="setAttendingState({id: event.id, value: true})"
-          />
-          <button-small
-            class="event-thumbnail__button icon--cross"
-            :class="{'icon--bg-red': event.attending === false}"
-            @click.prevent="setAttendingState({id: event.id, value: false})"
-          />
+      <template v-if="!byUser">
+        <button-small
+          class="event-thumbnail__button icon--checkmark"
+          :class="[{'icon--bg-green': event.attending === true}]"
+          @click.prevent="setAttendingState({id: event.id, value: true})"
+        />
+        <button-small
+          class="event-thumbnail__button icon--cross"
+          :class="[{'icon--bg-red': event.attending === false}]"
+          @click.prevent="setAttendingState({id: event.id, value: false})"
+        />
+      </template>
+      <p v-else>Gastgeber</p>
     </template>
   </thumbnail>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { SET_ATTENDING_STATE } from "@/store/modules/events/types";
 import Thumbnail from "./Thumbnail";
 import ButtonSmall from "@/components/ButtonSmall";
@@ -37,6 +40,12 @@ export default {
       type: Object,
       required: true,
       default: () => ({})
+    }
+  },
+  computed: {
+    ...mapGetters("userStore", ["currentUser"]),
+    byUser() {
+      return this.event.username === this.currentUser.username;
     }
   },
   methods: {
