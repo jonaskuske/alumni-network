@@ -4,8 +4,8 @@
       <event-thumbnail v-for="event in filteredEvents" :key="event.id" :event="event"/>
     </div>
     <div class="forum__post-filters">
-      <h2 class="post-display__filter-title">Forenbeiträge filtern</h2>
-      <labelled-input v-model="query" label="Post suchen..." class="post-display__search" />
+      <h2 class="post-display__filter-title">Events filtern</h2>
+      <labelled-input v-model="query" label="Event suchen..." class="post-display__search" />
       <button type="button" class="button-secondary post-display__reset" @click="query = ''">
         Filter löschen
       </button>

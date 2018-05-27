@@ -1,7 +1,7 @@
 <template>
   <main>
     <title-bar title="Nächste Termine" label="Events">
-      <button class="button-main">Event erstellen</button>
+      <button class="button-main" @click="$router.push('/events/new')">Event erstellen</button>
     </title-bar>
     <section class="forum__links">
       <router-link :to="{path: '/events', query: {view: 'calendar'}}" class="button-secondary">Kalenderansicht</router-link>
