@@ -22,59 +22,62 @@
           @click.prevent="setAttendingState({id: event.id, value: false})"
         />
       </template>
-      <p v-else>Gastgeber</p>
+      <template v-else>
+        <p style="margin-right: 1rem">Gastgeber</p>
+        <button-small class="icon--edit" @click.prevent="$router.push(`/events/event/${event.id}/edit`)" />
+      </template>
     </template>
   </thumbnail>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { SET_ATTENDING_STATE } from "@/store/modules/events/types";
-import Thumbnail from "./Thumbnail";
-import ButtonSmall from "@/components/ButtonSmall";
+  import { mapActions, mapGetters } from "vuex";
+  import { SET_ATTENDING_STATE } from "@/store/modules/events/types";
+  import Thumbnail from "./Thumbnail";
+  import ButtonSmall from "@/components/ButtonSmall";
 
-export default {
-  components: { Thumbnail, ButtonSmall },
-  props: {
-    event: {
-      type: Object,
-      required: true,
-      default: () => ({})
+  export default {
+    components: { Thumbnail, ButtonSmall },
+    props: {
+      event: {
+        type: Object,
+        required: true,
+        default: () => ({})
+      }
+    },
+    computed: {
+      ...mapGetters("userStore", ["currentUser"]),
+      byUser() {
+        return this.event.username === this.currentUser.username;
+      }
+    },
+    methods: {
+      ...mapActions("eventStore", { setAttendingState: SET_ATTENDING_STATE })
     }
-  },
-  computed: {
-    ...mapGetters("userStore", ["currentUser"]),
-    byUser() {
-      return this.event.username === this.currentUser.username;
-    }
-  },
-  methods: {
-    ...mapActions("eventStore", { setAttendingState: SET_ATTENDING_STATE })
-  }
-};
+  };
 </script>
 
 <style>
-.event-thumbnail__button {
-  flex-basis: 33%;
-  transition: background-color 170ms ease-in;
-  background-color: #282828;
-}
-.event-thumbnail__button:hover {
-  background-color: #909090;
-}
-.icon--bg-green,
-.icon--bg-green:hover {
-  background-color: #15b100;
-}
-.icon--bg-red,
-.icon--bg-red:hover {
-  background-color: #b90000;
-}
-.icon--checkmark {
-  background-image: url(~@/assets/icons/check.svg);
-}
-.icon--cross {
-  background-image: url(~@/assets/icons/cross.svg);
-}
+  .event-thumbnail__button {
+    flex-basis: 33%;
+    transition: background-color 170ms ease-in;
+    background-color: #282828;
+  }
+  .event-thumbnail__button:hover {
+    background-color: #909090;
+  }
+  .icon--bg-green,
+  .icon--bg-green:hover {
+    background-color: #15b100;
+  }
+  .icon--bg-red,
+  .icon--bg-red:hover {
+    background-color: #b90000;
+  }
+  .icon--checkmark {
+    background-image: url(~@/assets/icons/check.svg);
+  }
+  .icon--cross {
+    background-image: url(~@/assets/icons/cross.svg);
+  }
 </style>

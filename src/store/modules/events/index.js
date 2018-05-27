@@ -1,26 +1,47 @@
-import { ADD_EVENTS, SET_ATTENDING_STATE } from "./types";
+import Vue from "vue";
+import {
+  ADD_EVENTS,
+  SET_ATTENDING_STATE,
+  ADD_EVENT,
+  REPLACE_EVENT,
+  DELETE_EVENT,
+  RESET_ATTENDING_STATE
+} from "./types";
 
 const state = {
   events: []
 };
 
 const mutations = {
-  addEvents: ({ events }, newEvents) => events.push(...newEvents),
-  attendEvent: ({ events }, i) => (events[i].attending = true),
-  dontAttendEvent: ({ events }, i) => (events[i].attending = false),
-  resetAttendingState: ({ events }, i) => (events[i].attending = undefined)
+  [ADD_EVENT]: ({ events }, event) => events.push(event),
+  [ADD_EVENTS]: ({ events }, newEvents) => events.push(...newEvents),
+  [REPLACE_EVENT]: ({ events }, { index, event }) => Vue.set(events, index, event),
+  [DELETE_EVENT]: ({ events }, index) => events.splice(index, 1),
+  [SET_ATTENDING_STATE]: ({ events }, { index, value }) => (events[index].attending = value),
+  [RESET_ATTENDING_STATE]: ({ events }, i) => (events[i].attending = undefined)
 };
 
 const actions = {
+  [ADD_EVENT]({ commit }, event) {
+    commit(ADD_EVENT, event);
+  },
   [ADD_EVENTS]({ commit }, events) {
     Array.isArray(events) && commit("addEvents", events);
+  },
+  [REPLACE_EVENT]({ commit, getters }, event) {
+    const index = getters.getEventIndexById(event.id);
+    commit(REPLACE_EVENT, { index, event });
+  },
+  [DELETE_EVENT]({ commit, getters }, event) {
+    const index = getters.getEventIndexById(event.id);
+    commit(DELETE_EVENT, index);
   },
   [SET_ATTENDING_STATE]({ commit, getters }, { id, value }) {
     const previousValue = getters.eventsById[id].attending;
     const index = getters.getEventIndexById(id);
     if (previousValue !== value || previousValue === undefined) {
-      commit(value ? "attendEvent" : "dontAttendEvent", index);
-    } else commit("resetAttendingState", index);
+      commit(SET_ATTENDING_STATE, { value, index });
+    } else commit(RESET_ATTENDING_STATE, index);
   }
 };
 

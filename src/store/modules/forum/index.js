@@ -32,38 +32,38 @@ const mutations = {
 };
 
 const actions = {
-  [ADD_POST] ({ commit }, post) {
+  [ADD_POST]({ commit }, post) {
     commit(ADD_POST, post);
   },
-  [ADD_POSTS] ({ commit }, posts) {
+  [ADD_POSTS]({ commit }, posts) {
     Array.isArray(posts) && commit(ADD_POSTS, posts);
   },
-  [REPLACE_POST] ({ commit, getters }, post) {
+  [REPLACE_POST]({ commit, getters }, post) {
     const index = getters.getPostIndexById(post.id);
     commit(REPLACE_POST, { index, post });
   },
-  [DELETE_POST] ({ commit, getters }, id) {
-    const index = getters.getPostIndexById(id);
+  [DELETE_POST]({ commit, getters }, post) {
+    const index = getters.getPostIndexById(post.id);
     commit(DELETE_POST, index);
   },
-  [MARK_AS_READ] ({ commit, getters }, { id }) {
+  [MARK_AS_READ]({ commit, getters }, { id }) {
     const index = getters.getPostIndexById(id);
     commit(MARK_AS_READ, index);
   },
-  [MARK_AS_UNREAD] ({ commit, getters }, { id }) {
+  [MARK_AS_UNREAD]({ commit, getters }, { id }) {
     const index = getters.getPostIndexById(id);
     commit(MARK_AS_UNREAD, index);
   },
-  [TOGGLE_READ_STATE] ({ commit, getters }, { id }) {
+  [TOGGLE_READ_STATE]({ commit, getters }, { id }) {
     const read = getters.getPostById(id).read;
     const index = getters.getPostIndexById(id);
     commit(read ? MARK_AS_UNREAD : MARK_AS_READ, index);
   },
-  [ADD_COMMENT] ({ commit, getters }, { id, comment }) {
+  [ADD_COMMENT]({ commit, getters }, { id, comment }) {
     const index = getters.getPostIndexById(id);
     commit(ADD_COMMENT, { index, comment });
   },
-  [REMOVE_COMMENT] ({ commit, getters }, { id, index }) {
+  [REMOVE_COMMENT]({ commit, getters }, { id, index }) {
     const postIndex = getters.getPostIndexById(id);
     commit(REMOVE_COMMENT, { postIndex, index });
   }

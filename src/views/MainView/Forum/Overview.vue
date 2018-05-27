@@ -13,28 +13,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import TitleBar from "@/components/TitleBar";
-import PostDisplay from "@/components/PostDisplay";
+  import { mapGetters } from "vuex";
+  import TitleBar from "@/components/TitleBar";
+  import PostDisplay from "@/components/PostDisplay";
 
-export default {
-  name: "Forum",
-  components: { TitleBar, PostDisplay },
-  computed: {
-    ...mapGetters("forumStore", { posts: "postsSortedByNewest" })
-  }
-};
+  export default {
+    name: "Forum",
+    components: { TitleBar, PostDisplay },
+    computed: {
+      ...mapGetters("forumStore", { posts: "postsSortedByNewest" })
+    }
+  };
 </script>
 
 <style>
-.forum {
-  width: 100%;
-}
-.forum__links {
-  display: flex;
-  margin: 0 0 1.5rem 0;
-}
-.forum__links > a {
-  margin-right: 1rem;
-}
+  .forum {
+    width: 100%;
+  }
+  .forum__links {
+    display: flex;
+    margin: 0 0 1.5rem 0;
+  }
+  .forum__links > a,
+  .forum__links > button {
+    margin-right: 1rem;
+  }
 </style>
