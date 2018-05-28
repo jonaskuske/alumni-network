@@ -1,7 +1,7 @@
 <template>
 <div class="events">
-  <list-view v-if="!calendar" :events="events" />
-  <calendar-view v-else :events="events" />
+  <calendar-view v-if="calendar" :events="events" />
+  <list-view v-else :events="events" />
 </div>
 </template>
 

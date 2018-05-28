@@ -1,9 +1,10 @@
 <template>
   <section class="events-display">
     <div class="thumbnail-grid events-display__thumbnails">
-      <event-thumbnail v-for="event in filteredEvents" :key="event.id" :event="event"/>
+      <p v-if="!filteredEvents.length">Noch keine Events.</p>
+      <event-thumbnail v-else v-for="event in filteredEvents" :key="event.id" :event="event"/>
     </div>
-    <div class="forum__post-filters">
+    <div class="forum__post-filters" v-if="events.length">
       <h2 class="post-display__filter-title">Events filtern</h2>
       <labelled-input v-model="query" label="Event suchen..." class="post-display__search" />
       <button type="button" class="button-secondary post-display__reset" @click="query = ''">
@@ -52,6 +53,7 @@
 
 <style>
   .events-display {
+    width: 100%;
     display: flex;
     flex-wrap: wrap-reverse;
     margin-left: -3rem;

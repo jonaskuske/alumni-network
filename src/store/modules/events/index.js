@@ -67,6 +67,24 @@ const getters = {
       obj[event.id] = event;
       return obj;
     }, {});
+  },
+  eventsByDate: ({ events }) => {
+    if (!events.length) return {};
+
+    return events.reduce((obj, event) => {
+      const date = new Date(event.date);
+      const y = date.getFullYear();
+      const m = date.getMonth() + 1;
+      const d = date.getDate();
+
+      if (!obj[y]) obj[y] = {};
+      if (!obj[y][m]) obj[y][m] = {};
+
+      if (Array.isArray(obj[y][m][d])) obj[y][m][d].push(event);
+      else obj[y][m][d] = [event];
+
+      return obj;
+    }, {})
   }
 };
 
