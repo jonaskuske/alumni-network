@@ -47,7 +47,7 @@
         form: {
           title: "",
           content: "",
-          date: "2018-01-01",
+          date: "",
           location: "",
           usergroup: ""
         },
@@ -71,7 +71,7 @@
         const event = {
           title,
           content,
-          date,
+          date: new Date(date).getTime(),
           location,
           usergroup,
           image: this.image,

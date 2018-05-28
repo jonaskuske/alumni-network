@@ -77,7 +77,8 @@
         deleteEvent: DELETE_EVENT
       }),
       save() {
-        const newEvent = { ...this.form, ...this.data, image: this.image };
+        const { date, ...form } = this.form;
+        const newEvent = { ...form, ...this.data, date: new Date(date).getTime(), image: this.image };
         this.replaceEvent(newEvent);
         this.$router.push(`/events/event/${newEvent.id}`);
       },

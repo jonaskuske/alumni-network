@@ -14,7 +14,7 @@
     name: "Events",
     components: { ListView, CalendarView },
     computed: {
-      ...mapGetters("eventStore", { events: "eventsSortedByNewest" }),
+      ...mapGetters("eventStore", { events: "eventsSortedByOldest" }),
       calendar() {
         return this.$route.query.view === "calendar";
       }
