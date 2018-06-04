@@ -1,6 +1,6 @@
 <template>
 <div class="events">
-  <calendar-view v-if="calendar" :events="events" />
+  <calendar-view v-if="calendar" />
   <list-view v-else :events="events" />
 </div>
 </template>

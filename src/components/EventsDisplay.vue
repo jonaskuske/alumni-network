@@ -53,7 +53,6 @@
 
 <style>
   .events-display {
-    width: 100%;
     display: flex;
     flex-wrap: wrap-reverse;
     margin-left: -3rem;
