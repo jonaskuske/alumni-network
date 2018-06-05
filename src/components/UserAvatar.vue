@@ -1,15 +1,20 @@
 <script>
 import userAvatar from "@/assets/images/userAvatar.svg";
 
+const noop = () => {};
+
 export default {
   functional: true,
-  render(createElement, { props, data }) {
+  render(createElement, { props, data, listeners }) {
     return createElement("div", {
       attrs: {
         class: ["avatar-thumb", data.class, data.staticClass].join(" "),
         title: props.name,
         alt: "",
         style: `background-image: url(${props.image || userAvatar})`
+      },
+      on: {
+        click: listeners.click || noop
       }
     });
   }

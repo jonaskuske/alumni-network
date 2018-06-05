@@ -2,6 +2,9 @@ import Abstract from "../Abstract";
 import Profile from "@/views/MainView/Profile";
 import Overview from "@/views/MainView/Overview";
 import Contacts from "@/views/MainView/Contacts";
+import Search from "@/views/MainView/Search";
+import Messages from "@/views/MainView/Messages";
+import Notifications from "@/views/MainView/Notifications";
 import Jobs from "@/views/MainView/Jobs";
 import ConstructionNotice from "@/views/MainView/ConstructionNotice";
 
@@ -35,6 +38,21 @@ const routes = [
   {
     path: "jobs",
     component: Jobs
+  },
+  {
+    path: "search",
+    alias: ["suche", "durchsuchen"],
+    component: Search
+  },
+  {
+    path: "messages",
+    alias: ["chats", "nachrichten", "unterhaltungen"],
+    component: Messages
+  },
+  {
+    path: "benachrichtigungen",
+    alias: ["notifications"],
+    component: Notifications
   },
   {
     path: "me",

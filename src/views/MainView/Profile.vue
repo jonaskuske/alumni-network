@@ -2,10 +2,20 @@
   <with-hero-image :image="currentUser.headerImage" :transition="true" :fixed="!mobileLayout">
     <main>
       <title-bar label="Mein Profil" :title="currentUser.name">
-        <button class="button-main">Profil bearbeiten</button>
-        <button v-if="mobileLayout" class="button-main button--danger" @click="logout">Logout</button>
+        <template v-if="editMode">
+         <button class="button-main button--danger" @click="editMode = false; newImage = ''">Abbrechen</button>
+         <button class="button-main" @click="save">Profil speichern</button>
+        </template>
+        <button v-else class="button-main" @click="editMode = true">Profil bearbeiten</button>
+        <button v-if="mobileLayout && !editMode" class="button-main button--danger" @click="logout">Logout</button>
       </title-bar>
-      <user-avatar :image="currentUser.profilePicture" class="my-profile__avatar" />
+      <user-avatar
+        v-if="editMode"
+        :image="newImage || currentUser.profilePicture"
+        class="my-profile__avatar my-profile__avatar--edit"
+        @click="$refs.picture.click()"
+      />
+      <user-avatar v-else :image="currentUser.profilePicture" class="my-profile__avatar" />
       <p class="title-label">Forum</p>
       <h2 class="subtitle" id="posts">Meine Beiträge</h2>
       <div class="thumbnail-grid">
@@ -32,45 +42,81 @@
           Keine Events erstellt.
         </p>
       </div>
+      <input type="file" @change="storeProfilePic" accept="image/*" class="hide" ref="picture">
     </main>
   </with-hero-image>
 </template>
 
 <script>
-  import * as auth from "@/lib/auth";
-  import { mapGetters, mapState } from "vuex";
-  import UserAvatar from "@/components/UserAvatar";
-  import WithHeroImage from "@/components/WithHeroImage";
-  import EventThumbnail from "@/components/EventThumbnail";
-  import PostThumbnail from "@/components/PostThumbnail";
-  import TitleBar from "@/components/TitleBar";
+import * as auth from "@/lib/auth";
+import { readImageFromInput } from "@/lib/helpers";
+import { SET_PROFILE_PICTURE } from "@/store/modules/user/types";
+import { mapGetters, mapState, mapActions } from "vuex";
+import UserAvatar from "@/components/UserAvatar";
+import WithHeroImage from "@/components/WithHeroImage";
+import EventThumbnail from "@/components/EventThumbnail";
+import PostThumbnail from "@/components/PostThumbnail";
+import TitleBar from "@/components/TitleBar";
+export default {
+  name: "Profile",
+  components: {
+    WithHeroImage,
+    UserAvatar,
+    EventThumbnail,
+    PostThumbnail,
+    TitleBar
+  },
+  data: () => ({ editMode: false, newImage: "" }),
+  computed: {
+    ...mapState(["mobileLayout"]),
+    ...mapGetters("userStore", ["currentUser"]),
+    ...mapGetters("eventStore", ["eventsByUsername"]),
+    ...mapGetters("forumStore", ["postsByUsername"])
+  },
+  methods: {
+    ...mapActions("userStore", { setProfilePicture: SET_PROFILE_PICTURE }),
+    logout() {
+      auth.logout();
+      this.$router.push("/login");
+    },
+    async storeProfilePic(evt) {
+      const image = await readImageFromInput(evt);
+      this.newImage = image;
+      this.$refs.picture.value = "";
+    },
+    save() {
+      this.editMode = false;
+      const picture = this.newImage;
+      if (!picture) return;
 
-  export default {
-    name: "Profile",
-    components: {
-      WithHeroImage,
-      UserAvatar,
-      EventThumbnail,
-      PostThumbnail,
-      TitleBar
-    },
-    computed: {
-      ...mapState(["mobileLayout"]),
-      ...mapGetters("userStore", ["currentUser"]),
-      ...mapGetters("eventStore", ["eventsByUsername"]),
-      ...mapGetters("forumStore", ["postsByUsername"])
-    },
-    methods: {
-      logout() {
-        auth.logout();
-        this.$router.push("/login");
-      }
+      this.setProfilePicture({ picture });
     }
-  };
+  }
+};
 </script>
 
 <style>
-  .my-profile__avatar {
-    width: 200px;
-  }
+.my-profile__avatar {
+  width: 200px;
+  position: relative;
+}
+.my-profile__avatar::after {
+  content: "";
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6) center / 30% no-repeat;
+  background-image: url(~@/assets/icons/edit-bright.svg);
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+.my-profile__avatar--edit {
+  cursor: pointer;
+}
+.my-profile__avatar--edit::after {
+  opacity: 1;
+}
 </style>
