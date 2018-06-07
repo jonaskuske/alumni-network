@@ -1,84 +1,84 @@
 <template>
-  <header class="header" :class="{'header--expanded': mobileLayout && menuOpen}">
-<div class="header__container">
+  <header :class="{'header--expanded': mobileLayout && menuOpen}" class="header">
+    <div class="header__container">
       <!-- Logo -->
       <transition mode="out-in" appear> <!-- Bugfix for Edge! -->
         <dmp-logo
           v-if="mobileLayout"
+          :show-hamburger="showHamburger"
+          :class="['header__logo', {'home-path-matched': onHome}]"
           role="button"
           @click.native="toggleMenu"
-          :showHamburger="showHamburger"
-          :class="['header__logo', {'home-path-matched': onHome}]"
         />
         <router-link v-else to="/"><dmp-logo class="header__logo" /></router-link>
       </transition>
 
       <!-- Navigation links -->
       <transition name="fade--delayed">
-        <the-navigation :links="links" class="header__navigation" v-if="!mobileLayout || menuOpen" />
+        <the-navigation v-if="!mobileLayout || menuOpen" :links="links" class="header__navigation" />
       </transition>
 
       <!-- Buttons and Login state -->
       <the-status-bar class="header__statusbar" />
-      </div>
+    </div>
   </header>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import DmpLogo from "@/components/DmpLogo";
-import TheNavigation from "@/components/TheNavigation";
-import TheStatusBar from "@/components/TheStatusBar";
+import { mapState, mapActions } from 'vuex'
+import DmpLogo from '@/components/DmpLogo'
+import TheNavigation from '@/components/TheNavigation'
+import TheStatusBar from '@/components/TheStatusBar'
 
 export default {
   components: {
     DmpLogo,
     TheNavigation,
-    TheStatusBar
+    TheStatusBar,
   },
   data() {
     return {
       baseLinks: [
         {
-          name: "Forum",
-          href: "/forum"
+          name: 'Forum',
+          href: '/forum',
         },
         {
-          name: "Events",
-          href: "/events"
+          name: 'Events',
+          href: '/events',
         },
         {
-          name: "Kontakte",
-          href: "/kontakte"
+          name: 'Kontakte',
+          href: '/kontakte',
         },
         {
-          name: "Jobs",
-          href: "/jobs"
-        }
+          name: 'Jobs',
+          href: '/jobs',
+        },
       ],
-      onHome: true
-    };
+      onHome: true,
+    }
   },
   computed: {
-    ...mapState(["mobileLayout", "menuOpen"]),
+    ...mapState(['mobileLayout', 'menuOpen']),
     links() {
       return this.mobileLayout
-        ? [{ name: "Home", href: "/" }, ...this.baseLinks]
-        : this.baseLinks;
+        ? [{ name: 'Home', href: '/' }, ...this.baseLinks]
+        : this.baseLinks
     },
     showHamburger() {
-      return this.mobileLayout && !this.menuOpen;
-    }
+      return this.mobileLayout && !this.menuOpen
+    },
   },
   watch: {
     $route({ path }) {
-      this.onHome = path === "/";
-    }
+      this.onHome = path === '/'
+    },
   },
   methods: {
-    ...mapActions(["toggleMenu"])
-  }
-};
+    ...mapActions(['toggleMenu']),
+  },
+}
 </script>
 
 <style>

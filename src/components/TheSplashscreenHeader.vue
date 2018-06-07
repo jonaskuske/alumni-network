@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import DmpLogo from "@/components/DmpLogo";
+import DmpLogo from '@/components/DmpLogo'
 
 export default {
   components: {
-    DmpLogo
-  }
-};
+    DmpLogo,
+  },
+}
 </script>
 
 

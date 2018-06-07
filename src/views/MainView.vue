@@ -1,5 +1,5 @@
 <template>
-  <div class="pagecontainer" :class="{'transition-within-active': transitionActive}">
+  <div :class="{'transition-within-active': transitionActive}" class="pagecontainer">
     <transition
       :css="false"
       @before-enter="beforeEnter"
@@ -15,62 +15,62 @@
 </template>
 
 <script>
-import { wait } from "@/lib/helpers";
+import { wait } from '@/lib/helpers'
 
 export default {
-  name: "MainView",
+  name: 'MainView',
   data: () => ({ transitionActive: false, from: undefined, to: undefined }),
   computed: {
     transitionClasses() {
-      const { from, to } = this;
-      const left = "transition-left-slide";
-      const right = "transition-right-slide";
-      return typeof from === "number" && typeof to === "number"
+      const { from, to } = this
+      const left = 'transition-left-slide'
+      const right = 'transition-right-slide'
+      return typeof from === 'number' && typeof to === 'number'
         ? {
             enter: to > from ? right : left,
             leave: from > to ? right : left,
-            active: "transition-slide-active"
+            active: 'transition-slide-active',
           }
         : {
-            enter: "transition-scale",
-            leave: "transition-scale-hide",
-            active: "transition-scale-active"
-          };
-    }
+            enter: 'transition-scale',
+            leave: 'transition-scale-hide',
+            active: 'transition-scale-active',
+          }
+    },
   },
   watch: {
     $route(to, from) {
-      this.to = to.meta.index;
-      this.from = from.meta.index;
-    }
+      this.to = to.meta.index
+      this.from = from.meta.index
+    },
   },
   methods: {
     beforeEnter(el) {
-      this.transitionActive = true;
+      this.transitionActive = true
       el.classList.add(
         this.transitionClasses.active,
-        this.transitionClasses.enter
-      );
+        this.transitionClasses.enter,
+      )
     },
     enter(el, done) {
       wait(30).then(() => {
-        el.classList.remove(this.transitionClasses.enter);
-      });
-      wait(300).then(done);
+        el.classList.remove(this.transitionClasses.enter)
+      })
+      wait(300).then(done)
     },
     beforeLeave(el) {
-      el.classList.add(this.transitionClasses.active);
+      el.classList.add(this.transitionClasses.active)
     },
     leave(el, done) {
-      el.classList.add(this.transitionClasses.leave);
-      wait(300).then(done);
+      el.classList.add(this.transitionClasses.leave)
+      wait(300).then(done)
     },
     transitionEnd(el) {
-      this.transitionActive = false;
-      el.classList.remove(this.transitionClasses.active);
-    }
-  }
-};
+      this.transitionActive = false
+      el.classList.remove(this.transitionClasses.active)
+    },
+  },
+}
 </script>
 
 <style>
@@ -84,7 +84,7 @@ export default {
   padding-top: 4rem;
 }
 .pagecontainer::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 100%;

@@ -1,9 +1,9 @@
 <template>
   <button
-    type="button"
-    @click="$event.target.blur(); $emit('click', $event)"
     :class="['comp-button-small', {'comp-button-small--attr': value}]"
     :data-attr="value ? value : false"
+    type="button"
+    @click="$event.target.blur(); $emit('click', $event)"
   />
 </template>
 
@@ -12,10 +12,11 @@ export default {
   props: {
     value: {
       type: [String, Number],
-      required: false
-    }
-  }
-};
+      required: false,
+      default: 0,
+    },
+  },
+}
 </script>
 
 
@@ -35,7 +36,7 @@ export default {
   background-color: #9c9c9c;
 }
 .comp-button-small::before {
-  content: "";
+  content: '';
   display: block;
   padding-top: 100%;
 }

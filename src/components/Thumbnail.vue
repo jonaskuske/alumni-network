@@ -1,41 +1,44 @@
 <template>
-    <div class="thumbnail" @click="$emit('click', $event)">
-      <img :src="image" alt="" class="thumbnail__image">
-      <p v-if="tag" class="thumbnail__tag">{{ tag }}</p>
-      <div class="thumbnail__content">
-          <p class="thumbnail__title">{{ title }}</p>
-          <p class="thumbnail__subtitle">{{ subtitle }}</p>
-      </div>
-      <footer class="thumbnail__footer" @click.stop>
-        <div class="thumbnail__meta-container">
-          <slot name="meta" />
-        </div>
-        <div class="thumbnail__button-container">
-          <slot name="buttons" />
-        </div>
-      </footer>
+  <div class="thumbnail" @click="$emit('click', $event)">
+    <img :src="image" alt="" class="thumbnail__image">
+    <p v-if="tag" class="thumbnail__tag">{{ tag }}</p>
+    <div class="thumbnail__content">
+      <p class="thumbnail__title">{{ title }}</p>
+      <p class="thumbnail__subtitle">{{ subtitle }}</p>
     </div>
+    <footer class="thumbnail__footer" @click.stop>
+      <div class="thumbnail__meta-container">
+        <slot name="meta" />
+      </div>
+      <div class="thumbnail__button-container">
+        <slot name="buttons" />
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Thumbnail",
+  name: 'Thumbnail',
   props: {
     image: {
-      type: String
+      type: String,
+      default: '',
     },
     tag: {
-      type: String
+      type: String,
+      default: '',
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     subtitle: {
-      type: String
-    }
-  }
-};
+      type: String,
+      default: '',
+    },
+  },
+}
 </script>
 
 <style>
@@ -46,12 +49,12 @@ export default {
   background: #f0f0f0;
 }
 .thumbnail::before {
-  content: "";
+  content: '';
   display: block;
   padding-top: 75%;
 }
 .thumbnail::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

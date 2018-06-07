@@ -1,23 +1,23 @@
 <template>
-    <div class="splashscreen">
-      <splashscreen-header />
-      <transition mode="out-in" name="fade">
-        <router-view class="splashscreen__main" />
-      </transition>
-      <splashscreen-footer class="splashscreen__footer" />
-    </div>
+  <div class="splashscreen">
+    <splashscreen-header />
+    <transition mode="out-in" name="fade">
+      <router-view class="splashscreen__main" />
+    </transition>
+    <splashscreen-footer class="splashscreen__footer" />
+  </div>
 </template>
 
 <script>
-import SplashscreenHeader from "@/components/TheSplashscreenHeader";
-import SplashscreenFooter from "@/components/TheFooter";
+import SplashscreenHeader from '@/components/TheSplashscreenHeader'
+import SplashscreenFooter from '@/components/TheFooter'
 
 export default {
   components: {
     SplashscreenHeader,
-    SplashscreenFooter
-  }
-};
+    SplashscreenFooter,
+  },
+}
 </script>
 
 
@@ -41,7 +41,7 @@ span {
   justify-content: space-between;
 }
 .splashscreen::before {
-  content: "";
+  content: '';
   position: absolute;
   width: calc(100% + 50px);
   height: calc(100% + 50px);
@@ -54,7 +54,7 @@ span {
       rgba(124, 131, 253, 0.93) 60%,
       rgba(113, 113, 216, 0.98) 80%
     ),
-    url("~@/assets/images/bg-splash.jpg") center / cover no-repeat;
+    url('~@/assets/images/bg-splash.jpg') center / cover no-repeat;
   filter: blur(4px) brightness(90%);
 }
 .splashscreen__main {

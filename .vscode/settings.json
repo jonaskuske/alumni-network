@@ -1,0 +1,16 @@
+{
+  "html.format.wrapLineLength": 80,
+  "editor.wordWrapColumn": 80,
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue",
+    "vue-html"
+  ],
+  "vetur.validation.script": true,
+  "vetur.validation.template": true,
+  "vetur.format.defaultFormatter.html": "none",
+  "vetur.format.styleInitialIndent": false,
+  "vetur.format.scriptInitialIndent": false
+}

@@ -22,22 +22,22 @@
         <labelled-input
           v-model="userInput"
           :label="userInputLabel"
-          class="login__form-input"
           :class="[{'login__form-input--active': userInput}, {'login__form-input--danger': showLoginWarning}]"
+          class="login__form-input"
         />
         <labelled-input
           v-model="passwordInput"
-          type="password"
           :label="passwordInputLabel"
-          class="login__form-input"
           :class="[{'login__form-input--active': passwordInput}, {'login__form-input--danger': showLoginWarning}]"
+          type="password"
+          class="login__form-input"
         />
         <div class="login__action-container">
           <button
-            type="submit"
-            class="button-main login__button"
             :class="{'button--danger': redLoginButton}"
             :disabled="isFormDisabled"
+            type="submit"
+            class="button-main login__button"
             @mouseenter.once="allowFormWarnings = true"
             @touchstart.once="allowFormWarnings = true"
           >
@@ -51,55 +51,55 @@
 </template>
 
 <script>
-import * as auth from "@/lib/auth";
-import LabelledInput from "@/components/LabelledInput";
-import { wait } from "@/lib/helpers";
+import * as auth from '@/lib/auth'
+import LabelledInput from '@/components/LabelledInput'
+import { wait } from '@/lib/helpers'
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: { LabelledInput },
   data() {
     return {
-      userInput: "",
-      passwordInput: "",
+      userInput: '',
+      passwordInput: '',
       allowFormWarnings: false,
       showLoginWarning: false,
-      redLoginButton: false
-    };
+      redLoginButton: false,
+    }
   },
   computed: {
     isFormDisabled() {
       return this.allowFormWarnings
         ? !this.userInput || !this.passwordInput
-        : false;
+        : false
     },
     userInputLabel() {
       return this.userInput || !this.allowFormWarnings
-        ? "Nutzername"
-        : "Bitte Nutzername eingeben!";
+        ? 'Nutzername'
+        : 'Bitte Nutzername eingeben!'
     },
     passwordInputLabel() {
       return this.passwordInput || !this.allowFormWarnings
-        ? "Passwort"
-        : "Bitte Passwort eingeben!";
-    }
+        ? 'Passwort'
+        : 'Bitte Passwort eingeben!'
+    },
   },
   methods: {
     login() {
-      const success = auth.login(this.userInput, this.passwordInput);
+      const success = auth.login(this.userInput, this.passwordInput)
 
       if (success) {
-        this.$router.push(this.$route.query.redirect || "/");
-      } else this.enableLoginWarning();
+        this.$router.push(this.$route.query.redirect || '/')
+      } else this.enableLoginWarning()
     },
     async enableLoginWarning() {
-      this.showLoginWarning = true;
-      this.redLoginButton = true;
-      await wait(200);
-      this.redLoginButton = false;
-    }
-  }
-};
+      this.showLoginWarning = true
+      this.redLoginButton = true
+      await wait(200)
+      this.redLoginButton = false
+    },
+  },
+}
 </script>
 
 

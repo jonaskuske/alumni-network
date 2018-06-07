@@ -14,23 +14,23 @@
 </template>
 
 <script>
-import LabelledInput from "@/components/LabelledInput";
-import PostThumbnail from "@/components/PostThumbnail";
+import LabelledInput from '@/components/LabelledInput'
+import PostThumbnail from '@/components/PostThumbnail'
 
 export default {
-  name: "PostDisplay",
+  name: 'PostDisplay',
   components: { PostThumbnail, LabelledInput },
   props: {
     posts: {
       type: Array,
       required: false,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      query: ""
-    };
+      query: '',
+    }
   },
   computed: {
     filteredPosts() {
@@ -39,15 +39,15 @@ export default {
         : this.posts.filter(post => {
             for (const val of Object.values(post)) {
               if (
-                typeof val === "string" &&
+                typeof val === 'string' &&
                 val.toLowerCase().includes(this.query.toLowerCase())
               )
-                return true;
+                return true
             }
-          });
-    }
-  }
-};
+          })
+    },
+  },
+}
 </script>
 
 <style>

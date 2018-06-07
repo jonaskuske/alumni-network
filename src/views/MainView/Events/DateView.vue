@@ -11,41 +11,47 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import TitleBar from "@/components/TitleBar";
-  import EventsDisplay from "@/components/EventsDisplay";
+import { mapGetters } from 'vuex'
+import TitleBar from '@/components/TitleBar'
+import EventsDisplay from '@/components/EventsDisplay'
 
-  export default {
-    name: "EventsList",
-    components: { TitleBar, EventsDisplay },
-    props: ["datestring"],
-    computed: {
-      ...mapGetters("eventStore", ["eventsByDate"]),
-      date() {
-        const [year, month, day] = this.datestring.split("-");
-        return {
-          year,
-          month,
-          day,
-          date: new Date(`${year}-${month.padStart(2, 0)}-${day}`)
-        };
-      },
-      events() {
-        const { eventsByDate, date: { year, month, day } } = this;
-        if (
-          eventsByDate[year] &&
-          eventsByDate[year][month] &&
-          eventsByDate[year][month][day]
-        ) {
-          return eventsByDate[year][month][day];
-        } else return [];
+export default {
+  name: 'EventsList',
+  components: { TitleBar, EventsDisplay },
+  props: {
+    datestring: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    ...mapGetters('eventStore', ['eventsByDate']),
+    date() {
+      const [year, month, day] = this.datestring.split('-')
+      return {
+        year,
+        month,
+        day,
+        date: new Date(`${year}-${month.padStart(2, 0)}-${day}`),
       }
-    }
-  };
+    },
+    events() {
+      const { eventsByDate, date } = this
+      const { year, month, day } = date
+      if (
+        eventsByDate[year] &&
+        eventsByDate[year][month] &&
+        eventsByDate[year][month][day]
+      ) {
+        return eventsByDate[year][month][day]
+      } else return []
+    },
+  },
+}
 </script>
 
 <style>
-  .date-view {
-    width: 100%;
-  }
+.date-view {
+  width: 100%;
+}
 </style>

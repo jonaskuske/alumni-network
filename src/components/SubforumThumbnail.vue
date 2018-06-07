@@ -2,44 +2,44 @@
   <router-link :to="`/forum/subforums/${subforum.tag}`" class="subforum-thumbnail">
     <h2 class="subforum-thumbnail__title">{{ subforum.name }}</h2>
     <p class="subforum-thumbnail__count">Beiträge: {{ posts.length }}</p>
-      <template v-for="i in 3">
-        <div
-          class="subforum-thumbnail__image"
-          :key="i"
-          :style="{backgroundImage: `url(${posts[i-1] && posts[i-1].image ? posts[i-1].image : randomFallback()})`}"
-        />
-      </template>
+    <template v-for="i in 3">
+      <div
+        :key="i"
+        :style="{backgroundImage: `url(${posts[i-1] && posts[i-1].image ? posts[i-1].image : randomFallback()})`}"
+        class="subforum-thumbnail__image"
+      />
+    </template>
   </router-link>
 </template>
 
 <script>
-import fallback1 from "@/assets/images/thumb-fallback1.jpg";
-import fallback2 from "@/assets/images/thumb-fallback2.jpg";
-import fallback3 from "@/assets/images/thumb-fallback3.jpg";
-import fallback4 from "@/assets/images/thumb-fallback4.jpg";
-const fallbacks = [fallback1, fallback2, fallback3, fallback4];
+import fallback1 from '@/assets/images/thumb-fallback1.jpg'
+import fallback2 from '@/assets/images/thumb-fallback2.jpg'
+import fallback3 from '@/assets/images/thumb-fallback3.jpg'
+import fallback4 from '@/assets/images/thumb-fallback4.jpg'
+const fallbacks = [fallback1, fallback2, fallback3, fallback4]
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "SubforumThumbnail",
+  name: 'SubforumThumbnail',
   props: {
     subforum: {
       type: Object,
       required: true,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
-    ...mapGetters("forumStore", ["postsBySubforumName"]),
+    ...mapGetters('forumStore', ['postsBySubforumName']),
     posts() {
-      return this.postsBySubforumName[this.subforum.name] || [];
-    }
+      return this.postsBySubforumName[this.subforum.name] || []
+    },
   },
   methods: {
-    randomFallback: () => fallbacks[Math.floor(Math.random() * Math.floor(4))]
-  }
-};
+    randomFallback: () => fallbacks[Math.floor(Math.random() * Math.floor(4))],
+  },
+}
 </script>
 
 <style>
@@ -54,7 +54,7 @@ export default {
   height: 15rem;
 }
 .subforum-thumbnail::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

@@ -21,34 +21,34 @@
 </template>
 
 <script>
-import ButtonSmall from "@/components/ButtonSmall";
-import UserAvatar from "@/components/UserAvatar";
-import GalleryThumbnail from "@/components/GalleryThumbnail";
-import { mapGetters } from "vuex";
+import ButtonSmall from '@/components/ButtonSmall'
+import UserAvatar from '@/components/UserAvatar'
+import GalleryThumbnail from '@/components/GalleryThumbnail'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Comment",
+  name: 'Comment',
   components: { UserAvatar, ButtonSmall, GalleryThumbnail },
   props: {
     comment: {
       type: Object,
       required: true,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
-    ...mapGetters("userStore", ["usersByUsername", "currentUser"]),
+    ...mapGetters('userStore', ['usersByUsername', 'currentUser']),
     author() {
-      return this.usersByUsername[this.comment.username] || {};
+      return this.usersByUsername[this.comment.username] || {}
     },
     content() {
       return (
         this.comment.content &&
-        this.$sanitize(this.comment.content.replace("\n", "<br>"))
-      );
-    }
-  }
-};
+        this.$sanitize(this.comment.content.replace('\n', '<br>'))
+      )
+    },
+  },
+}
 </script>
 
 <style>
@@ -95,6 +95,7 @@ export default {
   width: 100%;
 }
 .comment__gallery {
+  /* autoprefixer: off */
   width: 100%;
   display: grid;
   grid-template: auto / repeat(auto-fill, minmax(100px, 1fr));

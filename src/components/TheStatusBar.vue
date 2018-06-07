@@ -2,52 +2,52 @@
   <div class="statusbar">
 
     <button-small
+      :value="''"
       class="statusbar__button icon--search"
       @click="$router.push('/search')"
-      :value="''"
     />
     <button-small
+      :value="unreadMessages.length || '0'"
       class="statusbar__button icon--messages"
       @click="$router.push('/messages')"
-      :value="unreadMessages.length || '0'"
     />
     <button-small
+      :value="unreadNotifications.length || '0'"
       class="statusbar__button icon--notifications"
       @click="$router.push('/notifications')"
-      :value="unreadNotifications.length || '0'"
     />
 
     <router-link to="/me" class="statusbar__account">
       <p class="statusbar__account-name hover-underline">{{ currentUser.name }}</p>
       <user-avatar :image="currentUser.profilePicture" :name="currentUser.name" class="statusbar__account-image" />
     </router-link>
-    <button @click.prevent="logout" class="statusbar__logout">Logout</button>
+    <button class="statusbar__logout" @click.prevent="logout">Logout</button>
 
   </div>
 </template>
 
 <script>
-  import * as auth from "@/lib/auth";
-  import { mapState, mapGetters } from "vuex";
-  import UserAvatar from "@/components/UserAvatar";
-  import ButtonSmall from "@/components/ButtonSmall";
+import * as auth from '@/lib/auth'
+import { mapState, mapGetters } from 'vuex'
+import UserAvatar from '@/components/UserAvatar'
+import ButtonSmall from '@/components/ButtonSmall'
 
-  export default {
-    name: "StatusBar",
-    components: { UserAvatar, ButtonSmall },
-    computed: {
-      ...mapState(["mobileLayout"]),
-      ...mapGetters("userStore", ["currentUser"]),
-      ...mapGetters("messageStore", ["unreadMessages"]),
-      ...mapGetters("notificationStore", ["unreadNotifications"])
+export default {
+  name: 'StatusBar',
+  components: { UserAvatar, ButtonSmall },
+  computed: {
+    ...mapState(['mobileLayout']),
+    ...mapGetters('userStore', ['currentUser']),
+    ...mapGetters('messageStore', ['unreadMessages']),
+    ...mapGetters('notificationStore', ['unreadNotifications']),
+  },
+  methods: {
+    logout() {
+      auth.logout()
+      this.$router.push('/login')
     },
-    methods: {
-      logout() {
-        auth.logout();
-        this.$router.push("/login");
-      }
-    }
-  };
+  },
+}
 </script>
 
 <style>
@@ -98,7 +98,7 @@
   cursor: pointer;
 }
 .statusbar__logout::before {
-  content: "";
+  content: '';
   position: absolute;
   height: 100%;
   width: 100%;

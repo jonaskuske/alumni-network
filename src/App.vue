@@ -11,19 +11,19 @@
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader";
-import TheFooter from "@/components/TheFooter";
+import TheHeader from '@/components/TheHeader'
+import TheFooter from '@/components/TheFooter'
 
 export default {
   components: { TheHeader, TheFooter },
   data: () => ({ onLandingPage: true }),
-  created() {
-    this.onLandingPage = this.$route.path.includes("login");
-  },
   watch: {
     $route({ path }) {
-      this.onLandingPage = path.includes("login");
-    }
-  }
-};
+      this.onLandingPage = path.includes('login')
+    },
+  },
+  created() {
+    this.onLandingPage = this.$route.path.includes('login')
+  },
+}
 </script>

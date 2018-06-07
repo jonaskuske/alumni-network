@@ -13,15 +13,15 @@
     </template>
     <template slot="buttons">
       <button-small
-        class="icon--comments"
         :class="{'icon--nocomments': !post.comments.length}"
         :value="post.comments.length || '0'"
+        class="icon--comments"
         @click.prevent="$router.push(`/forum/post/${post.id}#comments`)"
       />
       <button-small
         v-if="!byUser"
-        class="icon--readstate"
         :class="{'icon--unreadstate': !post.read}"
+        class="icon--readstate"
         @click.prevent="toggleReadState({id: post.id})"
       />
       <button-small
@@ -34,33 +34,33 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { TOGGLE_READ_STATE } from "@/store/modules/forum/types";
-import Thumbnail from "./Thumbnail";
-import ButtonSmall from "@/components/ButtonSmall";
+import { mapActions, mapGetters } from 'vuex'
+import { TOGGLE_READ_STATE } from '@/store/modules/forum/types'
+import Thumbnail from './Thumbnail'
+import ButtonSmall from '@/components/ButtonSmall'
 
 export default {
   components: {
     Thumbnail,
-    ButtonSmall
+    ButtonSmall,
   },
   props: {
     post: {
       type: Object,
       required: true,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
-    ...mapGetters("userStore", ["currentUser"]),
+    ...mapGetters('userStore', ['currentUser']),
     byUser() {
-      return this.post.username === this.currentUser.username;
-    }
+      return this.post.username === this.currentUser.username
+    },
   },
   methods: {
-    ...mapActions("forumStore", { toggleReadState: TOGGLE_READ_STATE })
-  }
-};
+    ...mapActions('forumStore', { toggleReadState: TOGGLE_READ_STATE }),
+  },
+}
 </script>
 
 <style>
@@ -73,7 +73,7 @@ export default {
   transition: padding 150ms ease-out;
 }
 .post-thumbnail__date::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   transform: translateY(-45%);

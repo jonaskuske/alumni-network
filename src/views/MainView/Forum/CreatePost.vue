@@ -1,16 +1,16 @@
 <template>
   <with-hero-image
-    @click="$refs.imageInput.click()"
     :clickable="true"
     :image="image || placeholderImage"
     :fullsize="!!image"
+    @click="$refs.imageInput.click()"
   >
     <main class="create-post">
-    <button
-        type="button"
+      <button
         v-if="image"
-        @click="image = ''"
+        type="button"
         class="create-post__remove-image"
+        @click="image = ''"
       >
         Bild entfernen
       </button>
@@ -18,62 +18,73 @@
         <title-bar label="Forum" title="Beitrag verfassen">
           <button class="button-main" type="submit">Veröffentlichen</button>
         </title-bar>
-        <button @click="$router.push('/forum')" type="button" class="button-secondary">Zurück (Abbrechen)</button>
+        <button type="button" class="button-secondary" @click="$router.push('/forum')">Zurück (Abbrechen)</button>
         <post-form v-model="form" />
       </form>
-      <input type="file" @change="readImage" accept="image/*" class="hide" ref="imageInput">
+      <input
+        ref="imageInput"
+        type="file"
+        accept="image/*"
+        class="hide"
+        @change="readImage">
     </main>
   </with-hero-image>
 </template>
 
 <script>
-import { generateId, readImageFromInput } from "@/lib/helpers";
-import placeholderImage from "@/assets/images/hero-placeholder.svg";
-import { mapActions, mapGetters } from "vuex";
-import { ADD_POST } from "@/store/modules/forum/types";
-import PostForm from "@/components/PostForm";
-import WithHeroImage from "@/components/WithHeroImage";
-import TitleBar from "@/components/TitleBar";
+import { generateId, readImageFromInput } from '@/lib/helpers'
+import placeholderImage from '@/assets/images/hero-placeholder.svg'
+import { mapActions, mapGetters } from 'vuex'
+import { ADD_POST } from '@/store/modules/forum/types'
+import PostForm from '@/components/PostForm'
+import WithHeroImage from '@/components/WithHeroImage'
+import TitleBar from '@/components/TitleBar'
 
 export default {
-  name: "CreatePost",
+  name: 'CreatePost',
   components: {
     WithHeroImage,
     TitleBar,
-    PostForm
+    PostForm,
   },
-  props: ["tag"],
+  props: {
+    tag: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
   data() {
     return {
       form: {
-        title: "",
-        content: "",
+        title: '',
+        content: '',
         gallery: [],
-        subforum: "",
-        usergroup: ""
+        subforum: '',
+        usergroup: '',
       },
-      image: "",
-      placeholderImage
-    };
+      image: '',
+      placeholderImage,
+    }
   },
   computed: {
-    ...mapGetters("userStore", ["currentUser"]),
-    ...mapGetters("forumStore", ["getSubforumByTag"])
+    ...mapGetters('userStore', ['currentUser']),
+    ...mapGetters('forumStore', ['getSubforumByTag']),
   },
   created() {
-    const subforum = this.getSubforumByTag(this.tag);
-    if (subforum.name) this.form.subforum = subforum.name;
+    const subforum = this.getSubforumByTag(this.tag)
+    if (subforum.name) this.form.subforum = subforum.name
   },
   methods: {
-    ...mapActions("forumStore", { addPost: ADD_POST }),
+    ...mapActions('forumStore', { addPost: ADD_POST }),
     publish() {
-      if (!this.form.title) return;
-      const post = this.createPost();
-      this.addPost(post);
-      this.$router.push(`/forum/post/${post.id}`);
+      if (!this.form.title) return
+      const post = this.createPost()
+      this.addPost(post)
+      this.$router.push(`/forum/post/${post.id}`)
     },
     createPost() {
-      const { title, content, gallery, subforum, usergroup } = this.form;
+      const { title, content, gallery, subforum, usergroup } = this.form
       const post = {
         title,
         content,
@@ -86,16 +97,16 @@ export default {
         username: this.currentUser.username,
         read: true,
         id: generateId(),
-        comments: []
-      };
-      return post;
+        comments: [],
+      }
+      return post
     },
     async readImage(evt) {
-      this.image = await readImageFromInput(evt);
-      this.$refs.imageInput.value = "";
-    }
-  }
-};
+      this.image = await readImageFromInput(evt)
+      this.$refs.imageInput.value = ''
+    },
+  },
+}
 </script>
 
 <style>
@@ -116,7 +127,7 @@ export default {
   cursor: pointer;
 }
 .create-post__remove-image::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 5px;
   left: 10%;

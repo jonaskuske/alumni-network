@@ -19,27 +19,27 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
-import TitleBar from "@/components/TitleBar";
-import { MARK_ALL_AS_READ } from '@/store/modules/messages/types';
+import { mapState, mapGetters, mapActions } from 'vuex'
+import TitleBar from '@/components/TitleBar'
+import { MARK_ALL_AS_READ } from '@/store/modules/messages/types'
 
 export default {
-  name: "Messages",
+  name: 'Messages',
   components: { TitleBar },
   computed: {
-    ...mapState("messageStore", ["messages"]),
-    ...mapGetters("messageStore", ["unreadMessages"]),
+    ...mapState('messageStore', ['messages']),
+    ...mapGetters('messageStore', ['unreadMessages']),
     onlyUnread() {
-      return this.$route.query.show !== "all";
+      return this.$route.query.show !== 'all'
     },
     displayedMessages() {
-      return this.onlyUnread ? this.unreadMessages : this.messages;
-    }
+      return this.onlyUnread ? this.unreadMessages : this.messages
+    },
   },
   methods: {
-    ...mapActions("messageStore", { markAllAsRead: MARK_ALL_AS_READ })
-  }
-};
+    ...mapActions('messageStore', { markAllAsRead: MARK_ALL_AS_READ }),
+  },
+}
 </script>
 
 <style>

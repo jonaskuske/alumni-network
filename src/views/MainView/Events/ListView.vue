@@ -12,18 +12,18 @@
 </template>
 
 <script>
-  import TitleBar from "@/components/TitleBar";
-  import EventsDisplay from "@/components/EventsDisplay";
+import TitleBar from '@/components/TitleBar'
+import EventsDisplay from '@/components/EventsDisplay'
 
-  export default {
-    name: "EventsList",
-    components: { TitleBar, EventsDisplay },
-    props: {
-      events: {
-        type: Array,
-        required: false,
-        default: () => []
-      }
-    }
-  };
+export default {
+  name: 'EventsList',
+  components: { TitleBar, EventsDisplay },
+  props: {
+    events: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
+}
 </script>

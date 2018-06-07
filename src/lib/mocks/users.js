@@ -1,35 +1,35 @@
-import jonasProfile from "@/assets/images/jonas.jpg";
-import jonasHeader from "@/assets/images/profile-header.jpg";
-import axelProfile from "@/assets/images/axel.jpg";
-import sarahProfile from "@/assets/images/profile2.jpg";
+import jonasProfile from '@/assets/images/jonas.jpg'
+import jonasHeader from '@/assets/images/profile-header.jpg'
+import axelProfile from '@/assets/images/axel.jpg'
+import sarahProfile from '@/assets/images/profile2.jpg'
 
 export default [
   {
-    username: "jonaskuske",
-    name: "Jonas Kuske",
+    username: 'jonaskuske',
+    name: 'Jonas Kuske',
     profilePicture: jonasProfile,
-    headerImage: jonasHeader
+    headerImage: jonasHeader,
   },
   {
-    username: "matthiaswengel",
-    name: "Matthias Wengelmann"
+    username: 'matthiaswengel',
+    name: 'Matthias Wengelmann',
   },
   {
-    username: "sarahtau",
-    name: "Sarah Taulich",
-    profilePicture: sarahProfile
+    username: 'sarahtau',
+    name: 'Sarah Taulich',
+    profilePicture: sarahProfile,
   },
   {
-    username: "axelschmaxel",
-    name: "Axel Schmaxel",
-    profilePicture: axelProfile
+    username: 'axelschmaxel',
+    name: 'Axel Schmaxel',
+    profilePicture: axelProfile,
   },
   {
-    username: "tomlöhner",
-    name: "Tom Löhner"
+    username: 'tomlöhner',
+    name: 'Tom Löhner',
   },
   {
-    username: "maraschmidt",
-    name: "Mara Schmidt"
-  }
-];
+    username: 'maraschmidt',
+    name: 'Mara Schmidt',
+  },
+]

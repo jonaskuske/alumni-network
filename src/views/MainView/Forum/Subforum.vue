@@ -3,33 +3,39 @@
     <title-bar :title="subforum.name" label="Forum">
       <button class="button-main" @click="$router.push(`${subforum.tag}/create`)">Beitrag erstellen</button>
     </title-bar>
-    <button type="button" @click="$router.push('/forum/subforums')" class="button-secondary subforum__back-button">
+    <button type="button" class="button-secondary subforum__back-button" @click="$router.push('/forum/subforums')">
       Zurück zu den Unterforen
     </button>
-    <post-display :posts="posts" v-if="posts.length" />
+    <post-display v-if="posts.length" :posts="posts" />
     <p v-else>Noch keine Beiträge.</p>
   </main>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import TitleBar from "@/components/TitleBar";
-import PostDisplay from "@/components/PostDisplay";
+import { mapGetters } from 'vuex'
+import TitleBar from '@/components/TitleBar'
+import PostDisplay from '@/components/PostDisplay'
 
 export default {
-  name: "Subforum",
+  name: 'Subforum',
   components: { TitleBar, PostDisplay },
-  props: ["tag"],
+  props: {
+    tag: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
   computed: {
-    ...mapGetters("forumStore", ["postsBySubforumTag", "getSubforumByTag"]),
+    ...mapGetters('forumStore', ['postsBySubforumTag', 'getSubforumByTag']),
     subforum() {
-      return this.getSubforumByTag(this.tag);
+      return this.getSubforumByTag(this.tag)
     },
     posts() {
-      return this.postsBySubforumTag[this.tag] || [];
-    }
-  }
-};
+      return this.postsBySubforumTag[this.tag] || []
+    },
+  },
+}
 </script>
 
 <style>

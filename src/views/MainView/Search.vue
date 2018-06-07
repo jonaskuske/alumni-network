@@ -1,26 +1,30 @@
 <template>
   <main class="search">
     <title-bar title="Netzwerk durchsuchen" label="Suche" />
-    <labelled-input label="Suchen..." v-model="query" class="search__input" />
-    <transition-group name="test" mode="out-in">
-      <p v-for="i in 4" :key="i" v-if="query" v-text="'Suchergebnis ' + i" class="search__result" />
+    <labelled-input v-model="query" label="Suchen..." class="search__input" />
+    <transition-group v-if="query" name="test" mode="out-in">
+      <p
+        v-for="i in 4"
+        :key="i"
+        class="search__result"
+        v-text="'Suchergebnis ' + i" />
     </transition-group>
   </main>
 </template>
 
 <script>
-import LabelledInput from "@/components/LabelledInput";
-import TitleBar from "@/components/TitleBar";
+import LabelledInput from '@/components/LabelledInput'
+import TitleBar from '@/components/TitleBar'
 
 export default {
-  name: "Search",
+  name: 'Search',
   components: { TitleBar, LabelledInput },
   data() {
     return {
-      query: ""
-    };
-  }
-};
+      query: '',
+    }
+  },
+}
 </script>
 
 <style>

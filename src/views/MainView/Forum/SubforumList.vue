@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import TitleBar from "@/components/TitleBar";
-import SubforumThumbnail from "@/components/SubforumThumbnail";
+import { mapState } from 'vuex'
+import TitleBar from '@/components/TitleBar'
+import SubforumThumbnail from '@/components/SubforumThumbnail'
 
 export default {
-  name: "Subforums",
+  name: 'Subforums',
   components: { TitleBar, SubforumThumbnail },
   computed: {
-    ...mapState("forumStore", ["subforums"])
-  }
-};
+    ...mapState('forumStore', ['subforums']),
+  },
+}
 </script>
 
 <style>

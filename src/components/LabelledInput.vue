@@ -1,16 +1,16 @@
 <template>
   <div class="labelled-input">
     <label
-      class="labelled-input__label"
       :class="[{'labelled-input__label--active': value}, {'labelled-input__label--no-transition': !transition}]"
+      class="labelled-input__label"
       for="_uid"
       v-text="label"
     />
     <input
-      class="labelled-input__input"
       :value="value"
       :id="_uid"
       :type="type || 'text'"
+      class="labelled-input__input"
       @input="$emit('input', $event.target.value)"
     >
   </div>
@@ -18,13 +18,26 @@
 
 <script>
 export default {
-  name: "LabelledInput",
-  created() {
-    setTimeout(() => (this.transition = true), 100);
+  name: 'LabelledInput',
+  props: {
+    value: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: 'Eingeben...',
+    },
+    type: {
+      type: String,
+      default: 'text',
+    },
   },
-  props: ["value", "label", "type"],
-  data: () => ({ transition: false })
-};
+  data: () => ({ transition: false }),
+  created() {
+    setTimeout(() => (this.transition = true), 100)
+  },
+}
 </script>
 
 

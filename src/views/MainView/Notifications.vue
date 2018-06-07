@@ -12,12 +12,18 @@
     </button>
 
     <div class="notifications__container">
-      <router-link v-for="(notif, i) in displayedNotifications" @click.native="markAsRead(notif)" :key="notif.text+notif.link+i" :to="notif.link" class="notifications__link" :class="{'notifications__link--unread': !notif.read}">
+      <router-link 
+        v-for="(notif, i) in displayedNotifications" 
+        :key="notif.text+notif.link+i" 
+        :to="notif.link" 
+        :class="{'notifications__link--unread': !notif.read}" 
+        class="notifications__link" 
+        @click.native="markAsRead(notif)">
         <p class="notifications__text"> {{ notif.text }} </p>
         <div class="notifications__button-container">
           <button-small
-            class="icon--readstate"
             :class="{'icon--unreadstate': !notif.read}"
+            class="icon--readstate"
             @click.prevent.stop="toggleReadState(notif)"
           />
         </div>
@@ -30,34 +36,34 @@
 import {
   MARK_ALL_AS_READ,
   MARK_AS_READ,
-  TOGGLE_READ_STATE
-} from "@/store/modules/notifications/types";
+  TOGGLE_READ_STATE,
+} from '@/store/modules/notifications/types'
 
-import { mapState, mapGetters, mapActions } from "vuex";
-import TitleBar from "@/components/TitleBar";
-import ButtonSmall from "@/components/ButtonSmall";
+import { mapState, mapGetters, mapActions } from 'vuex'
+import TitleBar from '@/components/TitleBar'
+import ButtonSmall from '@/components/ButtonSmall'
 
 export default {
-  name: "Notifications",
+  name: 'Notifications',
   components: { TitleBar, ButtonSmall },
   computed: {
-    ...mapState("notificationStore", ["notifications"]),
-    ...mapGetters("notificationStore", ["unreadNotifications"]),
+    ...mapState('notificationStore', ['notifications']),
+    ...mapGetters('notificationStore', ['unreadNotifications']),
     onlyUnread() {
-      return this.$route.query.show !== "all";
+      return this.$route.query.show !== 'all'
     },
     displayedNotifications() {
-      return this.onlyUnread ? this.unreadNotifications : this.notifications;
-    }
+      return this.onlyUnread ? this.unreadNotifications : this.notifications
+    },
   },
   methods: {
-    ...mapActions("notificationStore", {
+    ...mapActions('notificationStore', {
       markAllAsRead: MARK_ALL_AS_READ,
       markAsRead: MARK_AS_READ,
-      toggleReadState: TOGGLE_READ_STATE
-    })
-  }
-};
+      toggleReadState: TOGGLE_READ_STATE,
+    }),
+  },
+}
 </script>
 
 <style>
@@ -89,7 +95,7 @@ export default {
   transition: padding 150ms ease-out;
 }
 .notifications__link--unread::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   transform: translateY(-45%);

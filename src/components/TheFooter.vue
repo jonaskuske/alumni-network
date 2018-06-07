@@ -1,19 +1,19 @@
 <template>
-    <footer class="footer">
-      <div class="footer__wrapper">
-        <div class="footer__contact">
-          <p>Kontakt</p>
-          <p>Jonas Kuske</p>
-          <p>(DMP Alumni Netzwerk)</p>
-          <p>Sielstraße 5, 27568 Bremerhaven</p>
-          <a href="mailto:mail@jonaskuske.com">mail@jonaskuske.com</a>
-          <p>0160/3336948</p>
-        </div>
-        <div class="footer__links">
-          <router-link to="/privacy">Datenschutz</router-link>
-          <router-link to="/imprint">Impressum</router-link>
-        </div>
+  <footer class="footer">
+    <div class="footer__wrapper">
+      <div class="footer__contact">
+        <p>Kontakt</p>
+        <p>Jonas Kuske</p>
+        <p>(DMP Alumni Netzwerk)</p>
+        <p>Sielstraße 5, 27568 Bremerhaven</p>
+        <a href="mailto:mail@jonaskuske.com">mail@jonaskuske.com</a>
+        <p>0160/3336948</p>
       </div>
+      <div class="footer__links">
+        <router-link to="/privacy">Datenschutz</router-link>
+        <router-link to="/imprint">Impressum</router-link>
+      </div>
+    </div>
   </footer>
 </template>
 

@@ -1,55 +1,55 @@
-import Abstract from "../Abstract";
-import Overview from "@/views/MainView/Forum/Overview";
-import CreatePost from "@/views/MainView/Forum/CreatePost";
-import EditPost from "@/views/MainView/Forum/EditPost";
-import ViewPost from "@/views/MainView/Forum/ViewPost";
-import SubforumList from "@/views/MainView/Forum/SubforumList";
-import Subforum from "@/views/MainView/Forum/Subforum";
+import Abstract from '../Abstract'
+import Overview from '@/views/MainView/Forum/Overview'
+import CreatePost from '@/views/MainView/Forum/CreatePost'
+import EditPost from '@/views/MainView/Forum/EditPost'
+import ViewPost from '@/views/MainView/Forum/ViewPost'
+import SubforumList from '@/views/MainView/Forum/SubforumList'
+import Subforum from '@/views/MainView/Forum/Subforum'
 
 export default [
   {
-    path: "",
-    component: Overview
+    path: '',
+    component: Overview,
   },
   {
-    path: "create",
-    alias: ["new", "submit"],
-    component: CreatePost
+    path: 'create',
+    alias: ['new', 'submit'],
+    component: CreatePost,
   },
   {
-    path: "post",
-    redirect: "/forum"
+    path: 'post',
+    redirect: '/forum',
   },
   {
-    path: "post/:id",
+    path: 'post/:id',
     component: ViewPost,
-    props: true
+    props: true,
   },
   {
-    path: "post/:id/edit",
+    path: 'post/:id/edit',
     component: EditPost,
-    props: true
+    props: true,
   },
   {
-    path: "subforums",
-    alias: ["sub", "forums"],
+    path: 'subforums',
+    alias: ['sub', 'forums'],
     component: Abstract,
     children: [
       {
-        path: "",
-        component: SubforumList
+        path: '',
+        component: SubforumList,
       },
       {
-        path: ":tag",
+        path: ':tag',
         component: Subforum,
-        props: true
+        props: true,
       },
       {
-        path: ":tag/create",
-        alias: [":tag/new", ":tag/submit"],
+        path: ':tag/create',
+        alias: [':tag/new', ':tag/submit'],
         component: CreatePost,
-        props: true
-      }
-    ]
-  }
-];
+        props: true,
+      },
+    ],
+  },
+]

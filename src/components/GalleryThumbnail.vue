@@ -1,21 +1,37 @@
 <template>
   <div
-    @click="$emit('click', $event)"
-    class="gallery-thumbnail"
     :class="[
       {'gallery-thumbnail--empty': !image},
       {'gallery-thumbnail--clickable': clickable},
       {'gallery-thumbnail--round': circle}
     ]"
     :style="{backgroundImage: `url(${image})`}"
+    class="gallery-thumbnail"
+    @click="$emit('click', $event)"
   />
 </template>
 
 <script>
 export default {
-  name: "GalleryThumbnail",
-  props: ["image", "clickable", "circle"]
-};
+  name: 'GalleryThumbnail',
+  props: {
+    image: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    clickable: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    circle: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+}
 </script>
 
 <style>
@@ -28,12 +44,12 @@ export default {
   cursor: pointer;
 }
 .gallery-thumbnail::before {
-  content: "";
+  content: '';
   display: block;
   padding-bottom: 100%;
 }
 .gallery-thumbnail--clickable::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

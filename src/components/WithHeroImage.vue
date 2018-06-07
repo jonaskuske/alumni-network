@@ -2,13 +2,13 @@
   <div class="with-hero-image">
     <div
       v-if="image"
-      @click="$emit('click', $event)"
       :class="[
         'with-hero-image__wrapper',
         {'with-hero-image__wrapper--fixed': fixed && forceFixed},
         {'with-hero-image__wrapper--clickable': clickable},
         {'with-hero-image__wrapper--clickable--fullsize': fullsize || forceFullsize}
-      ]">
+      ]"
+      @click="$emit('click', $event)">
       <div
         :class="[
           'with-hero-image__image',
@@ -25,50 +25,51 @@
 </template>
 
 <script>
-import { wait } from "@/lib/helpers";
+import { wait } from '@/lib/helpers'
 
 export default {
-  name: "WithHeroImage",
+  name: 'WithHeroImage',
   props: {
     image: {
       type: String,
-      required: false
+      required: false,
+      default: '',
     },
     center: {
       type: Boolean,
       required: false,
-      default: true
+      default: true,
     },
     fixed: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     fullsize: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     transition: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     clickable: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data: () => ({ forceFullsize: false, forceFixed: false }),
   created() {
-    if (!this.transition) return (this.forceFixed = this.fixed);
+    if (!this.transition) return (this.forceFixed = this.fixed)
     wait(450).then(() => {
-      this.forceFullsize = true;
-      this.forceFixed = this.fixed;
-    });
-  }
-};
+      this.forceFullsize = true
+      this.forceFixed = this.fixed
+    })
+  },
+}
 </script>
 
 
@@ -94,7 +95,7 @@ export default {
   cursor: pointer;
 }
 .with-hero-image__wrapper--clickable::after {
-  content: "";
+  content: '';
   position: absolute;
   left: calc(-50vw + 50%);
   width: 100vw;
@@ -159,7 +160,7 @@ export default {
   z-index: 1;
 }
 .with-hero-image__page::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100vw;
   height: 100%;
