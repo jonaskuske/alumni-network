@@ -1,35 +1,29 @@
 module.exports = {
   // root: true,
   'extends': [
+    'plugin:vue/essential',
     '@vue/prettier',
-    'plugin:vue/recommended',
   ],
+
   root: true,
+
   parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module',
-    ecmaVersion: 2018
+    parser: 'babel-eslint'
   },
+
   rules: {
-    semi: [
+    'no-console': 'off',
+    'no-debugger': 'off',
+    'vue/attribute-hyphenation': [
       'error',
-      'never'
-    ],
-    'vue/max-attributes-per-line': [
-      'error',
-      {
-        singleline: 4,
-        multiline: {
-          max: 1,
-          allowFirstLine: false
-        }
-      }
+      'always'
     ],
     'vue/html-end-tags': 'error',
     'vue/html-indent': [
       'error',
       2
     ],
+    'vue/html-self-closing': 'error',
     'vue/require-default-prop': 'error',
     'vue/require-prop-types': 'error',
     'vue/attributes-order': 'error',
@@ -38,5 +32,9 @@ module.exports = {
       'double'
     ],
     'vue/order-in-components': 'error'
+  },
+
+  env: {
+    node: true
   }
 }
