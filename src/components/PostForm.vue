@@ -17,7 +17,7 @@
     </div>
     <div class="create-post__controls">
       <div class="create-post__usergroup-wrapper">
-        <div v-show="typeof value.subforum === 'string'" class="create-post__select">
+        <div v-show="typeof value.subforum === 'string'" class="create-post__select create-post__subforum">
           <label for="sel-subforum">Unterforum</label>
           <select id="sel-subforum" ref="subforum" :value="value.subforum" @input="update">
             <option disabled value="" v-text="'Eine der Optionen auswählen...'" />
@@ -54,7 +54,7 @@
       type="file"
       accept="image/*"
       multiple
-      class="hide"
+      class="hide test-test"
       @change="addImages">
   </div>
 </template>
@@ -72,7 +72,6 @@ export default {
     value: {
       type: Object,
       required: true,
-      default: () => ({}),
     },
   },
   data: () => ({ title: '', gallery: [] }),
@@ -92,8 +91,9 @@ export default {
     },
   },
   created() {
-    const { gallery, title } = this
-    this.gallery = gallery
+    const { gallery, title } = this.value
+    /* Create gallery copy to avoid mutating the props array */
+    this.gallery = [...gallery]
     this.title = title
   },
   methods: {
@@ -105,7 +105,7 @@ export default {
         usergroup: this.$refs.usergroup.value,
         gallery: this.gallery,
       }
-      if (typeof subforum === 'string') form.subforum = subforum
+      if (typeof subforum === 'string' && subforum) form.subforum = subforum
 
       this.$emit('input', form)
     },
