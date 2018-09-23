@@ -81,6 +81,7 @@ export default {
   flex-grow: 1;
 }
 @media screen and (min-width: 900px) {
+  /* autoprefixer: off */
   .dates-container {
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   }
