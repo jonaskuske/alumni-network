@@ -9,7 +9,7 @@
       @after-enter="transitionEnd"
       @after-leave="transitionEnd"
     >
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </transition>
   </div>
 </template>
