@@ -2,7 +2,7 @@
 
 module.exports = {
   lintOnSave: true,
-
+  baseUrl: '/alumni-network',
   pwa: {
     name: 'DMP Netzwerk',
     themeColor: '#4040e9',

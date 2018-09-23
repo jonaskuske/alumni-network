@@ -7,6 +7,7 @@ import { wait } from '@/lib/helpers'
 Vue.use(Router)
 
 const router = new Router({
+  base: '/alumni-network/',
   routes,
   mode: 'history',
   scrollBehavior: (to, from, saved) => saved || { x: 0, y: 0 },
