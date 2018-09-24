@@ -40,8 +40,11 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.to = to.meta.index
-      this.from = from.meta.index
+      // Only trigger slide if path changed
+      // -> not if view changes due to different query string
+      const pathChanged = to.path !== from.path
+      this.to = pathChanged && to.meta.index
+      this.from = pathChanged && from.meta.index
     },
   },
   methods: {
