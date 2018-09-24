@@ -32,7 +32,10 @@ export default [
   },
   {
     path: 'date',
-    redirect: '/events?view=calendar',
+    redirect: {
+      path: '/events',
+      query: { view: 'calendar' },
+    },
   },
   {
     path: 'date/:datestring',
