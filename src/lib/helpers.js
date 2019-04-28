@@ -28,3 +28,6 @@ export const readImagesFromInput = ({ target }) => {
 
   return Promise.all(images)
 }
+
+export const fromNow = (offset = 0) => new Date().getTime() + offset
+export const ONE_DAY = 86400000

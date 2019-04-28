@@ -3,6 +3,8 @@ import image2 from '@/assets/images/event2.png'
 import image3 from '@/assets/images/event3.png'
 import image4 from '@/assets/images/event4.png'
 
+import { fromNow, ONE_DAY } from '../helpers'
+
 export default [
   {
     title: '8. Alumni Stammtisch',
@@ -11,7 +13,7 @@ export default [
     content: `Wie jedes Jahr findet auch 2018 wieder unser Stammtisch statt.
     Freue mich über alle die auf ein (oder zwei, oder sieben) Bierchen vorbeikommen!`,
     usergroup: 'Alumni',
-    date: 1526831747301,
+    date: fromNow(),
     id: '05e53bc1-176c-4c6b-be3f-ab943172297b',
     attending: undefined,
   },
@@ -20,7 +22,7 @@ export default [
     image: image4,
     location: 'Haus T - HS Bremerhaven',
     usergroup: 'Alumni',
-    date: 1531931747301,
+    date: fromNow(-ONE_DAY),
     id: '6d6e6e80-8f10-4fe5-9f8b-30ee8ec20354',
     attending: undefined,
   },
@@ -29,7 +31,7 @@ export default [
     image: image3,
     location: 'Bürgerpark Bremerhaven',
     usergroup: 'Alle',
-    date: 1526941544211,
+    date: fromNow(ONE_DAY * 3),
     id: '72d1c641-6485-4b16-90fd-7494331be909',
     attending: true,
   },
@@ -38,7 +40,7 @@ export default [
     image: image2,
     location: 'Co-Working Space Alte Bürger',
     usergroup: 'Studierende',
-    date: 1526651549211,
+    date: fromNow(-(ONE_DAY * 6)),
     id: '11e15eab-d2e2-4cdd-94da-7111b1dce573',
     attending: undefined,
     username: 'jonaskuske',
@@ -57,7 +59,7 @@ export default [
     image: image2,
     location: 'Nachtschicht Bremerhaven',
     usergroup: 'Alumni',
-    date: 1533441547211,
+    date: fromNow(ONE_DAY * 8),
     id: 'd9dffddd-2adb-4eaf-b99f-61bb8d10c3a6',
     attending: undefined,
     username: 'carloscholz',
@@ -67,7 +69,7 @@ export default [
     image: image1,
     location: 'Wencke Docks (gutes Wetter)',
     usergroup: 'Alle',
-    date: 1529247600000,
+    date: fromNow(-(ONE_DAY * 21)),
     id: '0fb11543-4e87-4037-81fa-ee13d5c038c9',
     attending: true,
     username: 'jonaskuske',

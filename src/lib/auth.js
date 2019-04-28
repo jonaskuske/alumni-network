@@ -8,7 +8,7 @@ const authState = {
 
 export const checkAuth = () => {
   if (authState.authenticated) return authState.authenticated
-  const token = sessionStorage.getItem('gis-alumni-auth')
+  const token = localStorage.getItem('gis-alumni-auth')
   if (token) {
     const [user, password] = token.split('|')
     login(user, password)
@@ -16,17 +16,17 @@ export const checkAuth = () => {
   return authState.authenticated
 }
 
-export const revokeAuth = () => {
-  sessionStorage.removeItem('gis-alumni-auth')
+export const revokeToken = () => {
+  localStorage.removeItem('gis-alumni-auth')
 }
 
-export const createAuth = (user, pw) => {
-  sessionStorage.setItem('gis-alumni-auth', `${user}|${pw}`)
+export const createToken = (user, pw) => {
+  localStorage.setItem('gis-alumni-auth', `${user}|${pw}`)
 }
 
 export const login = (user, pw) => {
   if (authState.users.find(u => u.username === user && u.password === pw)) {
-    createAuth(user, pw)
+    createToken(user, pw)
     store.dispatch('userStore/' + SET_ACTIVE_USER, user)
     return (authState.authenticated = true)
   }
@@ -34,8 +34,9 @@ export const login = (user, pw) => {
 }
 
 export const logout = () => {
-  revokeAuth()
+  revokeToken()
   authState.authenticated = false
+  return store.dispatch('userStore/' + SET_ACTIVE_USER, '')
 }
 
 export const addCredentials = (username, password) => {

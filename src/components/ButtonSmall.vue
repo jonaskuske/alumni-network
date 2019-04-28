@@ -1,9 +1,12 @@
 <template>
   <button
-    :class="['comp-button-small', {'comp-button-small--attr': value}]"
+    :class="['comp-button-small', { 'comp-button-small--attr': value }]"
     :data-attr="value ? value : false"
     type="button"
-    @click="$event.target.blur(); $emit('click', $event)"
+    @click="
+      $event.target.blur()
+      $emit('click', $event)
+    "
   />
 </template>
 
@@ -19,7 +22,6 @@ export default {
 }
 </script>
 
-
 <style>
 .comp-button-small {
   margin: 0;
@@ -30,9 +32,15 @@ export default {
   border-radius: 50%;
   outline: none;
   width: 100%;
+  max-width: 2rem;
+  flex-shrink: 0;
 }
-.comp-button-small:hover,
-.comp-button-small:focus {
+@media (hover: hover) and (pointer: fine) {
+  .comp-button-small:hover {
+    background-color: #9c9c9c;
+  }
+}
+.comp-button-small:focus-visible {
   background-color: #9c9c9c;
 }
 .comp-button-small::before {

@@ -1,6 +1,5 @@
 <template>
   <div class="statusbar">
-
     <button-small
       :value="''"
       class="statusbar__button icon--search"
@@ -19,10 +18,13 @@
 
     <router-link to="/me" class="statusbar__account">
       <p class="statusbar__account-name hover-underline">{{ currentUser.name }}</p>
-      <user-avatar :image="currentUser.profilePicture" :name="currentUser.name" class="statusbar__account-image" />
+      <user-avatar
+        :image="currentUser.profilePicture"
+        :name="currentUser.name"
+        class="statusbar__account-image"
+      />
     </router-link>
     <button class="statusbar__logout" @click.prevent="logout">Logout</button>
-
   </div>
 </template>
 
@@ -108,7 +110,7 @@ export default {
   border-bottom: 2px solid red;
 }
 .statusbar__logout:hover::before,
-.statusbar__logout:focus::before {
+.statusbar__logout-visible::before {
   opacity: 1;
 }
 @media screen and (min-width: 900px) {

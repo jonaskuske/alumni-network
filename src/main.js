@@ -7,6 +7,7 @@ import store from './store'
 import './registerServiceWorker'
 import VueSanitize from 'vue-sanitize'
 import { initialFetch } from '@/lib/fetch'
+import 'focus-visible'
 import { SET_MOBILE_LAYOUT } from '@/store/types'
 
 Vue.config.productionTip = false

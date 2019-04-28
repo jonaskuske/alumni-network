@@ -1,40 +1,21 @@
+// Defines console.error() as sole allowed console method
+const errorMethodOnly = ['error', { allow: ['error'] }]
+const isDev = process.env.NODE_ENV === 'development'
+
 module.exports = {
-  // root: true,
-  'extends': [
-    'plugin:vue/essential',
-    '@vue/prettier',
-  ],
-
   root: true,
-
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
-
+  env: { node: true },
+  extends: ['plugin:vue/recommended', '@vue/prettier'],
+  parserOptions: { parser: 'babel-eslint' },
   rules: {
-    'no-console': 'off',
-    'no-debugger': 'off',
-    'vue/attribute-hyphenation': [
+    'no-console': isDev ? 'off' : errorMethodOnly,
+    'no-debugger': isDev ? 'off' : 'error',
+    'vue/max-attributes-per-line': [
       'error',
-      'always'
+      {
+        singleline: 4,
+        multiline: { max: 1, allowFirstLine: false },
+      },
     ],
-    'vue/html-end-tags': 'error',
-    'vue/html-indent': [
-      'error',
-      2
-    ],
-    'vue/html-self-closing': 'error',
-    'vue/require-default-prop': 'error',
-    'vue/require-prop-types': 'error',
-    'vue/attributes-order': 'error',
-    'vue/html-quotes': [
-      'error',
-      'double'
-    ],
-    'vue/order-in-components': 'error'
   },
-
-  env: {
-    node: true
-  }
 }
