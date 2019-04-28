@@ -1,5 +1,5 @@
-import Login from '@/views/Splash/Login'
-import Signup from '@/views/Splash/Signup'
+import Login from '@/views/Splash/Login';
+import Signup from '@/views/Splash/Signup';
 
 export default [
   {
@@ -13,4 +13,4 @@ export default [
     name: 'signup',
     component: Signup,
   },
-]
+];

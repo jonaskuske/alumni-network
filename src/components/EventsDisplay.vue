@@ -2,12 +2,25 @@
   <section class="events-display">
     <div class="thumbnail-grid events-display__thumbnails">
       <p v-if="!filteredEvents.length">Noch keine Events.</p>
-      <event-thumbnail v-for="event in filteredEvents" v-else :key="event.id" :event="event"/>
+      <event-thumbnail
+        v-for="event in filteredEvents"
+        v-else
+        :key="event.id"
+        :event="event"
+      />
     </div>
     <div v-if="events.length" class="forum__post-filters">
       <h2 class="post-display__filter-title">Events filtern</h2>
-      <labelled-input v-model="query" label="Event suchen..." class="post-display__search" />
-      <button type="button" class="button-secondary post-display__reset" @click="query = ''">
+      <labelled-input
+        v-model="query"
+        label="Event suchen..."
+        class="post-display__search"
+      />
+      <button
+        type="button"
+        class="button-secondary post-display__reset"
+        @click="query = ''"
+      >
         Filter löschen
       </button>
     </div>
@@ -15,8 +28,8 @@
 </template>
 
 <script>
-import LabelledInput from '@/components/LabelledInput'
-import EventThumbnail from '@/components/EventThumbnail'
+import LabelledInput from '@/components/LabelledInput';
+import EventThumbnail from '@/components/EventThumbnail';
 
 export default {
   name: 'EventsDisplay',
@@ -31,7 +44,7 @@ export default {
   data() {
     return {
       query: '',
-    }
+    };
   },
   computed: {
     filteredEvents() {
@@ -43,12 +56,12 @@ export default {
                 typeof val === 'string' &&
                 val.toLowerCase().includes(this.query.toLowerCase())
               )
-                return true
+                return true;
             }
-          })
+          });
     },
   },
-}
+};
 </script>
 
 <style>

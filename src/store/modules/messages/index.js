@@ -1,4 +1,4 @@
-import { MARK_ALL_AS_READ } from '@/store/modules/messages/types'
+import { MARK_ALL_AS_READ } from '@/store/modules/messages/types';
 
 const state = {
   messages: [
@@ -33,23 +33,23 @@ const state = {
       from: 'Matthias',
     },
   ],
-}
+};
 
 const mutations = {
   [MARK_ALL_AS_READ]: ({ messages }) => messages.forEach(m => (m.read = true)),
-}
+};
 
 const actions = {
   [MARK_ALL_AS_READ]({ commit }) {
-    commit(MARK_ALL_AS_READ)
+    commit(MARK_ALL_AS_READ);
   },
-}
+};
 
 const getters = {
   unreadMessages(state) {
-    return state.messages.filter(msg => !msg.read)
+    return state.messages.filter(msg => !msg.read);
   },
-}
+};
 
 export default {
   namespaced: true,
@@ -57,4 +57,4 @@ export default {
   mutations,
   actions,
   getters,
-}
+};

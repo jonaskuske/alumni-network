@@ -1,11 +1,11 @@
-import * as auth from '@/lib/auth'
+import * as auth from '@/lib/auth';
 
-import Splash from '@/views/Splash'
-import MainView from '@/views/MainView'
-import Imprint from '@/views/Imprint'
-import Privacy from '@/views/Privacy'
-import splashRoutes from './Splash'
-import mainRoutes from './MainView'
+import Splash from '@/views/Splash';
+import MainView from '@/views/MainView';
+import Imprint from '@/views/Imprint';
+import Privacy from '@/views/Privacy';
+import splashRoutes from './Splash';
+import mainRoutes from './MainView';
 
 export default [
   {
@@ -13,8 +13,8 @@ export default [
     component: Splash,
     children: splashRoutes,
     beforeEnter(from, to, next) {
-      if (auth.checkAuth()) next('/')
-      else next()
+      if (auth.checkAuth()) next('/');
+      else next();
     },
   },
   {
@@ -32,8 +32,8 @@ export default [
     component: MainView,
     children: mainRoutes,
     beforeEnter(from, to, next) {
-      if (auth.checkAuth()) next()
-      else next({ path: '/login', query: { redirect: from.fullPath } })
+      if (auth.checkAuth()) next();
+      else next({ path: '/login', query: { redirect: from.fullPath } });
     },
   },
-]
+];

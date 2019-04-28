@@ -1,11 +1,17 @@
 <template>
   <main class="forum">
     <title-bar label="Forum" title="Übersicht - Letzte Beiträge">
-      <button class="button-main" @click="$router.push('/forum/new')">Beitrag erstellen</button>
+      <button class="button-main" @click="$router.push('/forum/new')">
+        Beitrag erstellen
+      </button>
     </title-bar>
     <section class="forum__links">
-      <router-link to="/forum/subforums" class="button-secondary">Zu den Unterforen</router-link>
-      <router-link to="/me#posts" class="button-secondary">Beiträge verwalten</router-link>
+      <router-link to="/forum/subforums" class="button-secondary">
+        Zu den Unterforen
+      </router-link>
+      <router-link to="/me#posts" class="button-secondary">
+        Beiträge verwalten
+      </router-link>
     </section>
     <post-display v-if="posts.length" :posts="posts" />
     <p v-else>Noch keine Beiträge</p>
@@ -13,9 +19,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import TitleBar from '@/components/TitleBar'
-import PostDisplay from '@/components/PostDisplay'
+import { mapGetters } from 'vuex';
+import TitleBar from '@/components/TitleBar';
+import PostDisplay from '@/components/PostDisplay';
 
 export default {
   name: 'Forum',
@@ -23,7 +29,7 @@ export default {
   computed: {
     ...mapGetters('forumStore', { posts: 'postsSortedByNewest' }),
   },
-}
+};
 </script>
 
 <style>

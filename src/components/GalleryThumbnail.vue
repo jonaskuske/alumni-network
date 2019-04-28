@@ -1,11 +1,11 @@
 <template>
   <div
     :class="[
-      {'gallery-thumbnail--empty': !image},
-      {'gallery-thumbnail--clickable': clickable},
-      {'gallery-thumbnail--round': circle}
+      { 'gallery-thumbnail--empty': !image },
+      { 'gallery-thumbnail--clickable': clickable },
+      { 'gallery-thumbnail--round': circle },
     ]"
-    :style="{backgroundImage: `url(${image})`}"
+    :style="{ backgroundImage: `url(${image})` }"
     class="gallery-thumbnail"
     @click="$emit('click', $event)"
   />
@@ -31,7 +31,7 @@ export default {
       default: false,
     },
   },
-}
+};
 </script>
 
 <style>

@@ -15,16 +15,20 @@
     </header>
     <p class="comment__text" v-html="content" />
     <div v-if="comment.gallery.length" class="comment__gallery">
-      <gallery-thumbnail v-for="(image, i) in comment.gallery" :image="image" :key="i" />
+      <gallery-thumbnail
+        v-for="(image, i) in comment.gallery"
+        :image="image"
+        :key="i"
+      />
     </div>
   </li>
 </template>
 
 <script>
-import ButtonSmall from '@/components/ButtonSmall'
-import UserAvatar from '@/components/UserAvatar'
-import GalleryThumbnail from '@/components/GalleryThumbnail'
-import { mapGetters } from 'vuex'
+import ButtonSmall from '@/components/ButtonSmall';
+import UserAvatar from '@/components/UserAvatar';
+import GalleryThumbnail from '@/components/GalleryThumbnail';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Comment',
@@ -39,16 +43,16 @@ export default {
   computed: {
     ...mapGetters('userStore', ['usersByUsername', 'currentUser']),
     author() {
-      return this.usersByUsername[this.comment.username] || {}
+      return this.usersByUsername[this.comment.username] || {};
     },
     content() {
       return (
         this.comment.content &&
         this.$sanitize(this.comment.content.replace('\n', '<br>'))
-      )
+      );
     },
   },
-}
+};
 </script>
 
 <style>

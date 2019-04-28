@@ -2,7 +2,12 @@
   <nav class="navigation">
     <ul class="navigation__list">
       <li v-for="{ name, href } in links" :key="href" class="navigation__item">
-        <router-link :to="href" :class="{'navigation__link--exact-only': href === '/'}" class="navigation__link hover-underline" @click.native="closeMenu">
+        <router-link
+          :to="href"
+          :class="{ 'navigation__link--exact-only': href === '/' }"
+          class="navigation__link hover-underline"
+          @click.native="closeMenu"
+        >
           {{ name }}
         </router-link>
       </li>
@@ -11,8 +16,8 @@
 </template>
 
 <script>
-import { TOGGLE_MENU_STATE } from '@/store/types'
-import { mapState, mapActions } from 'vuex'
+import { TOGGLE_MENU_STATE } from '@/store/types';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   props: {
@@ -28,12 +33,11 @@ export default {
   methods: {
     ...mapActions({ toggleMenu: TOGGLE_MENU_STATE }),
     closeMenu() {
-      this.mobileLayout && this.toggleMenu()
+      this.mobileLayout && this.toggleMenu();
     },
   },
-}
+};
 </script>
-
 
 <style>
 .navigation {

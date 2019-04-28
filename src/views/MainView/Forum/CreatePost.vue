@@ -18,7 +18,13 @@
         <title-bar label="Forum" title="Beitrag verfassen">
           <button class="button-main" type="submit">Veröffentlichen</button>
         </title-bar>
-        <button type="button" class="button-secondary" @click="$router.push('/forum')">Zurück (Abbrechen)</button>
+        <button
+          type="button"
+          class="button-secondary"
+          @click="$router.push('/forum')"
+        >
+          Zurück (Abbrechen)
+        </button>
         <post-form v-model="form" />
       </form>
       <input
@@ -26,19 +32,20 @@
         type="file"
         accept="image/*"
         class="hide"
-        @change="readImage">
+        @change="readImage"
+      />
     </main>
   </with-hero-image>
 </template>
 
 <script>
-import { generateId, readImageFromInput } from '@/lib/helpers'
-import placeholderImage from '@/assets/images/hero-placeholder.svg'
-import { mapActions, mapGetters } from 'vuex'
-import { ADD_POST } from '@/store/modules/forum/types'
-import PostForm from '@/components/PostForm'
-import WithHeroImage from '@/components/WithHeroImage'
-import TitleBar from '@/components/TitleBar'
+import { generateId, readImageFromInput } from '@/lib/helpers';
+import placeholderImage from '@/assets/images/hero-placeholder.svg';
+import { mapActions, mapGetters } from 'vuex';
+import { ADD_POST } from '@/store/modules/forum/types';
+import PostForm from '@/components/PostForm';
+import WithHeroImage from '@/components/WithHeroImage';
+import TitleBar from '@/components/TitleBar';
 
 export default {
   name: 'CreatePost',
@@ -65,26 +72,26 @@ export default {
       },
       image: '',
       placeholderImage,
-    }
+    };
   },
   computed: {
     ...mapGetters('userStore', ['currentUser']),
     ...mapGetters('forumStore', ['getSubforumByTag']),
   },
   created() {
-    const subforum = this.getSubforumByTag(this.tag)
-    if (subforum.name) this.form.subforum = subforum.name
+    const subforum = this.getSubforumByTag(this.tag);
+    if (subforum.name) this.form.subforum = subforum.name;
   },
   methods: {
     ...mapActions('forumStore', { addPost: ADD_POST }),
     publish() {
-      if (!this.form.title) return
-      const post = this.createPost()
-      this.addPost(post)
-      this.$router.push(`/forum/post/${post.id}`)
+      if (!this.form.title) return;
+      const post = this.createPost();
+      this.addPost(post);
+      this.$router.push(`/forum/post/${post.id}`);
     },
     createPost() {
-      const { title, content, gallery, subforum, usergroup } = this.form
+      const { title, content, gallery, subforum, usergroup } = this.form;
       const post = {
         title,
         content,
@@ -98,15 +105,15 @@ export default {
         read: true,
         id: generateId(),
         comments: [],
-      }
-      return post
+      };
+      return post;
     },
     async readImage(evt) {
-      this.image = await readImageFromInput(evt)
-      this.$refs.imageInput.value = ''
+      this.image = await readImageFromInput(evt);
+      this.$refs.imageInput.value = '';
     },
   },
-}
+};
 </script>
 
 <style>

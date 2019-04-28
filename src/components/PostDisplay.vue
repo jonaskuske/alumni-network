@@ -1,12 +1,24 @@
 <template>
   <section class="post-display">
     <div class="thumbnail-grid forum__post-thumbnails">
-      <post-thumbnail v-for="post in filteredPosts" :key="post.id" :post="post"/>
+      <post-thumbnail
+        v-for="post in filteredPosts"
+        :key="post.id"
+        :post="post"
+      />
     </div>
     <div class="forum__post-filters">
       <h2 class="post-display__filter-title">Forenbeiträge filtern</h2>
-      <labelled-input v-model="query" label="Post suchen..." class="post-display__search" />
-      <button type="button" class="button-secondary post-display__reset" @click="query = ''">
+      <labelled-input
+        v-model="query"
+        label="Post suchen..."
+        class="post-display__search"
+      />
+      <button
+        type="button"
+        class="button-secondary post-display__reset"
+        @click="query = ''"
+      >
         Filter löschen
       </button>
     </div>
@@ -14,8 +26,8 @@
 </template>
 
 <script>
-import LabelledInput from '@/components/LabelledInput'
-import PostThumbnail from '@/components/PostThumbnail'
+import LabelledInput from '@/components/LabelledInput';
+import PostThumbnail from '@/components/PostThumbnail';
 
 export default {
   name: 'PostDisplay',
@@ -30,7 +42,7 @@ export default {
   data() {
     return {
       query: '',
-    }
+    };
   },
   computed: {
     filteredPosts() {
@@ -42,12 +54,12 @@ export default {
                 typeof val === 'string' &&
                 val.toLowerCase().includes(this.query.toLowerCase())
               )
-                return true
+                return true;
             }
-          })
+          });
     },
   },
-}
+};
 </script>
 
 <style>

@@ -1,16 +1,16 @@
-import forum1 from '@/assets/images/forum1.png'
-import forum2 from '@/assets/images/forum2.png'
-import forum3 from '@/assets/images/forum3.png'
-import Plakat1 from '@/assets/images/Plakat1.png'
-import Plakat2 from '@/assets/images/Plakat2.png'
-import Plakat3 from '@/assets/images/Plakat3.jpg'
-import catSmall from '@/assets/images/cat-small.jpg'
-import catWhite from '@/assets/images/cat-white.jpg'
-import catBowl from '@/assets/images/cat-bowl.jpg'
-import catSmirk from '@/assets/images/cat-smirk.jpg'
-import dog from '@/assets/images/dog.jpg'
-import bird from '@/assets/images/bird.jpg'
-import guinea from '@/assets/images/guinea.jpg'
+import forum1 from '@/assets/images/forum1.png';
+import forum2 from '@/assets/images/forum2.png';
+import forum3 from '@/assets/images/forum3.png';
+import Plakat1 from '@/assets/images/Plakat1.png';
+import Plakat2 from '@/assets/images/Plakat2.png';
+import Plakat3 from '@/assets/images/Plakat3.jpg';
+import catSmall from '@/assets/images/cat-small.jpg';
+import catWhite from '@/assets/images/cat-white.jpg';
+import catBowl from '@/assets/images/cat-bowl.jpg';
+import catSmirk from '@/assets/images/cat-smirk.jpg';
+import dog from '@/assets/images/dog.jpg';
+import bird from '@/assets/images/bird.jpg';
+import guinea from '@/assets/images/guinea.jpg';
 
 export default [
   {
@@ -106,4 +106,4 @@ Ich mach gleich mal den Anfang mit dieser kleinen Babykatze und einem süßen Hu
     gallery: [],
     subforum: 'Spaß und Sonstiges',
   },
-]
+];

@@ -3,4 +3,4 @@ module.exports = {
     autoprefixer: { grid: true },
     'postcss-focus-visible': { preserve: false },
   },
-}
+};

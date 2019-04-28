@@ -9,17 +9,16 @@
 </template>
 
 <script>
-import SplashscreenHeader from '@/components/TheSplashscreenHeader'
-import SplashscreenFooter from '@/components/TheFooter'
+import SplashscreenHeader from '@/components/TheSplashscreenHeader';
+import SplashscreenFooter from '@/components/TheFooter';
 
 export default {
   components: {
     SplashscreenHeader,
     SplashscreenFooter,
   },
-}
+};
 </script>
-
 
 <style scoped>
 h1,

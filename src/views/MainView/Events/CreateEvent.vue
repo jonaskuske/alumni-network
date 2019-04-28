@@ -18,27 +18,34 @@
         <title-bar label="Forum" title="Event erstellen">
           <button class="button-main" type="submit">Erstellen</button>
         </title-bar>
-        <button type="button" class="button-secondary" @click="$router.push('/events')">Zurück (Abbrechen)</button>
+        <button
+          type="button"
+          class="button-secondary"
+          @click="$router.push('/events')"
+        >
+          Zurück (Abbrechen)
+        </button>
         <event-form v-model="form" />
       </form>
-      <input 
-        ref="imageInput" 
-        type="file" 
-        accept="image/*" 
-        class="hide" 
-        @change="readImage">
+      <input
+        ref="imageInput"
+        type="file"
+        accept="image/*"
+        class="hide"
+        @change="readImage"
+      />
     </main>
   </with-hero-image>
 </template>
 
 <script>
-import { generateId, readImageFromInput } from '@/lib/helpers'
-import placeholderImage from '@/assets/images/hero-placeholder.svg'
-import { mapActions, mapGetters } from 'vuex'
-import { ADD_EVENT } from '@/store/modules/events/types'
-import EventForm from '@/components/EventForm'
-import WithHeroImage from '@/components/WithHeroImage'
-import TitleBar from '@/components/TitleBar'
+import { generateId, readImageFromInput } from '@/lib/helpers';
+import placeholderImage from '@/assets/images/hero-placeholder.svg';
+import { mapActions, mapGetters } from 'vuex';
+import { ADD_EVENT } from '@/store/modules/events/types';
+import EventForm from '@/components/EventForm';
+import WithHeroImage from '@/components/WithHeroImage';
+import TitleBar from '@/components/TitleBar';
 
 export default {
   name: 'CreatePost',
@@ -58,7 +65,7 @@ export default {
       },
       image: '',
       placeholderImage,
-    }
+    };
   },
   computed: {
     ...mapGetters('userStore', ['currentUser']),
@@ -66,13 +73,13 @@ export default {
   methods: {
     ...mapActions('eventStore', { addEvent: ADD_EVENT }),
     publish() {
-      if (!this.form.title) return
-      const event = this.createEvent()
-      this.addEvent(event)
-      this.$router.push(`/events/event/${event.id}`)
+      if (!this.form.title) return;
+      const event = this.createEvent();
+      this.addEvent(event);
+      this.$router.push(`/events/event/${event.id}`);
     },
     createEvent() {
-      const { title, content, date, location, usergroup } = this.form
+      const { title, content, date, location, usergroup } = this.form;
       const event = {
         title,
         content,
@@ -83,13 +90,13 @@ export default {
         username: this.currentUser.username,
         attending: true,
         id: generateId(),
-      }
-      return event
+      };
+      return event;
     },
     async readImage(evt) {
-      this.image = await readImageFromInput(evt)
-      this.$refs.imageInput.value = ''
+      this.image = await readImageFromInput(evt);
+      this.$refs.imageInput.value = '';
     },
   },
-}
+};
 </script>

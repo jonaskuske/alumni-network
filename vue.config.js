@@ -1,6 +1,6 @@
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const zopfli = require('@gfx/zopfli')
-const BrotliWebpackPlugin = require('brotli-webpack-plugin')
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const zopfli = require('@gfx/zopfli');
+const BrotliWebpackPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
   lintOnSave: true,
@@ -24,10 +24,10 @@ module.exports = {
             numiterations: 15,
           },
           algorithm(input, compressionOptions, callback) {
-            return zopfli.gzip(input, compressionOptions, callback)
+            return zopfli.gzip(input, compressionOptions, callback);
           },
         },
-      ])
+      ]);
 
       config.plugin('compress-brotli').use(BrotliWebpackPlugin, [
         {
@@ -35,7 +35,7 @@ module.exports = {
           threshold: 10240,
           minRatio: 0.7,
         },
-      ])
+      ]);
     }
   },
-}
+};

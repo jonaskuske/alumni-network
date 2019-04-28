@@ -1,10 +1,10 @@
-import Abstract from '../Abstract'
-import Overview from '@/views/MainView/Forum/Overview'
-import CreatePost from '@/views/MainView/Forum/CreatePost'
-import EditPost from '@/views/MainView/Forum/EditPost'
-import ViewPost from '@/views/MainView/Forum/ViewPost'
-import SubforumList from '@/views/MainView/Forum/SubforumList'
-import Subforum from '@/views/MainView/Forum/Subforum'
+import Abstract from '../Abstract';
+import Overview from '@/views/MainView/Forum/Overview';
+import CreatePost from '@/views/MainView/Forum/CreatePost';
+import EditPost from '@/views/MainView/Forum/EditPost';
+import ViewPost from '@/views/MainView/Forum/ViewPost';
+import SubforumList from '@/views/MainView/Forum/SubforumList';
+import Subforum from '@/views/MainView/Forum/Subforum';
 
 export default [
   {
@@ -52,4 +52,4 @@ export default [
       },
     ],
   },
-]
+];

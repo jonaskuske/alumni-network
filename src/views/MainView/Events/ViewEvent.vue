@@ -3,27 +3,45 @@
     <main>
       <title-bar :title="event.title || 'Event nicht gefunden'" label="Event">
         <template v-if="byUser">
-          <button class="button-main button--danger post__delete" @click="deleteAndLeave">Löschen</button>
-          <button class="button-main" @click="$router.push(`/events/event/${event.id}/edit`)">Bearbeiten</button>
+          <button
+            class="button-main button--danger post__delete"
+            @click="deleteAndLeave"
+          >
+            Löschen
+          </button>
+          <button
+            class="button-main"
+            @click="$router.push(`/events/event/${event.id}/edit`)"
+          >
+            Bearbeiten
+          </button>
         </template>
       </title-bar>
       <section v-if="!byUser" class="forum__links">
         <button
-          :class="[{attending: event.attending}, {inactive: event.attending === false}]"
+          :class="[
+            { attending: event.attending },
+            { inactive: event.attending === false },
+          ]"
           class="button-secondary view-event__attend"
-          @click="attend(true)">
+          @click="attend(true)"
+        >
           Teilnehmen
         </button>
         <button
-          :class="[{'not-attending': event.attending === false}, {inactive: event.attending}]"
+          :class="[
+            { 'not-attending': event.attending === false },
+            { inactive: event.attending },
+          ]"
           class="button-secondary view-event__refuse"
-          @click="attend(false)">
+          @click="attend(false)"
+        >
           Absagen
         </button>
       </section>
       <h3>Findet statt am {{ event.date | date }}</h3>
       <section id="content" class="post__content">
-        <p class="post__text" v-html="sanitizedContent"/>
+        <p class="post__text" v-html="sanitizedContent" />
         <div class="post__content-meta">
           <p class="meta-label">Ort</p>
           <p class="meta-text">{{ event.location }}</p>
@@ -38,10 +56,13 @@
 </template>
 
 <script>
-import { DELETE_EVENT, SET_ATTENDING_STATE } from '@/store/modules/events/types'
-import { mapGetters, mapActions } from 'vuex'
-import WithHeroImage from '@/components/WithHeroImage'
-import TitleBar from '@/components/TitleBar'
+import {
+  DELETE_EVENT,
+  SET_ATTENDING_STATE,
+} from '@/store/modules/events/types';
+import { mapGetters, mapActions } from 'vuex';
+import WithHeroImage from '@/components/WithHeroImage';
+import TitleBar from '@/components/TitleBar';
 
 export default {
   name: 'Event',
@@ -57,18 +78,18 @@ export default {
     ...mapGetters('eventStore', ['eventsById']),
     ...mapGetters('userStore', ['currentUser', 'usersByUsername']),
     event() {
-      return this.eventsById[this.id] || {}
+      return this.eventsById[this.id] || {};
     },
     host() {
-      const user = this.usersByUsername[this.event.username]
-      return user ? user.name : this.event.username ? this.event.username : ''
+      const user = this.usersByUsername[this.event.username];
+      return user ? user.name : this.event.username ? this.event.username : '';
     },
     sanitizedContent() {
-      const content = this.event.content
-      return content ? this.$sanitize(content.replace(/\n/g, '<br>')) : ''
+      const content = this.event.content;
+      return content ? this.$sanitize(content.replace(/\n/g, '<br>')) : '';
     },
     byUser() {
-      return this.event.username === this.currentUser.username
+      return this.event.username === this.currentUser.username;
     },
   },
   methods: {
@@ -77,14 +98,14 @@ export default {
       setAttendingState: SET_ATTENDING_STATE,
     }),
     deleteAndLeave() {
-      this.deleteEvent(this.event)
-      this.$router.push('/events')
+      this.deleteEvent(this.event);
+      this.$router.push('/events');
     },
     attend(value) {
-      this.setAttendingState({ ...this.event, value })
+      this.setAttendingState({ ...this.event, value });
     },
   },
-}
+};
 </script>
 
 <style>

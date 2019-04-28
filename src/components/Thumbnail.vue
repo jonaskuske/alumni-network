@@ -1,6 +1,6 @@
 <template>
   <div class="thumbnail" @click="$emit('click', $event)">
-    <img :src="image" alt="" class="thumbnail__image">
+    <img :src="image" alt="" class="thumbnail__image" />
     <p v-if="tag" class="thumbnail__tag">{{ tag }}</p>
     <div class="thumbnail__content">
       <p class="thumbnail__title">{{ title }}</p>
@@ -38,7 +38,7 @@ export default {
       default: '',
     },
   },
-}
+};
 </script>
 
 <style>

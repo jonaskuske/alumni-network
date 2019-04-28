@@ -16,10 +16,22 @@
       </button>
       <form method="post" @submit.prevent="save">
         <title-bar label="Forum" title="Beitrag bearbeiten">
-          <button class="button-main button--danger" type="button" @click="deleteAndLeave">Löschen</button>
+          <button
+            class="button-main button--danger"
+            type="button"
+            @click="deleteAndLeave"
+          >
+            Löschen
+          </button>
           <button class="button-main" type="submit">Speichern</button>
         </title-bar>
-        <button type="button" class="button-secondary" @click="$router.push('/forum')">Zurück (Abbrechen)</button>
+        <button
+          type="button"
+          class="button-secondary"
+          @click="$router.push('/forum')"
+        >
+          Zurück (Abbrechen)
+        </button>
         <post-form v-model="form" />
       </form>
       <input
@@ -27,19 +39,20 @@
         type="file"
         accept="image/*"
         class="hide"
-        @change="readImage">
+        @change="readImage"
+      />
     </main>
   </with-hero-image>
 </template>
 
 <script>
-import { readImageFromInput } from '@/lib/helpers'
-import placeholderImage from '@/assets/images/hero-placeholder.svg'
-import { mapGetters, mapActions } from 'vuex'
-import { REPLACE_POST, DELETE_POST } from '@/store/modules/forum/types'
-import PostForm from '@/components/PostForm'
-import WithHeroImage from '@/components/WithHeroImage'
-import TitleBar from '@/components/TitleBar'
+import { readImageFromInput } from '@/lib/helpers';
+import placeholderImage from '@/assets/images/hero-placeholder.svg';
+import { mapGetters, mapActions } from 'vuex';
+import { REPLACE_POST, DELETE_POST } from '@/store/modules/forum/types';
+import PostForm from '@/components/PostForm';
+import WithHeroImage from '@/components/WithHeroImage';
+import TitleBar from '@/components/TitleBar';
 
 export default {
   name: 'EditPost',
@@ -67,7 +80,7 @@ export default {
       data: {},
       post: {},
       placeholderImage,
-    }
+    };
   },
   computed: {
     ...mapGetters('userStore', ['currentUser']),
@@ -75,11 +88,11 @@ export default {
   },
   watch: {
     postsById(posts) {
-      if (posts[this.id]) this.getPost()
+      if (posts[this.id]) this.getPost();
     },
   },
   created() {
-    if (this.postsById[this.id]) this.getPost()
+    if (this.postsById[this.id]) this.getPost();
   },
   methods: {
     ...mapActions('forumStore', {
@@ -87,30 +100,30 @@ export default {
       deletePost: DELETE_POST,
     }),
     save() {
-      const newPost = { ...this.form, ...this.data, image: this.image }
-      this.replacePost(newPost)
-      this.$router.push(`/forum/post/${newPost.id}`)
+      const newPost = { ...this.form, ...this.data, image: this.image };
+      this.replacePost(newPost);
+      this.$router.push(`/forum/post/${newPost.id}`);
     },
     deleteAndLeave() {
-      this.deletePost(this.post)
-      this.$router.push('/forum')
+      this.deletePost(this.post);
+      this.$router.push('/forum');
     },
     getPost() {
-      const post = this.postsById[this.id]
+      const post = this.postsById[this.id];
       if (this.currentUser.username !== post.username) {
-        return this.$router.push(`/forum/post/${post.id}`)
+        return this.$router.push(`/forum/post/${post.id}`);
       }
 
-      const { title, content, gallery, usergroup, image, ...data } = post
-      this.post = post
-      this.form = { title, content, gallery, usergroup }
-      this.image = image
-      this.data = data
+      const { title, content, gallery, usergroup, image, ...data } = post;
+      this.post = post;
+      this.form = { title, content, gallery, usergroup };
+      this.image = image;
+      this.data = data;
     },
     async readImage(evt) {
-      const image = await readImageFromInput(evt)
-      this.image = image
+      const image = await readImageFromInput(evt);
+      this.image = image;
     },
   },
-}
+};
 </script>

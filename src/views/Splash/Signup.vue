@@ -2,15 +2,20 @@
   <main class="login">
     <section v-if="loginSuccessful" class="signup__success">
       <h1 class="signup__success-heading">Registrierung erfolgreich</h1>
-      <router-link to="/login" class="button-main signup__success-button">Zum Login</router-link>
+      <router-link to="/login" class="button-main signup__success-button">
+        Zum Login
+      </router-link>
     </section>
     <template v-else>
       <section class="login__section login__section-welcome">
-        <h1 class="login__heading"><span>In fünf Schritten zur</span>Registrierung</h1>
+        <h1 class="login__heading">
+          <span>In fünf Schritten zur</span>Registrierung
+        </h1>
         <p class="login__description">
-          Gründe warum Registrierung nötig, qualitative Inhalte, moderierte Community. Animi et
-          fugit incidunt dignissimos fugiat distinctio omnis iusto, ea cum veniam laudantium natus
-          libero deserunt aspernatur! Consequatur.
+          Gründe warum Registrierung nötig, qualitative Inhalte, moderierte
+          Community. Animi et fugit incidunt dignissimos fugiat distinctio omnis
+          iusto, ea cum veniam laudantium natus libero deserunt aspernatur!
+          Consequatur.
         </p>
         <h2 class="login__features-title">Wir benötigen</h2>
         <ul class="login__features-list">
@@ -31,14 +36,19 @@
             Deine Nutzergruppe: Alumni, Studierende, Dozenten oder Gäste
           </li>
           <li class="login__features-listitem">
-            Einen Nachweis für die Zugehörigkeit zur Nutzergruppe (außer Gäste) - Matrikelnummer,
-            alte Studienbescheinigung o.ä.
+            Einen Nachweis für die Zugehörigkeit zur Nutzergruppe (außer Gäste)
+            - Matrikelnummer, alte Studienbescheinigung o.ä.
           </li>
           <li class="login__features-listitem">Optional: Ein Profilbild</li>
         </ul>
       </section>
       <section class="login__section login__section-login">
-        <form method="post" class="login__form" autocomplete="off" @submit.prevent="signup">
+        <form
+          method="post"
+          class="login__form"
+          autocomplete="off"
+          @submit.prevent="signup"
+        >
           <labelled-input
             v-model="userdata.name"
             :class="[
@@ -79,7 +89,8 @@
             :class="[
               { 'login__form-input--active': userdata.password },
               {
-                'login__form-input--danger': showLoginWarning && !userdata.password,
+                'login__form-input--danger':
+                  showLoginWarning && !userdata.password,
               },
             ]"
             label="Passwort"
@@ -92,7 +103,8 @@
               { 'login__form-input--active': passwordConfirm },
               {
                 'login__form-input--danger':
-                  (showLoginWarning && !passwordConfirm) || (passwordConfirm && !passwordValid),
+                  (showLoginWarning && !passwordConfirm) ||
+                  (passwordConfirm && !passwordValid),
               },
             ]"
             label="Passwort bestätigen"
@@ -105,7 +117,8 @@
               <select
                 v-model="userdata.usergroup"
                 :class="{
-                  'login__form-input--danger': showLoginWarning && !userdata.usergroup,
+                  'login__form-input--danger':
+                    showLoginWarning && !userdata.usergroup,
                 }"
               >
                 <option value="" disabled>Eine Option auswählen...</option>
@@ -123,7 +136,9 @@
               class="signup__profile-picture"
               title="Profilbild auswählen"
               @click="
-                userdata.profilePicture ? (userdata.profilePicture = '') : $refs.picture.click()
+                userdata.profilePicture
+                  ? (userdata.profilePicture = '')
+                  : $refs.picture.click()
               "
             />
           </div>
@@ -138,7 +153,9 @@
             >
               Absenden
             </button>
-            <router-link to="/login/signup" class="login__link">Hilfe-Center</router-link>
+            <router-link to="/login/signup" class="login__link">
+              Hilfe-Center
+            </router-link>
           </div>
         </form>
         <input
@@ -154,12 +171,12 @@
 </template>
 
 <script>
-import { wait } from '@/lib/helpers'
-import { mapActions } from 'vuex'
-import GalleryThumbnail from '@/components/GalleryThumbnail'
-import LabelledInput from '@/components/LabelledInput'
-import { readImageFromInput } from '@/lib/helpers'
-import { REGISTER_NEW_USER } from '@/store/modules/user/types'
+import { wait } from '@/lib/helpers';
+import { mapActions } from 'vuex';
+import GalleryThumbnail from '@/components/GalleryThumbnail';
+import LabelledInput from '@/components/LabelledInput';
+import { readImageFromInput } from '@/lib/helpers';
+import { REGISTER_NEW_USER } from '@/store/modules/user/types';
 
 export default {
   name: 'Signup',
@@ -182,46 +199,51 @@ export default {
   computed: {
     username: {
       get() {
-        if (this.userdata.username) return this.userdata.username
-        return this.userdata.name.toLowerCase().replace(/[^a-z0-9]/gi, '')
+        if (this.userdata.username) return this.userdata.username;
+        return this.userdata.name.toLowerCase().replace(/[^a-z0-9]/gi, '');
       },
       set(name) {
-        this.userdata.username = name
+        this.userdata.username = name;
       },
     },
     passwordValid() {
-      return this.userdata.password === this.passwordConfirm
+      return this.userdata.password === this.passwordConfirm;
     },
     isDisabled() {
-      const { name, password, mail, usergroup } = this.userdata
-      const username = this.username
+      const { name, password, mail, usergroup } = this.userdata;
+      const username = this.username;
       return (
         this.showLoginWarning &&
-        (!name || !username || !password || !mail || !usergroup || !this.passwordValid)
-      )
+        (!name ||
+          !username ||
+          !password ||
+          !mail ||
+          !usergroup ||
+          !this.passwordValid)
+      );
     },
   },
   methods: {
     ...mapActions('userStore', { registerNewUser: REGISTER_NEW_USER }),
     async addProfilePicture(evt) {
-      const image = await readImageFromInput(evt)
-      this.userdata.profilePicture = image
-      this.$refs.profilePicture = ''
+      const image = await readImageFromInput(evt);
+      this.userdata.profilePicture = image;
+      this.$refs.profilePicture = '';
     },
     signup() {
-      if (!this.passwordValid) return this.enableLoginWarning()
-      const userdata = { ...this.userdata, username: this.username }
+      if (!this.passwordValid) return this.enableLoginWarning();
+      const userdata = { ...this.userdata, username: this.username };
       this.registerNewUser(userdata)
         .then(() => (this.loginSuccessful = true))
-        .catch(this.enableLoginWarning)
+        .catch(this.enableLoginWarning);
     },
     async enableLoginWarning() {
-      this.redLoginButton = true
-      await wait(200)
-      this.redLoginButton = false
+      this.redLoginButton = true;
+      await wait(200);
+      this.redLoginButton = false;
     },
   },
-}
+};
 </script>
 
 <style>

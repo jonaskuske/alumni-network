@@ -1,5 +1,9 @@
 <template functional>
-  <div :style="{backgroundImage: `url(${props.events && props.events[0].image}`}" class="date-thumbnail" @click="listeners.click">
+  <div
+    :style="{ backgroundImage: `url(${props.events && props.events[0].image}` }"
+    class="date-thumbnail"
+    @click="listeners.click"
+  >
     <p>{{ props.day }}</p>
   </div>
 </template>

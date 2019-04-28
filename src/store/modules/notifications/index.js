@@ -3,7 +3,7 @@ import {
   MARK_AS_READ,
   MARK_AS_UNREAD,
   TOGGLE_READ_STATE,
-} from '@/store/modules/notifications/types'
+} from '@/store/modules/notifications/types';
 
 const state = {
   notifications: [
@@ -34,7 +34,7 @@ const state = {
       link: '/forum/post/7eab7eb8-aee4-4229-a4ce-867f5e007781',
     },
   ],
-}
+};
 
 const mutations = {
   [MARK_AS_READ]: ({ notifications }, index) =>
@@ -43,27 +43,27 @@ const mutations = {
     (notifications[index].read = false),
   [MARK_ALL_AS_READ]: ({ notifications }) =>
     notifications.forEach(n => (n.read = true)),
-}
+};
 
 const actions = {
   [MARK_AS_READ]({ commit, state }, notification) {
-    const index = state.notifications.findIndex(n => n === notification)
-    commit(MARK_AS_READ, index)
+    const index = state.notifications.findIndex(n => n === notification);
+    commit(MARK_AS_READ, index);
   },
   [MARK_ALL_AS_READ]({ commit }) {
-    commit(MARK_ALL_AS_READ)
+    commit(MARK_ALL_AS_READ);
   },
   [TOGGLE_READ_STATE]({ commit }, notification) {
-    const index = state.notifications.findIndex(n => n === notification)
-    commit(notification.read ? MARK_AS_UNREAD : MARK_AS_READ, index)
+    const index = state.notifications.findIndex(n => n === notification);
+    commit(notification.read ? MARK_AS_UNREAD : MARK_AS_READ, index);
   },
-}
+};
 
 const getters = {
   unreadNotifications(state) {
-    return state.notifications.filter(notification => !notification.read)
+    return state.notifications.filter(notification => !notification.read);
   },
-}
+};
 
 export default {
   namespaced: true,
@@ -71,4 +71,4 @@ export default {
   mutations,
   actions,
   getters,
-}
+};

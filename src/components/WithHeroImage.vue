@@ -4,28 +4,32 @@
       v-if="image"
       :class="[
         'with-hero-image__wrapper',
-        {'with-hero-image__wrapper--fixed': fixed && forceFixed},
-        {'with-hero-image__wrapper--clickable': clickable},
-        {'with-hero-image__wrapper--clickable--fullsize': fullsize || forceFullsize}
+        { 'with-hero-image__wrapper--fixed': fixed && forceFixed },
+        { 'with-hero-image__wrapper--clickable': clickable },
+        {
+          'with-hero-image__wrapper--clickable--fullsize':
+            fullsize || forceFullsize,
+        },
       ]"
-      @click="$emit('click', $event)">
+      @click="$emit('click', $event)"
+    >
       <div
         :class="[
           'with-hero-image__image',
-          {'with-hero-image__image--fullsize': fullsize || forceFullsize},
-          {'with-hero-image__image--center': center}
+          { 'with-hero-image__image--fullsize': fullsize || forceFullsize },
+          { 'with-hero-image__image--center': center },
         ]"
-        :style="{backgroundImage: `url(${image})`}"
+        :style="{ backgroundImage: `url(${image})` }"
       />
     </div>
-    <div :class="{'with-hero-image__page': image}">
+    <div :class="{ 'with-hero-image__page': image }">
       <slot />
     </div>
   </div>
 </template>
 
 <script>
-import { wait } from '@/lib/helpers'
+import { wait } from '@/lib/helpers';
 
 export default {
   name: 'WithHeroImage',
@@ -63,15 +67,14 @@ export default {
   },
   data: () => ({ forceFullsize: false, forceFixed: false }),
   created() {
-    if (!this.transition) return (this.forceFixed = this.fixed)
+    if (!this.transition) return (this.forceFixed = this.fixed);
     wait(450).then(() => {
-      this.forceFullsize = true
-      this.forceFixed = this.fixed
-    })
+      this.forceFullsize = true;
+      this.forceFixed = this.fixed;
+    });
   },
-}
+};
 </script>
-
 
 <style>
 .with-hero-image {

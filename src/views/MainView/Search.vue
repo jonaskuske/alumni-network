@@ -7,14 +7,15 @@
         v-for="i in 4"
         :key="i"
         class="search__result"
-        v-text="'Suchergebnis ' + i" />
+        v-text="'Suchergebnis ' + i"
+      />
     </transition-group>
   </main>
 </template>
 
 <script>
-import LabelledInput from '@/components/LabelledInput'
-import TitleBar from '@/components/TitleBar'
+import LabelledInput from '@/components/LabelledInput';
+import TitleBar from '@/components/TitleBar';
 
 export default {
   name: 'Search',
@@ -22,9 +23,9 @@ export default {
   data() {
     return {
       query: '',
-    }
+    };
   },
-}
+};
 </script>
 
 <style>

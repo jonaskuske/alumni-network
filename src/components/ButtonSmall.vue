@@ -4,8 +4,8 @@
     :data-attr="value ? value : false"
     type="button"
     @click="
-      $event.target.blur()
-      $emit('click', $event)
+      $event.target.blur();
+      $emit('click', $event);
     "
   />
 </template>
@@ -19,7 +19,7 @@ export default {
       default: 0,
     },
   },
-}
+};
 </script>
 
 <style>

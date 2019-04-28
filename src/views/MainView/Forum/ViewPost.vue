@@ -1,14 +1,24 @@
 <template>
   <with-hero-image :image="post.image" :transition="true">
     <main>
-      <title-bar :title="post.title || 'Beitrag nicht gefunden'" label="Forenbeitrag">
+      <title-bar
+        :title="post.title || 'Beitrag nicht gefunden'"
+        label="Forenbeitrag"
+      >
         <template v-if="byUser">
-          <button class="button-main button--danger" @click="deleteAndLeave">Löschen</button>
-          <button class="button-main" @click="$router.push(`/forum/post/${post.id}/edit`)">Bearbeiten</button>
+          <button class="button-main button--danger" @click="deleteAndLeave">
+            Löschen
+          </button>
+          <button
+            class="button-main"
+            @click="$router.push(`/forum/post/${post.id}/edit`)"
+          >
+            Bearbeiten
+          </button>
         </template>
       </title-bar>
       <section id="content" class="post__content">
-        <p class="post__text" v-html="sanitizedContent"/>
+        <p class="post__text" v-html="sanitizedContent" />
         <div class="post__content-meta">
           <p class="meta-label">Von</p>
           <p class="meta-text">{{ post.author }}</p>
@@ -24,20 +34,39 @@
         <p class="title-label">{{ post.gallery.length }} Bilder</p>
         <h2 class="subtitle">Galerie</h2>
         <div class="post__gallery">
-          <img v-for="(image, i) in post.gallery" :src="image" :key="i" class="post__gallery-image" >
+          <img
+            v-for="(image, i) in post.gallery"
+            :src="image"
+            :key="i"
+            class="post__gallery-image"
+          />
         </div>
       </section>
       <section id="comments">
         <p class="title-label">{{ post.comments.length }} Antworten</p>
         <h2 class="subtitle">Kommentare</h2>
         <ul class="post__comments">
-          <comment v-for="(comment, i) in post.comments" :key="i" :comment="comment" @delete="deleteComment(i)" />
+          <comment
+            v-for="(comment, i) in post.comments"
+            :key="i"
+            :comment="comment"
+            @delete="deleteComment(i)"
+          />
         </ul>
-        <form method="post" class="post__new-comment" @submit.prevent="sendComment">
-          <label for="create-comment" class="post__new-comment-label">Kommentar hinzufügen</label>
+        <form
+          method="post"
+          class="post__new-comment"
+          @submit.prevent="sendComment"
+        >
+          <label for="create-comment" class="post__new-comment-label">
+            Kommentar hinzufügen
+          </label>
           <textarea
             id="create-comment"
-            :class="{'post__new-comment-text--warn': allowWarn && !newComment.content && !newComment.gallery.length}"
+            :class="{
+              'post__new-comment-text--warn':
+                allowWarn && !newComment.content && !newComment.gallery.length,
+            }"
             v-model="newComment.content"
             class="textarea-main post__new-comment-text"
             placeholder="Text eingeben..."
@@ -59,14 +88,17 @@
           >
             Bilder hinzufügen
           </button>
-          <button class="button-secondary post__button" type="submit">Absenden</button>
+          <button class="button-secondary post__button" type="submit">
+            Absenden
+          </button>
           <input
             ref="gallery"
             type="file"
             accept="image/*"
             multiple
             class="hide"
-            @change="addImages">
+            @change="addImages"
+          />
         </form>
       </section>
     </main>
@@ -79,13 +111,13 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   MARK_AS_READ,
-} from '@/store/modules/forum/types'
-import { mapGetters, mapActions } from 'vuex'
-import { readImagesFromInput } from '@/lib/helpers'
-import TitleBar from '@/components/TitleBar'
-import WithHeroImage from '@/components/WithHeroImage'
-import Comment from '@/components/Comment'
-import GalleryThumbnail from '@/components/GalleryThumbnail'
+} from '@/store/modules/forum/types';
+import { mapGetters, mapActions } from 'vuex';
+import { readImagesFromInput } from '@/lib/helpers';
+import TitleBar from '@/components/TitleBar';
+import WithHeroImage from '@/components/WithHeroImage';
+import Comment from '@/components/Comment';
+import GalleryThumbnail from '@/components/GalleryThumbnail';
 
 export default {
   name: 'ViewPost',
@@ -102,25 +134,25 @@ export default {
     ...mapGetters('forumStore', ['postsById']),
     ...mapGetters('userStore', ['usersByUsername', 'currentUser']),
     post() {
-      return this.postsById[this.id] || { comments: [], gallery: [] }
+      return this.postsById[this.id] || { comments: [], gallery: [] };
     },
     byUser() {
-      return this.post.username === this.currentUser.username
+      return this.post.username === this.currentUser.username;
     },
     sanitizedContent() {
       return (
         this.post.content &&
         this.$sanitize(this.post.content.replace(/\n/g, '<br>'))
-      )
+      );
     },
   },
   watch: {
     post(post) {
-      if (typeof post.read !== 'undefined') !post.read && this.markAsRead(post)
+      if (typeof post.read !== 'undefined') !post.read && this.markAsRead(post);
     },
   },
   created() {
-    typeof this.post.read !== 'undefined' && this.markAsRead(this.post)
+    typeof this.post.read !== 'undefined' && this.markAsRead(this.post);
   },
   methods: {
     ...mapActions('forumStore', {
@@ -130,30 +162,30 @@ export default {
       markAsRead: MARK_AS_READ,
     }),
     deleteAndLeave() {
-      this.deletePost(this.post)
-      this.$router.push('/forum')
+      this.deletePost(this.post);
+      this.$router.push('/forum');
     },
     sendComment() {
       if (!this.newComment.content && !this.newComment.gallery.length)
-        return (this.allowWarn = true)
+        return (this.allowWarn = true);
 
       const comment = {
         username: this.currentUser.username,
         ...this.newComment,
-      }
-      this.addComment({ id: this.post.id, comment })
-      this.newComment.content = ''
-      this.newComment.gallery = []
+      };
+      this.addComment({ id: this.post.id, comment });
+      this.newComment.content = '';
+      this.newComment.gallery = [];
     },
     deleteComment(index) {
-      this.removeComment({ id: this.post.id, index })
+      this.removeComment({ id: this.post.id, index });
     },
     async addImages(evt) {
-      const images = await readImagesFromInput(evt)
-      Array.isArray(images) && this.newComment.gallery.push(...images)
+      const images = await readImagesFromInput(evt);
+      Array.isArray(images) && this.newComment.gallery.push(...images);
     },
   },
-}
+};
 </script>
 
 <style>

@@ -16,10 +16,22 @@
       </button>
       <form method="post" @submit.prevent="save">
         <title-bar label="Events" title="Event bearbeiten">
-          <button class="button-main button--danger" type="button" @click="deleteAndLeave">Löschen</button>
+          <button
+            class="button-main button--danger"
+            type="button"
+            @click="deleteAndLeave"
+          >
+            Löschen
+          </button>
           <button class="button-main" type="submit">Speichern</button>
         </title-bar>
-        <button type="button" class="button-secondary" @click="$router.push('/events')">Zurück (Abbrechen)</button>
+        <button
+          type="button"
+          class="button-secondary"
+          @click="$router.push('/events')"
+        >
+          Zurück (Abbrechen)
+        </button>
         <event-form v-model="form" />
       </form>
       <input
@@ -27,19 +39,20 @@
         type="file"
         accept="image/*"
         class="hide"
-        @change="readImage">
+        @change="readImage"
+      />
     </main>
   </with-hero-image>
 </template>
 
 <script>
-import { readImageFromInput } from '@/lib/helpers'
-import placeholderImage from '@/assets/images/hero-placeholder.svg'
-import { mapGetters, mapActions } from 'vuex'
-import { REPLACE_EVENT, DELETE_EVENT } from '@/store/modules/events/types'
-import EventForm from '@/components/EventForm'
-import WithHeroImage from '@/components/WithHeroImage'
-import TitleBar from '@/components/TitleBar'
+import { readImageFromInput } from '@/lib/helpers';
+import placeholderImage from '@/assets/images/hero-placeholder.svg';
+import { mapGetters, mapActions } from 'vuex';
+import { REPLACE_EVENT, DELETE_EVENT } from '@/store/modules/events/types';
+import EventForm from '@/components/EventForm';
+import WithHeroImage from '@/components/WithHeroImage';
+import TitleBar from '@/components/TitleBar';
 
 export default {
   name: 'EditEvent',
@@ -68,7 +81,7 @@ export default {
       data: {},
       event: {},
       placeholderImage,
-    }
+    };
   },
   computed: {
     ...mapGetters('userStore', ['currentUser']),
@@ -76,11 +89,11 @@ export default {
   },
   watch: {
     eventsById(events) {
-      if (events[this.id]) this.getEvent()
+      if (events[this.id]) this.getEvent();
     },
   },
   created() {
-    if (this.eventsById[this.id]) this.getEvent()
+    if (this.eventsById[this.id]) this.getEvent();
   },
   methods: {
     ...mapActions('eventStore', {
@@ -88,24 +101,24 @@ export default {
       deleteEvent: DELETE_EVENT,
     }),
     save() {
-      const { date, ...form } = this.form
+      const { date, ...form } = this.form;
       const newEvent = {
         ...form,
         ...this.data,
         date: new Date(date).getTime(),
         image: this.image,
-      }
-      this.replaceEvent(newEvent)
-      this.$router.push(`/events/event/${newEvent.id}`)
+      };
+      this.replaceEvent(newEvent);
+      this.$router.push(`/events/event/${newEvent.id}`);
     },
     deleteAndLeave() {
-      this.deleteEvent(this.event)
-      this.$router.push('/events')
+      this.deleteEvent(this.event);
+      this.$router.push('/events');
     },
     getEvent() {
-      const event = this.eventsById[this.id]
+      const event = this.eventsById[this.id];
       if (this.currentUser.username !== event.username) {
-        return this.$router.push(`/events/event/${event.id}`)
+        return this.$router.push(`/events/event/${event.id}`);
       }
 
       const {
@@ -116,29 +129,29 @@ export default {
         location,
         image,
         ...data
-      } = event
-      this.event = event
+      } = event;
+      this.event = event;
       this.form = {
         title,
         content,
         date: this.dateString(date),
         location,
         usergroup,
-      }
-      this.image = image
-      this.data = data
+      };
+      this.image = image;
+      this.data = data;
     },
     dateString(n) {
-      const date = new Date(n)
-      const y = date.getFullYear()
-      const m = (date.getMonth() + 1).toString().padStart(2, 0)
-      const d = date.getDate()
-      return `${y}-${m}-${d}`
+      const date = new Date(n);
+      const y = date.getFullYear();
+      const m = (date.getMonth() + 1).toString().padStart(2, 0);
+      const d = date.getDate();
+      return `${y}-${m}-${d}`;
     },
     async readImage(evt) {
-      const image = await readImageFromInput(evt)
-      this.image = image
+      const image = await readImageFromInput(evt);
+      this.image = image;
     },
   },
-}
+};
 </script>

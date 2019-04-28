@@ -1,7 +1,7 @@
 <script>
-import userAvatar from '@/assets/images/userAvatar.svg'
+import userAvatar from '@/assets/images/userAvatar.svg';
 
-const noop = () => {}
+const noop = () => {};
 
 export default {
   functional: true,
@@ -16,11 +16,10 @@ export default {
       on: {
         click: listeners.click || noop,
       },
-    })
+    });
   },
-}
+};
 </script>
-
 
 <style>
 .avatar-thumb {

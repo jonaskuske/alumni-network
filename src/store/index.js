@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import modules from './modules'
-import { TOGGLE_MENU_STATE, SET_MOBILE_LAYOUT, SET_MENU_STATE } from './types'
+import modules from './modules';
+import { TOGGLE_MENU_STATE, SET_MOBILE_LAYOUT, SET_MENU_STATE } from './types';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules,
@@ -18,14 +18,14 @@ export default new Vuex.Store({
   },
   actions: {
     [SET_MOBILE_LAYOUT]({ commit }, value) {
-      commit(SET_MOBILE_LAYOUT, value)
-      commit(SET_MENU_STATE, !value) // default: closed on mobile, open on desktop
+      commit(SET_MOBILE_LAYOUT, value);
+      commit(SET_MENU_STATE, !value); // default: closed on mobile, open on desktop
     },
     [TOGGLE_MENU_STATE]({ state, commit }) {
-      commit(SET_MENU_STATE, !state.menuOpen)
+      commit(SET_MENU_STATE, !state.menuOpen);
     },
     [SET_MENU_STATE]({ commit }, value) {
-      commit(SET_MENU_STATE, value)
+      commit(SET_MENU_STATE, value);
     },
   },
-})
+});

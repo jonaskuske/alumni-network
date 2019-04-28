@@ -1,21 +1,31 @@
 <template>
-  <header :class="{'header--expanded': mobileLayout && menuOpen}" class="header">
+  <header
+    :class="{ 'header--expanded': mobileLayout && menuOpen }"
+    class="header"
+  >
     <div class="header__container">
       <!-- Logo -->
-      <transition mode="out-in" appear> <!-- Bugfix for Edge! -->
+      <transition mode="out-in" appear>
+        <!-- Bugfix for Edge! -->
         <dmp-logo
           v-if="mobileLayout"
           :show-hamburger="showHamburger"
-          :class="['header__logo', {'home-path-matched': onHome}]"
+          :class="['header__logo', { 'home-path-matched': onHome }]"
           role="button"
           @click.native="toggleMenu"
         />
-        <router-link v-else to="/"><dmp-logo class="header__logo" /></router-link>
+        <router-link v-else to="/">
+          <dmp-logo class="header__logo" />
+        </router-link>
       </transition>
 
       <!-- Navigation links -->
       <transition name="fade--delayed">
-        <the-navigation v-if="!mobileLayout || menuOpen" :links="links" class="header__navigation" />
+        <the-navigation
+          v-if="!mobileLayout || menuOpen"
+          :links="links"
+          class="header__navigation"
+        />
       </transition>
 
       <!-- Buttons and Login state -->
@@ -25,10 +35,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import DmpLogo from '@/components/DmpLogo'
-import TheNavigation from '@/components/TheNavigation'
-import TheStatusBar from '@/components/TheStatusBar'
+import { mapState, mapActions } from 'vuex';
+import DmpLogo from '@/components/DmpLogo';
+import TheNavigation from '@/components/TheNavigation';
+import TheStatusBar from '@/components/TheStatusBar';
 
 export default {
   components: {
@@ -57,28 +67,28 @@ export default {
         },
       ],
       onHome: true,
-    }
+    };
   },
   computed: {
     ...mapState(['mobileLayout', 'menuOpen']),
     links() {
       return this.mobileLayout
         ? [{ name: 'Home', href: '/' }, ...this.baseLinks]
-        : this.baseLinks
+        : this.baseLinks;
     },
     showHamburger() {
-      return this.mobileLayout && !this.menuOpen
+      return this.mobileLayout && !this.menuOpen;
     },
   },
   watch: {
     $route({ path }) {
-      this.onHome = path === '/'
+      this.onHome = path === '/';
     },
   },
   methods: {
     ...mapActions(['toggleMenu']),
   },
-}
+};
 </script>
 
 <style>

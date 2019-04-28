@@ -7,22 +7,27 @@
     @click="$router.push(`/forum/post/${post.id}`)"
   >
     <template slot="meta">
-      <p :class="['post-thumbnail__date', {'post-thumbnail__date--unread': !post.read}]">
+      <p
+        :class="[
+          'post-thumbnail__date',
+          { 'post-thumbnail__date--unread': !post.read },
+        ]"
+      >
         {{ post.date | date }}
       </p>
     </template>
     <template slot="buttons">
       <button-small
-        :class="{'icon--nocomments': !post.comments.length}"
+        :class="{ 'icon--nocomments': !post.comments.length }"
         :value="post.comments.length || '0'"
         class="icon--comments"
         @click.prevent="$router.push(`/forum/post/${post.id}#comments`)"
       />
       <button-small
         v-if="!byUser"
-        :class="{'icon--unreadstate': !post.read}"
+        :class="{ 'icon--unreadstate': !post.read }"
         class="icon--readstate"
-        @click.prevent="toggleReadState({id: post.id})"
+        @click.prevent="toggleReadState({ id: post.id })"
       />
       <button-small
         v-else
@@ -34,10 +39,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import { TOGGLE_READ_STATE } from '@/store/modules/forum/types'
-import Thumbnail from './Thumbnail'
-import ButtonSmall from '@/components/ButtonSmall'
+import { mapActions, mapGetters } from 'vuex';
+import { TOGGLE_READ_STATE } from '@/store/modules/forum/types';
+import Thumbnail from './Thumbnail';
+import ButtonSmall from '@/components/ButtonSmall';
 
 export default {
   components: {
@@ -54,13 +59,13 @@ export default {
   computed: {
     ...mapGetters('userStore', ['currentUser']),
     byUser() {
-      return this.post.username === this.currentUser.username
+      return this.post.username === this.currentUser.username;
     },
   },
   methods: {
     ...mapActions('forumStore', { toggleReadState: TOGGLE_READ_STATE }),
   },
-}
+};
 </script>
 
 <style>

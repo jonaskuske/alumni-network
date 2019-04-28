@@ -12,29 +12,32 @@
     <template slot="buttons">
       <template v-if="!byUser">
         <button-small
-          :class="[{'icon--bg-green': event.attending === true}]"
+          :class="[{ 'icon--bg-green': event.attending === true }]"
           class="event-thumbnail__button icon--checkmark"
-          @click.prevent="setAttendingState({id: event.id, value: true})"
+          @click.prevent="setAttendingState({ id: event.id, value: true })"
         />
         <button-small
-          :class="[{'icon--bg-red': event.attending === false}]"
+          :class="[{ 'icon--bg-red': event.attending === false }]"
           class="event-thumbnail__button icon--cross"
-          @click.prevent="setAttendingState({id: event.id, value: false})"
+          @click.prevent="setAttendingState({ id: event.id, value: false })"
         />
       </template>
       <template v-else>
         <p style="margin-right: 1rem">Gastgeber</p>
-        <button-small class="icon--edit" @click.prevent="$router.push(`/events/event/${event.id}/edit`)" />
+        <button-small
+          class="icon--edit"
+          @click.prevent="$router.push(`/events/event/${event.id}/edit`)"
+        />
       </template>
     </template>
   </thumbnail>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import { SET_ATTENDING_STATE } from '@/store/modules/events/types'
-import Thumbnail from './Thumbnail'
-import ButtonSmall from '@/components/ButtonSmall'
+import { mapActions, mapGetters } from 'vuex';
+import { SET_ATTENDING_STATE } from '@/store/modules/events/types';
+import Thumbnail from './Thumbnail';
+import ButtonSmall from '@/components/ButtonSmall';
 
 export default {
   components: { Thumbnail, ButtonSmall },
@@ -48,13 +51,13 @@ export default {
   computed: {
     ...mapGetters('userStore', ['currentUser']),
     byUser() {
-      return this.event.username === this.currentUser.username
+      return this.event.username === this.currentUser.username;
     },
   },
   methods: {
     ...mapActions('eventStore', { setAttendingState: SET_ATTENDING_STATE }),
   },
-}
+};
 </script>
 
 <style>

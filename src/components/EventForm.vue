@@ -24,7 +24,8 @@
             ref="date"
             :value="value.date"
             type="date"
-            @input="update">
+            @input="update"
+          />
         </div>
         <div class="create-post__select">
           <label for="loc">Ort</label>
@@ -33,26 +34,34 @@
             ref="location"
             :value="value.location"
             type="text"
-            @input="update">
+            @input="update"
+          />
         </div>
         <div class="create-post__select">
           <label for="sel-usergroup">Zielgruppe</label>
-          <select id="sel-usergroup" ref="usergroup" :value="value.usergroup" @input="update">
-            <option disabled value="" v-text="'Eine der Optionen auswählen...'" />
+          <select
+            id="sel-usergroup"
+            ref="usergroup"
+            :value="value.usergroup"
+            @input="update"
+          >
+            <option
+              disabled
+              value=""
+              v-text="'Eine der Optionen auswählen...'"
+            />
             <option value="Alumni" v-text="'Alumni'" />
             <option value="Studierende" v-text="'Studierende'" />
             <option value="Alle" v-text="'Alle'" />
           </select>
         </div>
-
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import LabelledInput from '@/components/LabelledInput'
+import LabelledInput from '@/components/LabelledInput';
 
 export default {
   name: 'EventForm',
@@ -67,12 +76,12 @@ export default {
   data: () => ({ title: '' }),
   watch: {
     value({ title }) {
-      this.title = title
+      this.title = title;
     },
   },
   created() {
-    const { title } = this.value
-    this.title = title
+    const { title } = this.value;
+    this.title = title;
   },
   methods: {
     update() {
@@ -82,14 +91,14 @@ export default {
         usergroup: this.$refs.usergroup.value,
         date: this.$refs.date.value,
         location: this.$refs.location.value,
-      }
+      };
 
-      this.$emit('input', form)
+      this.$emit('input', form);
     },
     updateTitle(title) {
-      this.title = title
-      this.update()
+      this.title = title;
+      this.update();
     },
   },
-}
+};
 </script>

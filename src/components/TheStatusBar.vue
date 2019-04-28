@@ -17,7 +17,9 @@
     />
 
     <router-link to="/me" class="statusbar__account">
-      <p class="statusbar__account-name hover-underline">{{ currentUser.name }}</p>
+      <p class="statusbar__account-name hover-underline">
+        {{ currentUser.name }}
+      </p>
       <user-avatar
         :image="currentUser.profilePicture"
         :name="currentUser.name"
@@ -29,10 +31,10 @@
 </template>
 
 <script>
-import * as auth from '@/lib/auth'
-import { mapState, mapGetters } from 'vuex'
-import UserAvatar from '@/components/UserAvatar'
-import ButtonSmall from '@/components/ButtonSmall'
+import * as auth from '@/lib/auth';
+import { mapState, mapGetters } from 'vuex';
+import UserAvatar from '@/components/UserAvatar';
+import ButtonSmall from '@/components/ButtonSmall';
 
 export default {
   name: 'StatusBar',
@@ -45,11 +47,11 @@ export default {
   },
   methods: {
     logout() {
-      auth.logout()
-      this.$router.push('/login')
+      auth.logout();
+      this.$router.push('/login');
     },
   },
-}
+};
 </script>
 
 <style>

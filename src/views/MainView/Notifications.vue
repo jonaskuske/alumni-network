@@ -1,28 +1,39 @@
 <template>
   <main class="notifications">
     <title-bar title="Alle Benachrichtigungen" label="Benachrichtigungen">
-      <button type="button" class="button-main" @click="markAllAsRead">Alle als gelesen markieren</button>
+      <button type="button" class="button-main" @click="markAllAsRead">
+        Alle als gelesen markieren
+      </button>
     </title-bar>
 
-    <button v-if="onlyUnread" class="button-secondary notifications__toggle" @click="$router.push({path: $route.path, query: {show: 'all'}})">
+    <button
+      v-if="onlyUnread"
+      class="button-secondary notifications__toggle"
+      @click="$router.push({ path: $route.path, query: { show: 'all' } })"
+    >
       Alle anzeigen
     </button>
-    <button v-else class="button-secondary notifications__toggle" @click="$router.push($route.path)">
+    <button
+      v-else
+      class="button-secondary notifications__toggle"
+      @click="$router.push($route.path)"
+    >
       Nur ungelesene
     </button>
 
     <div class="notifications__container">
-      <router-link 
-        v-for="(notif, i) in displayedNotifications" 
-        :key="notif.text+notif.link+i" 
-        :to="notif.link" 
-        :class="{'notifications__link--unread': !notif.read}" 
-        class="notifications__link" 
-        @click.native="markAsRead(notif)">
-        <p class="notifications__text"> {{ notif.text }} </p>
+      <router-link
+        v-for="(notif, i) in displayedNotifications"
+        :key="notif.text + notif.link + i"
+        :to="notif.link"
+        :class="{ 'notifications__link--unread': !notif.read }"
+        class="notifications__link"
+        @click.native="markAsRead(notif)"
+      >
+        <p class="notifications__text">{{ notif.text }}</p>
         <div class="notifications__button-container">
           <button-small
-            :class="{'icon--unreadstate': !notif.read}"
+            :class="{ 'icon--unreadstate': !notif.read }"
             class="icon--readstate"
             @click.prevent.stop="toggleReadState(notif)"
           />
@@ -37,11 +48,11 @@ import {
   MARK_ALL_AS_READ,
   MARK_AS_READ,
   TOGGLE_READ_STATE,
-} from '@/store/modules/notifications/types'
+} from '@/store/modules/notifications/types';
 
-import { mapState, mapGetters, mapActions } from 'vuex'
-import TitleBar from '@/components/TitleBar'
-import ButtonSmall from '@/components/ButtonSmall'
+import { mapState, mapGetters, mapActions } from 'vuex';
+import TitleBar from '@/components/TitleBar';
+import ButtonSmall from '@/components/ButtonSmall';
 
 export default {
   name: 'Notifications',
@@ -50,10 +61,10 @@ export default {
     ...mapState('notificationStore', ['notifications']),
     ...mapGetters('notificationStore', ['unreadNotifications']),
     onlyUnread() {
-      return this.$route.query.show !== 'all'
+      return this.$route.query.show !== 'all';
     },
     displayedNotifications() {
-      return this.onlyUnread ? this.unreadNotifications : this.notifications
+      return this.onlyUnread ? this.unreadNotifications : this.notifications;
     },
   },
   methods: {
@@ -63,7 +74,7 @@ export default {
       toggleReadState: TOGGLE_READ_STATE,
     }),
   },
-}
+};
 </script>
 
 <style>

@@ -1,7 +1,10 @@
 <template>
   <div class="labelled-input">
     <label
-      :class="[{'labelled-input__label--active': value}, {'labelled-input__label--no-transition': !transition}]"
+      :class="[
+        { 'labelled-input__label--active': value },
+        { 'labelled-input__label--no-transition': !transition },
+      ]"
       class="labelled-input__label"
       for="_uid"
       v-text="label"
@@ -12,7 +15,7 @@
       :type="type || 'text'"
       class="labelled-input__input"
       @input="$emit('input', $event.target.value)"
-    >
+    />
   </div>
 </template>
 
@@ -35,11 +38,10 @@ export default {
   },
   data: () => ({ transition: false }),
   created() {
-    setTimeout(() => (this.transition = true), 100)
+    setTimeout(() => (this.transition = true), 100);
   },
-}
+};
 </script>
-
 
 <style>
 .labelled-input {

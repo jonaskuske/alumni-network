@@ -1,9 +1,9 @@
-import image1 from '@/assets/images/event1.jpg'
-import image2 from '@/assets/images/event2.png'
-import image3 from '@/assets/images/event3.png'
-import image4 from '@/assets/images/event4.png'
+import image1 from '@/assets/images/event1.jpg';
+import image2 from '@/assets/images/event2.png';
+import image3 from '@/assets/images/event3.png';
+import image4 from '@/assets/images/event4.png';
 
-import { fromNow, ONE_DAY } from '../helpers'
+import { fromNow, ONE_DAY } from '../helpers';
 
 export default [
   {
@@ -74,4 +74,4 @@ export default [
     attending: true,
     username: 'jonaskuske',
   },
-]
+];

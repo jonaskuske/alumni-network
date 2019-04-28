@@ -1,15 +1,27 @@
 <template>
   <main class="login">
     <section class="login__section login__section-welcome">
-      <h1 class="login__heading"><span>Willkommen im offiziellen</span> DMP Alumni Netzwerk!</h1>
+      <h1 class="login__heading">
+        <span>Willkommen im offiziellen</span> DMP Alumni Netzwerk!
+      </h1>
       <p class="login__description">
-        Ein sicheres Informations- und Angebotsnetzwerk für Dozenten, Studenten, Studieninteressierte und Alumnis des Studiengangs Digitale Medienproduktion an der Hochschule Bremerhaven.
+        Ein sicheres Informations- und Angebotsnetzwerk für Dozenten, Studenten,
+        Studieninteressierte und Alumnis des Studiengangs Digitale
+        Medienproduktion an der Hochschule Bremerhaven.
       </p>
-      <h2 class="login__features-title">Melde dich an, um schnell und bequem</h2>
+      <h2 class="login__features-title">
+        Melde dich an, um schnell und bequem
+      </h2>
       <ul class="login__features-list">
-        <li class="login__features-listitem">mit Studierenden, Alumni und Dozenten zu kommunizieren</li>
-        <li class="login__features-listitem">Events zu planen und dein Netzwerk zu erweitern</li>
-        <li class="login__features-listitem">auf der internen Jobbörse das perfekte Angebot zu finden</li>
+        <li class="login__features-listitem">
+          mit Studierenden, Alumni und Dozenten zu kommunizieren
+        </li>
+        <li class="login__features-listitem">
+          Events zu planen und dein Netzwerk zu erweitern
+        </li>
+        <li class="login__features-listitem">
+          auf der internen Jobbörse das perfekte Angebot zu finden
+        </li>
       </ul>
     </section>
     <section class="login__section login__section-login">
@@ -22,19 +34,25 @@
         <labelled-input
           v-model="userInput"
           :label="userInputLabel"
-          :class="[{'login__form-input--active': userInput}, {'login__form-input--danger': showLoginWarning}]"
+          :class="[
+            { 'login__form-input--active': userInput },
+            { 'login__form-input--danger': showLoginWarning },
+          ]"
           class="login__form-input"
         />
         <labelled-input
           v-model="passwordInput"
           :label="passwordInputLabel"
-          :class="[{'login__form-input--active': passwordInput}, {'login__form-input--danger': showLoginWarning}]"
+          :class="[
+            { 'login__form-input--active': passwordInput },
+            { 'login__form-input--danger': showLoginWarning },
+          ]"
           type="password"
           class="login__form-input"
         />
         <div class="login__action-container">
           <button
-            :class="{'button--danger': redLoginButton}"
+            :class="{ 'button--danger': redLoginButton }"
             :disabled="isFormDisabled"
             type="submit"
             class="button-main login__button"
@@ -43,7 +61,9 @@
           >
             Login
           </button>
-          <router-link to="/login/signup" class="login__link">oder registrieren</router-link>
+          <router-link to="/login/signup" class="login__link">
+            oder registrieren
+          </router-link>
         </div>
       </form>
     </section>
@@ -51,9 +71,9 @@
 </template>
 
 <script>
-import * as auth from '@/lib/auth'
-import LabelledInput from '@/components/LabelledInput'
-import { wait } from '@/lib/helpers'
+import * as auth from '@/lib/auth';
+import LabelledInput from '@/components/LabelledInput';
+import { wait } from '@/lib/helpers';
 
 export default {
   name: 'Login',
@@ -65,43 +85,42 @@ export default {
       allowFormWarnings: false,
       showLoginWarning: false,
       redLoginButton: false,
-    }
+    };
   },
   computed: {
     isFormDisabled() {
       return this.allowFormWarnings
         ? !this.userInput || !this.passwordInput
-        : false
+        : false;
     },
     userInputLabel() {
       return this.userInput || !this.allowFormWarnings
         ? 'Nutzername'
-        : 'Bitte Nutzername eingeben!'
+        : 'Bitte Nutzername eingeben!';
     },
     passwordInputLabel() {
       return this.passwordInput || !this.allowFormWarnings
         ? 'Passwort'
-        : 'Bitte Passwort eingeben!'
+        : 'Bitte Passwort eingeben!';
     },
   },
   methods: {
     login() {
-      const success = auth.login(this.userInput, this.passwordInput)
+      const success = auth.login(this.userInput, this.passwordInput);
 
       if (success) {
-        this.$router.push(this.$route.query.redirect || '/')
-      } else this.enableLoginWarning()
+        this.$router.push(this.$route.query.redirect || '/');
+      } else this.enableLoginWarning();
     },
     async enableLoginWarning() {
-      this.showLoginWarning = true
-      this.redLoginButton = true
-      await wait(200)
-      this.redLoginButton = false
+      this.showLoginWarning = true;
+      this.redLoginButton = true;
+      await wait(200);
+      this.redLoginButton = false;
     },
   },
-}
+};
 </script>
-
 
 <style>
 .login {

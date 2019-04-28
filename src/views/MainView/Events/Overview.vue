@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import ListView from './ListView'
-import CalendarView from './CalendarView'
+import { mapGetters } from 'vuex';
+import ListView from './ListView';
+import CalendarView from './CalendarView';
 
 export default {
   name: 'Events',
@@ -16,10 +16,10 @@ export default {
   computed: {
     ...mapGetters('eventStore', { events: 'eventsSortedByOldest' }),
     calendar() {
-      return this.$route.query.view === 'calendar'
+      return this.$route.query.view === 'calendar';
     },
   },
-}
+};
 </script>
 
 <style>

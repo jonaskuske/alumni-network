@@ -1,11 +1,42 @@
 {
-  "html.format.wrapLineLength": 100,
-  "editor.wordWrapColumn": 100,
+  "files.defaultLanguage": "vue",
+  "editor.tabSize": 2,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.mouseWheelZoom": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "html.format.maxPreserveNewLines": 1,
+  "html.format.indentInnerHtml": true,
+  "html.format.indentHandlebars": true,
+  "html.format.wrapLineLength": 80,
+  "css.lint.universalSelector": "warning",
+  "css.lint.zeroUnits": "warning",
+  "css.lint.duplicateProperties": "warning",
+  "css.lint.emptyRules": "error",
+  "css.lint.float": "warning",
   "eslint.autoFixOnSave": true,
   "eslint.validate": ["javascript", "javascriptreact", "vue", "vue-html"],
   "vetur.validation.script": true,
   "vetur.validation.template": true,
   "vetur.format.defaultFormatter.html": "prettier",
-  "vetur.format.styleInitialIndent": false,
-  "vetur.format.scriptInitialIndent": false
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "emmet.includeLanguages": {
+    "postcss": "css"
+  },
+  "emmet.syntaxProfiles": {
+    "postcss": "css"
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#091d8d",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveBackground": "#07004b",
+    "titleBar.inactiveForeground": "#cfcfcf"
+  }
 }
